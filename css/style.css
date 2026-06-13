@@ -506,6 +506,22 @@ a:hover {
   white-space: nowrap;
 }
 
+/* ===== 語言切換按鈕 ===== */
+.lang-switch {
+  background: var(--accent-dim) !important;
+  color: var(--accent) !important;
+  padding: 0.3rem 0.75rem !important;
+  border-radius: 4px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.lang-switch:hover {
+  background: var(--accent) !important;
+  color: var(--bg-primary) !important;
+}
+
 /* ===== 篩選/分類 ===== */
 .filter-bar {
   display: flex;
