@@ -96,6 +96,17 @@
     .plan-card .big-num { font-size: 1.4rem; font-weight: 700; color: var(--frost); }
     .plan-card .sub-row { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.4rem; }
     .hidden { display: none; }
+    .speed-inputs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .pct-input { display: flex; align-items: center; gap: 0.4rem; }
+    .pct-input input { flex: 1; }
+    .pct-input span { color: var(--text-muted); white-space: nowrap; }
+    .speed-total-bar {
+      padding: 0.6rem 1rem;
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 6px; font-size: 0.95rem; margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+    .speed-total-bar strong { color: var(--frost); }
     @media (max-width: 640px) {
       .plan-grid { grid-template-columns: 1fr; }
       .refine-result-grid { grid-template-columns: 1fr 1fr; }
@@ -122,7 +133,8 @@
     <a href="../index.html">首頁</a> <span>›</span> <a href="../calculators.html">計算工具</a> <span>›</span> 熔爐升級計算機
   </div>
 
-  <h1 style="font-size:1.6rem; color:var(--frost); margin-bottom:0.4rem;">熔爐升級計算機</h1>
+  <h1 style="font-size:1.6rem; color:var(--frost); margin-bottom:0.2rem;">熔爐升級計算機</h1>
+  <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">火晶建築全五以上適用</p>
   <!-- 分頁標籤 -->
   <div class="calc-tabs">
     <button class="calc-tab active" onclick="switchTab('refining', this)">精煉計算</button>
@@ -206,13 +218,13 @@
       <h3 style="color:var(--frost); margin-bottom:1rem;">目標設定</h3>
       <div class="planner-settings">
         <div class="calc-group">
-          <label>目標火城等級</label>
+          <label>目標熔爐等級</label>
           <select id="targetFC" onchange="rebuildStateTable()">
-            <option value="6">火城 6</option>
-            <option value="7">火城 7</option>
-            <option value="8" selected>火城 8</option>
-            <option value="9">火城 9</option>
-            <option value="10">火城 10</option>
+            <option value="6">熔爐 6</option>
+            <option value="7">熔爐 7</option>
+            <option value="8" selected>熔爐 8</option>
+            <option value="9">熔爐 9</option>
+            <option value="10">熔爐 10</option>
           </select>
         </div>
         <div class="calc-group">
@@ -260,6 +272,56 @@
         </div>
       </div>
 
+      <!-- 建造速度加成 -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">建造速度加成</h3>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:0.75rem;">
+        填入各來源給予的建造速度加成（%）。不確定的留 0，資源試算不受影響；有填就會計算實際建造時間。
+      </p>
+      <div class="speed-inputs">
+        <div class="calc-group">
+          <label>專家艾格妮絲</label>
+          <div class="pct-input"><input type="number" id="spAgnes" value="0" min="0" max="999" placeholder="0" oninput="updateSpeedTotal()"><span>%</span></div>
+        </div>
+        <div class="calc-group">
+          <label>斑鬣狗「建設助手」</label>
+          <div class="pct-input"><input type="number" id="spHyena" value="0" min="0" max="999" placeholder="0" oninput="updateSpeedTotal()"><span>%</span></div>
+        </div>
+        <div class="calc-group">
+          <label>晨曦島建造加速</label>
+          <div class="pct-input"><input type="number" id="spDawnIsle" value="0" min="0" max="999" placeholder="0" oninput="updateSpeedTotal()"><span>%</span></div>
+        </div>
+        <div class="calc-group">
+          <label>執政官「重商主義」</label>
+          <div class="pct-input"><input type="number" id="spMerc" value="0" min="0" max="999" placeholder="0" oninput="updateSpeedTotal()"><span>%</span></div>
+        </div>
+        <div class="calc-group">
+          <label>副執政官官職</label>
+          <div class="pct-input"><input type="number" id="spViceGov" value="0" min="0" max="999" placeholder="0" oninput="updateSpeedTotal()"><span>%</span></div>
+        </div>
+        <div class="calc-group">
+          <label>指令「加速建造」</label>
+          <div class="pct-input"><input type="number" id="spCommand" value="0" min="0" max="999" placeholder="0" oninput="updateSpeedTotal()"><span>%</span></div>
+        </div>
+      </div>
+      <div class="speed-total-bar">
+        總建造速度加成：<strong id="speedTotalPct">0</strong>%
+      </div>
+
+      <!-- 建造時間估算（選填） -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">
+        建造時間估算
+        <small style="font-size:0.75rem; color:var(--text-muted); font-weight:400; margin-left:0.5rem;">選填</small>
+      </h3>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:0.75rem;">
+        填入所有需升級建築的總基礎建造時間（遊戲顯示的原始時間，不含任何加速），系統計算實際完成時間與加速道具需求。
+      </p>
+      <div class="resource-inputs">
+        <div class="calc-group">
+          <label>總基礎建造時間（小時）</label>
+          <input type="number" id="baseBuildHours" value="" min="0" placeholder="選填，例：720">
+        </div>
+      </div>
+
       <button class="calc-btn-large" onclick="calcPlanner()">計算路線</button>
 
       <!-- 結果區 -->
@@ -280,6 +342,11 @@
             「期望值路線」以平均機率推算；「最低值路線」確保就算手氣最差也能達標。
           </p>
           <div class="plan-grid" id="planGrid"></div>
+        </div>
+
+        <div id="buildTimeSection" class="hidden result-section">
+          <h3>建造時間估算</h3>
+          <div class="result-box" id="buildTimeBox"></div>
         </div>
 
       </div>
@@ -440,7 +507,7 @@ function rebuildStateTable() {
     const reqLv = req[b] || targetFC;
     const maxCurrent = reqLv - 1 <= 0 ? 0 : reqLv;
     let lvOpts = '';
-    for (let i = 0; i <= 9; i++) lvOpts += `<option value="${i}" ${i === 5 ? 'selected' : ''}>${i}</option>`;
+    for (let i = 5; i <= 9; i++) lvOpts += `<option value="${i}">${i}</option>`;
     let segOpts = '';
     for (let i = 0; i <= 4; i++) segOpts += `<option value="${i}">第 ${i} 段</option>`;
     const tr = document.createElement('tr');
@@ -493,6 +560,14 @@ function findMinRefinesForRFC(targetRFC, weeks, useMin) {
     }
   }
   return null; // 100次/週也不夠
+}
+
+function updateSpeedTotal() {
+  const ids = ['spAgnes', 'spHyena', 'spDawnIsle', 'spMerc', 'spViceGov', 'spCommand'];
+  const total = ids.reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
+  const el = document.getElementById('speedTotalPct');
+  if (el) el.textContent = Number.isInteger(total) ? total : total.toFixed(1);
+  return total;
 }
 
 function calcPlanner() {
@@ -602,6 +677,28 @@ function calcPlanner() {
 
   document.getElementById('verdictDiv').innerHTML =
     `<div class="verdict ${verdictClass}">${verdictText}</div>`;
+
+  // 建造時間估算
+  const speedPct = updateSpeedTotal();
+  const baseBuildHours = parseFloat(document.getElementById('baseBuildHours').value) || 0;
+  const buildTimeSec = document.getElementById('buildTimeSection');
+  if (baseBuildHours > 0) {
+    const actualHours = baseBuildHours / (1 + speedPct / 100);
+    const d = Math.floor(actualHours / 24);
+    const h = Math.floor(actualHours % 24);
+    const m = Math.round((actualHours % 1) * 60);
+    const bD = Math.floor(baseBuildHours / 24);
+    const bH = Math.floor(baseBuildHours % 24);
+    const speedupH = Math.ceil(actualHours);
+    document.getElementById('buildTimeBox').innerHTML =
+      `<div class="result-row"><span class="r-label">總基礎建造時間</span><span class="r-value">${bD > 0 ? bD + '天 ' : ''}${bH} 小時</span></div>` +
+      `<div class="result-row"><span class="r-label">建造速度加成</span><span class="r-value">${Number.isInteger(speedPct) ? speedPct : speedPct.toFixed(1)}%</span></div>` +
+      `<div class="result-row"><span class="r-label">實際建造時間</span><span class="r-value accent">${d > 0 ? d + '天 ' : ''}${h} 小時${m > 0 ? ' ' + m + ' 分' : ''}</span></div>` +
+      `<div class="result-row"><span class="r-label">需要加速道具</span><span class="r-value">${speedupH} 小時的加速道具</span></div>`;
+    buildTimeSec.classList.remove('hidden');
+  } else {
+    buildTimeSec.classList.add('hidden');
+  }
 
   document.getElementById('plannerResult').classList.remove('hidden');
   document.getElementById('plannerResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
