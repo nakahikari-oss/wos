@@ -25,13 +25,26 @@
 
 ## 建築 / Buildings & Map
 
+> ⚠️ **建築類名詞在不同活動下英文可能不一樣**，查表時務必看清楚備註裡的「適用活動」。
+
+### 峽谷會戰 / Canyon Clash
 | 中文 | English | 備註 |
 |---|---|---|
-| 失落峽谷 | Lost Canyon | 峽谷會戰戰場的地圖名 |
-| 冰封殿堂 | Frozen Citadel | ⚠️ 曾誤譯為 Icebound Palace。峽谷會戰最終爭奪目標 |
+| 失落峽谷 | Lost Canyon | 戰場地圖名 |
+| 冰封殿堂 | Frozen Citadel | 最終爭奪目標。⚠️ 曾誤譯為 Icebound Palace |
 | 大本營 | HQ / base | 雙方陣地的本營 |
-| 要塞 | Fortress | 戰場上的據點 |
-| 前哨要塞 | Bastion | 較前線的據點（待克菈莉絲確認 Fortress / Bastion 兩個是不是這樣對應） |
+| 前哨要塞 | Fortress | 戰場據點（克菈莉絲確認此譯法可用於峽谷會戰）|
+| 要塞 | _（峽谷會戰下英文待確認）_ | 與「前哨要塞」並列的另一種建築，可能對應 Wiki 提到的 keep 或 Bastion — 待克菈莉絲下次進遊戲查證 |
+
+### 要塞爭奪（活動）/ Stronghold Battle (?)
+| 中文 | English | 備註 |
+|---|---|---|
+| 要塞 | Stronghold | **「要塞爭奪」活動專用** — 與峽谷會戰的「要塞」是不同建築 |
+| 堡壘 | Fortress | **「要塞爭奪」活動專用** |
+
+### 通用 / General
+| 中文 | English | 備註 |
+|---|---|---|
 | 中立建築 | neutral building | 描述性詞 |
 | 敵方建築 | enemy building | 描述性詞 |
 
@@ -75,7 +88,7 @@
 | 行軍 | march | |
 | 突進 | Advance | 戰場動作 |
 | 撤退 | Retreat | 戰場動作 |
-| 徵兵 | Conscript | ⚠️ **既有英文頁誤用 Reinforce，待修正**（中英 Wiki 都用 Conscript） |
+| 徵兵 | Conscript | ⚠️ 曾誤譯為 Reinforce（中英 Wiki 都確認為 Conscript） |
 | 增援 / 補兵 | Reinforce | 通常指「送兵給盟友」，與 Conscript（自己補兵）不同 |
 | 佔領 | capture | |
 | 駐紮 | garrison | |
@@ -111,7 +124,11 @@
 
 ## 維護規則
 - 新增條目時，**註明來源**（遊戲內截圖確認 / Wiki / 使用者確認）
-- 發現舊條目錯誤時，**直接更新並在備註欄寫「⚠️ 曾誤譯為 XXX，已修正」**
-- 一個中文詞可能對應遊戲內**多個英文場景**（例如戰力 = Power / Might 視情境），這種情況在備註欄說明
+- 發現舊條目錯誤時，**直接更新並在備註欄寫「⚠️ 曾誤譯為 XXX」**
+- **⚠️ 同一個中文詞，在不同活動下英文可能不一樣** — 翻譯前一定要確認當下脈絡屬於哪個活動。例子：
+  - 「要塞」在「要塞爭奪」活動 = Stronghold；在「峽谷會戰」可能是其他詞
+  - 「堡壘」在「要塞爭奪」活動 = Fortress；在「峽谷會戰」沒這個詞
+  - 「戰力」可能是 Power / Might 視情境
+  - 這種狀況請在備註欄明確標出「適用活動」
 - **⚠️ 標記** 代表「尚未 100% 確認、需要克菈莉絲下次進遊戲查證」
 - **首選查證方法**：官方 Wiki 中文版 vs 英文版同主題頁面直接對照（如 https://www.whiteoutsurvival.wiki/events/canyon-clash/ 與 https://www.whiteoutsurvival.wiki/tw/events/峽谷會戰-2/）
