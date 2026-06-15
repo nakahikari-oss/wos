@@ -408,7 +408,7 @@ function updateRefineDisplay(total) {
 // ────────────────────────────────────────────────
 //  升級規劃（Tab 2）
 // ────────────────────────────────────────────────
-const THREE_BARRACKS = ['熔爐', '大使館', '盾兵營', '矛兵營', '弓兵營'];
+const THREE_BARRACKS = ['熔爐', '大使館', '指揮部', '盾兵營', '矛兵營', '弓兵營'];
 const ALL_BUILDINGS  = ['熔爐', '大使館', '指揮部', '盾兵營', '矛兵營', '弓兵營', '軍醫所', '戰爭學院'];
 
 function getRequiredLevels(targetFC, targetType) {
@@ -422,8 +422,10 @@ function getRequiredLevels(targetFC, targetType) {
   const barracks = ['盾兵營', '矛兵營', '弓兵營'];
   if (targetType === '三兵營' || targetType === '全建築')
     barracks.forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+  if (targetType === '三兵營' || targetType === '全建築')
+    ['指揮部'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
   if (targetType === '全建築')
-    ['指揮部', '軍醫所', '戰爭學院'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+    ['軍醫所', '戰爭學院'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
   return req;
 }
 
