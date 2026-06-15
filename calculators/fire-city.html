@@ -317,6 +317,17 @@
           </select>
         </div>
         <div class="calc-group">
+          <label>英雄津曼「建築藝術」</label>
+          <select id="spZinman" onchange="updateSpeedSummary()">
+            <option value="0">未使用</option>
+            <option value="1">Lv1（+3%）</option>
+            <option value="2">Lv2（+6%）</option>
+            <option value="3">Lv3（+9%）</option>
+            <option value="4">Lv4（+12%）</option>
+            <option value="5" selected>Lv5（+15%）</option>
+          </select>
+        </div>
+        <div class="calc-group">
           <label>專家艾格妮絲「工程管理」</label>
           <select id="spAgnes" onchange="updateSpeedSummary()">
             <option value="0">未使用</option>
@@ -653,17 +664,19 @@ function findMinRefinesForRFC(targetRFC, weeks, useMin) {
   return null; // 100次/週也不夠
 }
 
-const HYENA_BONUS = [0, 5, 7, 9, 12, 15];
-const AGNES_HOURS  = [0, 2, 3, 4, 6, 8];
+const HYENA_BONUS   = [0, 5, 7, 9, 12, 15];
+const ZINMAN_BONUS  = [0, 3, 6, 9, 12, 15];
+const AGNES_HOURS   = [0, 2, 3, 4, 6, 8];
 
 function updateSpeedSummary() {
   const merc        = document.getElementById('spMerc').checked ? 10 : 0;
   const viceGov     = document.getElementById('spViceGov').checked ? 10 : 0;
   const commandOn   = document.getElementById('spCommand').checked;
   const hyenaPct    = HYENA_BONUS[parseInt(document.getElementById('spHyena').value) || 0];
+  const zinmanPct   = ZINMAN_BONUS[parseInt(document.getElementById('spZinman').value) || 0];
   const dawnIslePct = parseFloat(document.getElementById('spDawnIsle').value) || 0;
   const agnesLv     = parseInt(document.getElementById('spAgnes').value) || 0;
-  const totalSpeed  = merc + viceGov + hyenaPct + dawnIslePct;
+  const totalSpeed  = merc + viceGov + hyenaPct + zinmanPct + dawnIslePct;
   const el = document.getElementById('speedTotalPct');
   if (el) el.textContent = Number.isInteger(totalSpeed) ? totalSpeed : totalSpeed.toFixed(1);
   const cmdBadge = document.getElementById('speedCommandBadge');
@@ -846,10 +859,11 @@ function calcPlanner() {
   const viceGov     = document.getElementById('spViceGov').checked ? 10 : 0;
   const commandOn   = document.getElementById('spCommand').checked;
   const hyenaPct    = HYENA_BONUS[parseInt(document.getElementById('spHyena').value) || 0];
+  const zinmanPct   = ZINMAN_BONUS[parseInt(document.getElementById('spZinman').value) || 0];
   const dawnIslePct = parseFloat(document.getElementById('spDawnIsle').value) || 0;
   const agnesLv     = parseInt(document.getElementById('spAgnes').value) || 0;
   const agnesH      = AGNES_HOURS[agnesLv];
-  const totalSpeedPct = merc + viceGov + hyenaPct + dawnIslePct;
+  const totalSpeedPct = merc + viceGov + hyenaPct + zinmanPct + dawnIslePct;
 
   let baseTotalMin = 0, totalSegs = 0;
   for (const d of buildingDetails) {
