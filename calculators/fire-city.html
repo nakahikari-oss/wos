@@ -157,13 +157,14 @@
         <input type="range" class="refine-slider" id="refineSlider" min="1" max="100" value="20" oninput="syncRefine('slider')">
         <input type="number" class="refine-number" id="refineNum" min="1" max="100" value="20" oninput="syncRefine('num')">
         <span style="color:var(--text-muted); font-size:0.85rem;">次</span>
-        <!-- 快捷按鈕 -->
+        <!-- 快捷按鈕（格式：第一天集中次數＋後6天各1次） -->
         <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-          <button class="filter-btn" onclick="setRefine(20)">20</button>
-          <button class="filter-btn" onclick="setRefine(40)">40</button>
-          <button class="filter-btn" onclick="setRefine(60)">60</button>
-          <button class="filter-btn" onclick="setRefine(80)">80</button>
-          <button class="filter-btn" onclick="setRefine(100)">100</button>
+          <button class="filter-btn" onclick="setRefine(20)">14+6</button>
+          <button class="filter-btn" onclick="setRefine(26)">20+6</button>
+          <button class="filter-btn" onclick="setRefine(46)">40+6</button>
+          <button class="filter-btn" onclick="setRefine(66)">60+6</button>
+          <button class="filter-btn" onclick="setRefine(86)">80+6</button>
+          <button class="filter-btn" onclick="setRefine(100)">94+6</button>
         </div>
       </div>
 
