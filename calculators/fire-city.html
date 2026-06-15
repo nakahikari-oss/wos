@@ -648,7 +648,7 @@ function rebuildStateTable() {
 
   for (const b of buildings) {
     let lvOpts = '';
-    for (let i = 5; i <= 9; i++) lvOpts += `<option value="${i}">${i}</option>`;
+    for (let i = 5; i <= 10; i++) lvOpts += `<option value="${i}">${i}</option>`;
     let segOpts = '';
     for (let i = 0; i <= 4; i++) segOpts += `<option value="${i}">第 ${i} 段</option>`;
     const lvOnChange = b === '熔爐' ? ' onchange="applyFurnacePrereqs()"' : '';
