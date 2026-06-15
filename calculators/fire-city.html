@@ -222,7 +222,7 @@
       <!-- 目標設定 -->
       <h3 style="color:var(--frost); margin-bottom:1rem;">目標設定</h3>
       <div class="planner-settings">
-        <div class="calc-group">
+        <div class="calc-group" id="targetFCGroup">
           <label>目標熔爐等級</label>
           <select id="targetFC" onchange="rebuildStateTable()">
             <option value="6">熔爐 6</option>
@@ -237,6 +237,7 @@
           <select id="targetType" onchange="rebuildStateTable()">
             <option value="三兵營">三兵營（盾+矛+弓）</option>
             <option value="全建築">全建築</option>
+            <option value="自訂">自訂</option>
           </select>
         </div>
       </div>
@@ -508,7 +509,7 @@ function updateRefineDisplay(total) {
 // ────────────────────────────────────────────────
 //  升級規劃（Tab 2）
 // ────────────────────────────────────────────────
-const THREE_BARRACKS = ['熔爐', '大使館', '指揮部', '盾兵營', '矛兵營', '弓兵營'];
+const THREE_BARRACKS = ['熔爐', '大使館', '盾兵營', '矛兵營', '弓兵營'];
 const ALL_BUILDINGS  = ['熔爐', '大使館', '指揮部', '盾兵營', '矛兵營', '弓兵營', '軍醫所', '戰爭學院'];
 
 function getRequiredLevels(targetFC, targetType) {
@@ -519,38 +520,110 @@ function getRequiredLevels(targetFC, targetType) {
     for (const [b, l] of Object.entries(p)) req[b] = Math.max(req[b] || 0, l);
   }
   req['熔爐'] = targetFC;
-  const barracks = ['盾兵營', '矛兵營', '弓兵營'];
-  if (targetType === '三兵營' || targetType === '全建築')
-    barracks.forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
-  if (targetType === '三兵營' || targetType === '全建築')
-    ['指揮部'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+  if (targetType === '三兵營')
+    ['盾兵營', '矛兵營', '弓兵營'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
   if (targetType === '全建築')
-    ['軍醫所', '戰爭學院'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+    ALL_BUILDINGS.forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
   return req;
+}
+
+function getRequiredLevels_custom(customTargets) {
+  const prereqs = window.FIRE_CRYSTAL_DATA.furnacePrerequisites;
+  const req = {};
+  if (Object.keys(customTargets).length === 0) return req;
+  const maxLv = Math.max(...Object.values(customTargets));
+  req['熔爐'] = maxLv;
+  for (let fc = 6; fc <= maxLv; fc++) {
+    const p = prereqs[fc] || {};
+    for (const [b, l] of Object.entries(p)) req[b] = Math.max(req[b] || 0, l);
+  }
+  for (const [b, l] of Object.entries(customTargets)) {
+    req[b] = Math.max(req[b] || 0, l);
+  }
+  return req;
+}
+
+function refreshCustomReq() {
+  const rows = document.querySelectorAll('#stateBody tr');
+  const customTargets = {};
+  for (const row of rows) {
+    const b = row.dataset.building;
+    const tgtSel = row.querySelector('.tgt-sel');
+    if (!tgtSel) continue;
+    const v = parseInt(tgtSel.value);
+    if (v >= 6) customTargets[b] = v;
+  }
+  const req = getRequiredLevels_custom(customTargets);
+  for (const row of rows) {
+    const b = row.dataset.building;
+    const cell = row.querySelector('.req-cell');
+    if (!cell) continue;
+    const needed = req[b];
+    if (needed && needed >= 6) {
+      const isUserPick = customTargets[b] && customTargets[b] >= needed;
+      cell.textContent = `L${needed}`;
+      cell.style.color = isUserPick ? 'var(--frost)' : 'var(--warning)';
+      cell.title = isUserPick ? '你設定的目標' : '因其他建築的目標而需要的前提條件';
+    } else {
+      cell.textContent = '—';
+      cell.style.color = 'var(--text-muted)';
+    }
+  }
 }
 
 function rebuildStateTable() {
   const targetFC = parseInt(document.getElementById('targetFC').value);
   const targetType = document.getElementById('targetType').value;
-  const req = getRequiredLevels(targetFC, targetType);
-  const buildings = targetType === '全建築' ? ALL_BUILDINGS : THREE_BARRACKS;
+  const isCustom = targetType === '自訂';
+
+  const fcGroup = document.getElementById('targetFCGroup');
+  if (fcGroup) fcGroup.style.display = isCustom ? 'none' : '';
+
+  const thead = document.querySelector('#stateTable thead tr');
+  if (isCustom) {
+    thead.innerHTML = `<th>建築</th>
+      <th>目前等級</th>
+      <th>已做幾段<br><small style="font-weight:400;color:var(--text-muted);">（升到下一級的進度）</small></th>
+      <th>我的目標</th>
+      <th>計算後需升至</th>`;
+  } else {
+    thead.innerHTML = `<th>建築</th>
+      <th>目前等級</th>
+      <th>已做幾段<br><small style="font-weight:400;color:var(--text-muted);">（升到下一級的進度）</small></th>
+      <th>需升至</th>`;
+  }
+
+  const req = isCustom ? {} : getRequiredLevels(targetFC, targetType);
+  const buildings = (isCustom || targetType === '全建築') ? ALL_BUILDINGS : THREE_BARRACKS;
   const body = document.getElementById('stateBody');
   body.innerHTML = '';
+
   for (const b of buildings) {
-    const reqLv = req[b] || targetFC;
-    const maxCurrent = reqLv - 1 <= 0 ? 0 : reqLv;
     let lvOpts = '';
     for (let i = 5; i <= 9; i++) lvOpts += `<option value="${i}">${i}</option>`;
     let segOpts = '';
     for (let i = 0; i <= 4; i++) segOpts += `<option value="${i}">第 ${i} 段</option>`;
     const tr = document.createElement('tr');
     tr.dataset.building = b;
-    tr.innerHTML = `<td>${b}</td>
-      <td><select class="lv-sel" data-b="${b}">${lvOpts}</select></td>
-      <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
-      <td style="color:var(--accent); font-weight:600;">L${reqLv}</td>`;
+    if (isCustom) {
+      let tgtOpts = `<option value="0">—（不升）</option>`;
+      for (let i = 6; i <= 10; i++) tgtOpts += `<option value="${i}">L${i}</option>`;
+      tr.innerHTML = `<td>${b}</td>
+        <td><select class="lv-sel" data-b="${b}">${lvOpts}</select></td>
+        <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
+        <td><select class="tgt-sel" data-b="${b}" onchange="refreshCustomReq()">${tgtOpts}</select></td>
+        <td class="req-cell" style="font-weight:600; color:var(--text-muted);">—</td>`;
+    } else {
+      const reqLv = req[b];
+      tr.innerHTML = `<td>${b}</td>
+        <td><select class="lv-sel" data-b="${b}">${lvOpts}</select></td>
+        <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
+        <td style="color:var(--accent); font-weight:600;">${reqLv ? 'L' + reqLv : '—'}</td>`;
+    }
     body.appendChild(tr);
   }
+
+  if (isCustom) refreshCustomReq();
 }
 
 function calcBuildingCost(building, currentLv, segsDone, targetLv) {
@@ -624,7 +697,24 @@ function updateSpeedSummary() {
 function calcPlanner() {
   const targetFC = parseInt(document.getElementById('targetFC').value);
   const targetType = document.getElementById('targetType').value;
-  const req = getRequiredLevels(targetFC, targetType);
+  const isCustom = targetType === '自訂';
+
+  let req;
+  if (isCustom) {
+    const rows0 = document.querySelectorAll('#stateBody tr');
+    const customTargets = {};
+    for (const row of rows0) {
+      const b = row.dataset.building;
+      const tgtSel = row.querySelector('.tgt-sel');
+      if (!tgtSel) continue;
+      const v = parseInt(tgtSel.value);
+      if (v >= 6) customTargets[b] = v;
+    }
+    req = getRequiredLevels_custom(customTargets);
+  } else {
+    req = getRequiredLevels(targetFC, targetType);
+  }
+
   const availFC = parseInt(document.getElementById('availFC').value) || 0;
   const availRFC = parseInt(document.getElementById('availRFC').value) || 0;
   const weeks = parseInt(document.getElementById('availWeeks').value) || 4;
@@ -637,7 +727,9 @@ function calcPlanner() {
     const b = row.dataset.building;
     const lv = parseInt(row.querySelector('.lv-sel').value);
     const seg = parseInt(row.querySelector('.seg-sel').value);
-    const tgt = req[b] || targetFC;
+    const tgt = isCustom
+      ? (req[b] !== undefined ? req[b] : lv)
+      : (req[b] || targetFC);
     const cost = calcBuildingCost(b, lv, seg, tgt);
     totalFC += cost.fc;
     totalRFC += cost.rfc;
