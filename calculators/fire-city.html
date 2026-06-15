@@ -600,6 +600,25 @@ function refreshCustomReq() {
   }
 }
 
+function applyFurnacePrereqs() {
+  const furnaceRow = document.querySelector('#stateBody tr[data-building="熔爐"]');
+  if (!furnaceRow) return;
+  const furnaceLv = parseInt(furnaceRow.querySelector('.lv-sel').value);
+  const prereqs = window.FIRE_CRYSTAL_DATA.furnacePrerequisites;
+  const minLevels = {};
+  for (let fc = 6; fc <= furnaceLv; fc++) {
+    const p = prereqs[fc] || {};
+    for (const [b, l] of Object.entries(p)) minLevels[b] = Math.max(minLevels[b] || 0, l);
+  }
+  for (const row of document.querySelectorAll('#stateBody tr')) {
+    const b = row.dataset.building;
+    if (b === '熔爐') continue;
+    const lvSel = row.querySelector('.lv-sel');
+    if (!lvSel || !minLevels[b]) continue;
+    if (parseInt(lvSel.value) < minLevels[b]) lvSel.value = minLevels[b];
+  }
+}
+
 function rebuildStateTable() {
   const targetFC = parseInt(document.getElementById('targetFC').value);
   const targetType = document.getElementById('targetType').value;
@@ -632,26 +651,28 @@ function rebuildStateTable() {
     for (let i = 5; i <= 9; i++) lvOpts += `<option value="${i}">${i}</option>`;
     let segOpts = '';
     for (let i = 0; i <= 4; i++) segOpts += `<option value="${i}">第 ${i} 段</option>`;
+    const lvOnChange = b === '熔爐' ? ' onchange="applyFurnacePrereqs()"' : '';
     const tr = document.createElement('tr');
     tr.dataset.building = b;
     if (isCustom) {
       let tgtOpts = `<option value="0">—（不升）</option>`;
       for (let i = 6; i <= 10; i++) tgtOpts += `<option value="${i}">L${i}</option>`;
       tr.innerHTML = `<td>${b}</td>
-        <td><select class="lv-sel" data-b="${b}">${lvOpts}</select></td>
+        <td><select class="lv-sel" data-b="${b}"${lvOnChange}>${lvOpts}</select></td>
         <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
         <td><select class="tgt-sel" data-b="${b}" onchange="refreshCustomReq()">${tgtOpts}</select></td>
         <td class="req-cell" style="font-weight:600; color:var(--text-muted);">—</td>`;
     } else {
       const reqLv = req[b];
       tr.innerHTML = `<td>${b}</td>
-        <td><select class="lv-sel" data-b="${b}">${lvOpts}</select></td>
+        <td><select class="lv-sel" data-b="${b}"${lvOnChange}>${lvOpts}</select></td>
         <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
         <td style="color:var(--accent); font-weight:600;">${reqLv ? 'L' + reqLv : '—'}</td>`;
     }
     body.appendChild(tr);
   }
 
+  applyFurnacePrereqs();
   if (isCustom) refreshCustomReq();
 }
 
