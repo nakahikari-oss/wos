@@ -679,12 +679,12 @@ function updateSpeedSummary() {
   }
 }
 
-function fmtSec(sec) {
-  if (sec <= 0) return '< 1 分';
-  sec = Math.round(sec);
-  const d = Math.floor(sec / 86400);
-  const h = Math.floor((sec % 86400) / 3600);
-  const m = Math.floor((sec % 3600) / 60);
+function fmtMin(min) {
+  if (min <= 0) return '< 1 分';
+  min = Math.round(min);
+  const d = Math.floor(min / 1440);
+  const h = Math.floor((min % 1440) / 60);
+  const m = Math.floor(min % 60);
   const parts = [];
   if (d > 0) parts.push(d + '天');
   if (h > 0) parts.push(h + '小時');
@@ -692,7 +692,7 @@ function fmtSec(sec) {
   return parts.length ? parts.join(' ') : '< 1 分';
 }
 
-function calcBuildTimeSec(building, currentLv, segsDone, targetLv) {
+function calcBuildTimeMin(building, currentLv, segsDone, targetLv) {
   if (currentLv >= targetLv) return 0;
   const btData = (window.FIRE_CRYSTAL_DATA.buildTimePerSegment || {})[building] || {};
   let total = 0;
@@ -851,28 +851,28 @@ function calcPlanner() {
   const agnesH      = AGNES_HOURS[agnesLv];
   const totalSpeedPct = merc + viceGov + hyenaPct + dawnIslePct;
 
-  let baseTotalSec = 0, totalSegs = 0;
+  let baseTotalMin = 0, totalSegs = 0;
   for (const d of buildingDetails) {
-    baseTotalSec += calcBuildTimeSec(d.b, d.lv, d.seg, d.tgt);
+    baseTotalMin += calcBuildTimeMin(d.b, d.lv, d.seg, d.tgt);
     totalSegs    += countSegments(d.lv, d.seg, d.tgt);
   }
 
   const buildTimeEl = document.getElementById('buildTimeSection');
-  if (baseTotalSec > 0) {
-    const agnesSavedSec = agnesH * 3600 * totalSegs;
-    const afterAgnesSec = Math.max(0, baseTotalSec - agnesSavedSec);
-    const afterCmdSec   = commandOn ? afterAgnesSec * 0.8 : afterAgnesSec;
-    const actualSec     = afterCmdSec / (1 + totalSpeedPct / 100);
-    const speedupH      = Math.ceil(actualSec / 3600);
+  if (baseTotalMin > 0) {
+    const agnesSavedMin = agnesH * 60 * totalSegs;
+    const afterAgnesMin = Math.max(0, baseTotalMin - agnesSavedMin);
+    const afterCmdMin   = commandOn ? afterAgnesMin * 0.8 : afterAgnesMin;
+    const actualMin     = afterCmdMin / (1 + totalSpeedPct / 100);
+    const speedupH      = Math.ceil(actualMin / 60);
 
-    let html = `<div class="result-row"><span class="r-label">總基礎建造時間</span><span class="r-value">${fmtSec(baseTotalSec)}</span></div>`;
+    let html = `<div class="result-row"><span class="r-label">總基礎建造時間</span><span class="r-value">${fmtMin(baseTotalMin)}</span></div>`;
     if (agnesLv > 0 && totalSegs > 0)
-      html += `<div class="result-row"><span class="r-label">艾格妮絲節省</span><span class="r-value" style="color:var(--success)">−${fmtSec(Math.min(agnesSavedSec, baseTotalSec))}（Lv${agnesLv} × ${totalSegs} 次建造）</span></div>`;
+      html += `<div class="result-row"><span class="r-label">艾格妮絲節省</span><span class="r-value" style="color:var(--success)">−${fmtMin(Math.min(agnesSavedMin, baseTotalMin))}（Lv${agnesLv} × ${totalSegs} 次建造）</span></div>`;
     if (totalSpeedPct > 0)
       html += `<div class="result-row"><span class="r-label">速度加成</span><span class="r-value">+${Number.isInteger(totalSpeedPct) ? totalSpeedPct : totalSpeedPct.toFixed(1)}%</span></div>`;
     if (commandOn)
       html += `<div class="result-row"><span class="r-label">指令縮短</span><span class="r-value">20%</span></div>`;
-    html += `<div class="result-row"><span class="r-label">實際建造時間</span><span class="r-value accent">${fmtSec(actualSec)}</span></div>` +
+    html += `<div class="result-row"><span class="r-label">實際建造時間</span><span class="r-value accent">${fmtMin(actualMin)}</span></div>` +
       `<div class="result-row"><span class="r-label">需要加速道具</span><span class="r-value">${speedupH > 0 ? speedupH + ' 小時的加速道具' : '無需加速道具'}</span></div>`;
     document.getElementById('buildTimeBox').innerHTML = html;
     buildTimeEl.classList.remove('hidden');
