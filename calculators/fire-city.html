@@ -320,11 +320,11 @@
           <label>專家艾格妮絲「工程管理」</label>
           <select id="spAgnes" onchange="updateSpeedSummary()">
             <option value="0">未使用</option>
-            <option value="1">Lv1（每棟 −2 小時）</option>
-            <option value="2">Lv2（每棟 −3 小時）</option>
-            <option value="3">Lv3（每棟 −4 小時）</option>
-            <option value="4">Lv4（每棟 −6 小時）</option>
-            <option value="5" selected>Lv5（每棟 −8 小時）</option>
+            <option value="1">Lv1（每次建造 −2 小時）</option>
+            <option value="2">Lv2（每次建造 −3 小時）</option>
+            <option value="3">Lv3（每次建造 −4 小時）</option>
+            <option value="4">Lv4（每次建造 −6 小時）</option>
+            <option value="5" selected>Lv5（每次建造 −8 小時）</option>
           </select>
         </div>
         <div class="calc-group">
@@ -338,22 +338,7 @@
       <div class="speed-total-bar">
         速度加成：<strong id="speedTotalPct">45</strong>%
         <span id="speedCommandBadge">｜縮短 20%</span>
-        <span id="speedAgnesBadge">｜艾格妮絲 −8 小時/棟</span>
-      </div>
-
-      <!-- 建造時間估算（選填） -->
-      <h3 style="color:var(--frost); margin-bottom:0.75rem;">
-        建造時間估算
-        <small style="font-size:0.75rem; color:var(--text-muted); font-weight:400; margin-left:0.5rem;">選填</small>
-      </h3>
-      <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:0.75rem;">
-        填入所有需升級建築的總基礎建造時間（遊戲顯示的原始時間，不含任何加速），系統計算實際完成時間與加速道具需求。
-      </p>
-      <div class="resource-inputs">
-        <div class="calc-group">
-          <label>總基礎建造時間（小時）</label>
-          <input type="number" id="baseBuildHours" value="" min="0" placeholder="選填，例：720">
-        </div>
+        <span id="speedAgnesBadge">｜艾格妮絲 −8 小時/次</span>
       </div>
 
       <button class="calc-btn-large" onclick="calcPlanner()">計算路線</button>
@@ -686,12 +671,46 @@ function updateSpeedSummary() {
   const agnesBadge = document.getElementById('speedAgnesBadge');
   if (agnesBadge) {
     if (agnesLv > 0) {
-      agnesBadge.textContent = `｜艾格妮絲 −${AGNES_HOURS[agnesLv]} 小時/棟`;
+      agnesBadge.textContent = `｜艾格妮絲 −${AGNES_HOURS[agnesLv]} 小時/次`;
       agnesBadge.style.display = '';
     } else {
       agnesBadge.style.display = 'none';
     }
   }
+}
+
+function fmtSec(sec) {
+  if (sec <= 0) return '< 1 分';
+  sec = Math.round(sec);
+  const d = Math.floor(sec / 86400);
+  const h = Math.floor((sec % 86400) / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const parts = [];
+  if (d > 0) parts.push(d + '天');
+  if (h > 0) parts.push(h + '小時');
+  if (m > 0) parts.push(m + '分');
+  return parts.length ? parts.join(' ') : '< 1 分';
+}
+
+function calcBuildTimeSec(building, currentLv, segsDone, targetLv) {
+  if (currentLv >= targetLv) return 0;
+  const btData = (window.FIRE_CRYSTAL_DATA.buildTimePerSegment || {})[building] || {};
+  let total = 0;
+  for (let lv = currentLv + 1; lv <= targetLv; lv++) {
+    const secPerSeg = btData[lv] || 0;
+    const segs = (lv === currentLv + 1 && segsDone > 0) ? (5 - segsDone) : 5;
+    total += secPerSeg * segs;
+  }
+  return total;
+}
+
+function countSegments(currentLv, segsDone, targetLv) {
+  if (currentLv >= targetLv) return 0;
+  let segs = 0;
+  for (let lv = currentLv + 1; lv <= targetLv; lv++) {
+    segs += (lv === currentLv + 1 && segsDone > 0) ? (5 - segsDone) : 5;
+  }
+  return segs;
 }
 
 function calcPlanner() {
@@ -821,45 +840,44 @@ function calcPlanner() {
   document.getElementById('verdictDiv').innerHTML =
     `<div class="verdict ${verdictClass}">${verdictText}</div>`;
 
-  // 建造時間估算
+  // 建造時間估算（自動從 wiki 資料計算）
   updateSpeedSummary();
-  const baseBuildHours = parseFloat(document.getElementById('baseBuildHours').value) || 0;
-  const buildTimeSec = document.getElementById('buildTimeSection');
-  if (baseBuildHours > 0) {
-    const merc        = document.getElementById('spMerc').checked ? 10 : 0;
-    const viceGov     = document.getElementById('spViceGov').checked ? 10 : 0;
-    const commandOn   = document.getElementById('spCommand').checked;
-    const hyenaPct    = HYENA_BONUS[parseInt(document.getElementById('spHyena').value) || 0];
-    const dawnIslePct = parseFloat(document.getElementById('spDawnIsle').value) || 0;
-    const agnesLv     = parseInt(document.getElementById('spAgnes').value) || 0;
-    const agnesH      = AGNES_HOURS[agnesLv];
-    const totalSpeedPct = merc + viceGov + hyenaPct + dawnIslePct;
-    const totalBuilds   = buildingDetails.reduce((s, d) => s + (d.tgt - d.lv), 0);
-    const agnesTotal    = agnesH * totalBuilds;
-    const afterAgnes    = Math.max(0, baseBuildHours - agnesTotal);
-    const afterCmd      = commandOn ? afterAgnes * 0.8 : afterAgnes;
-    const actualHours   = afterCmd / (1 + totalSpeedPct / 100);
-    const d = Math.floor(actualHours / 24);
-    const h = Math.floor(actualHours % 24);
-    const m = Math.round((actualHours % 1) * 60);
-    const bD = Math.floor(baseBuildHours / 24);
-    const bH = Math.floor(baseBuildHours % 24);
-    const speedupH = Math.ceil(actualHours);
-    let html =
-      `<div class="result-row"><span class="r-label">總基礎建造時間</span><span class="r-value">${bD > 0 ? bD + '天 ' : ''}${bH} 小時</span></div>`;
-    if (agnesLv > 0 && totalBuilds > 0)
-      html += `<div class="result-row"><span class="r-label">艾格妮絲節省</span><span class="r-value" style="color:var(--success)">−${agnesTotal} 小時（Lv${agnesLv} × ${totalBuilds} 棟）</span></div>`;
+  const merc        = document.getElementById('spMerc').checked ? 10 : 0;
+  const viceGov     = document.getElementById('spViceGov').checked ? 10 : 0;
+  const commandOn   = document.getElementById('spCommand').checked;
+  const hyenaPct    = HYENA_BONUS[parseInt(document.getElementById('spHyena').value) || 0];
+  const dawnIslePct = parseFloat(document.getElementById('spDawnIsle').value) || 0;
+  const agnesLv     = parseInt(document.getElementById('spAgnes').value) || 0;
+  const agnesH      = AGNES_HOURS[agnesLv];
+  const totalSpeedPct = merc + viceGov + hyenaPct + dawnIslePct;
+
+  let baseTotalSec = 0, totalSegs = 0;
+  for (const d of buildingDetails) {
+    baseTotalSec += calcBuildTimeSec(d.b, d.lv, d.seg, d.tgt);
+    totalSegs    += countSegments(d.lv, d.seg, d.tgt);
+  }
+
+  const buildTimeEl = document.getElementById('buildTimeSection');
+  if (baseTotalSec > 0) {
+    const agnesSavedSec = agnesH * 3600 * totalSegs;
+    const afterAgnesSec = Math.max(0, baseTotalSec - agnesSavedSec);
+    const afterCmdSec   = commandOn ? afterAgnesSec * 0.8 : afterAgnesSec;
+    const actualSec     = afterCmdSec / (1 + totalSpeedPct / 100);
+    const speedupH      = Math.ceil(actualSec / 3600);
+
+    let html = `<div class="result-row"><span class="r-label">總基礎建造時間</span><span class="r-value">${fmtSec(baseTotalSec)}</span></div>`;
+    if (agnesLv > 0 && totalSegs > 0)
+      html += `<div class="result-row"><span class="r-label">艾格妮絲節省</span><span class="r-value" style="color:var(--success)">−${fmtSec(Math.min(agnesSavedSec, baseTotalSec))}（Lv${agnesLv} × ${totalSegs} 次建造）</span></div>`;
     if (totalSpeedPct > 0)
       html += `<div class="result-row"><span class="r-label">速度加成</span><span class="r-value">+${Number.isInteger(totalSpeedPct) ? totalSpeedPct : totalSpeedPct.toFixed(1)}%</span></div>`;
     if (commandOn)
       html += `<div class="result-row"><span class="r-label">指令縮短</span><span class="r-value">20%</span></div>`;
-    html +=
-      `<div class="result-row"><span class="r-label">實際建造時間</span><span class="r-value accent">${d > 0 ? d + '天 ' : ''}${h} 小時${m > 0 ? ' ' + m + ' 分' : ''}</span></div>` +
-      `<div class="result-row"><span class="r-label">需要加速道具</span><span class="r-value">${speedupH} 小時的加速道具</span></div>`;
+    html += `<div class="result-row"><span class="r-label">實際建造時間</span><span class="r-value accent">${fmtSec(actualSec)}</span></div>` +
+      `<div class="result-row"><span class="r-label">需要加速道具</span><span class="r-value">${speedupH > 0 ? speedupH + ' 小時的加速道具' : '無需加速道具'}</span></div>`;
     document.getElementById('buildTimeBox').innerHTML = html;
-    buildTimeSec.classList.remove('hidden');
+    buildTimeEl.classList.remove('hidden');
   } else {
-    buildTimeSec.classList.add('hidden');
+    buildTimeEl.classList.add('hidden');
   }
 
   document.getElementById('plannerResult').classList.remove('hidden');
