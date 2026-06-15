@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>火城升級計算機 — 克菈莉絲的WOS筆記</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .calc-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .calc-tab {
+      padding: 0.55rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: none;
+    }
+    .calc-tab.active { background: var(--bg-secondary); color: var(--frost); border-color: var(--accent-dim); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── 精煉計算 ── */
+    .refine-controls { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .refine-slider { flex: 1; min-width: 200px; accent-color: var(--accent); }
+    .refine-number {
+      width: 70px; padding: 0.45rem 0.6rem;
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 6px; color: var(--text-primary); font-size: 1rem; text-align: center;
+    }
+    .refine-result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .stat-card {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1rem 1.25rem;
+    }
+    .stat-card .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .stat-card .value { font-size: 1.6rem; font-weight: 700; color: var(--frost); }
+    .stat-card .sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .tier-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 1.25rem; }
+    .tier-table th, .tier-table td { border: 1px solid var(--border-color); padding: 0.5rem 0.8rem; text-align: right; }
+    .tier-table th { background: var(--bg-secondary); color: var(--accent); text-align: center; }
+    .tier-table td:first-child { text-align: left; }
+    .tier-table tr.total-row td { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+    .tier-table .active-tier { background: rgba(56,189,248,0.06); }
+    .tip-box {
+      margin-top: 1.25rem; padding: 0.75rem 1rem;
+      background: rgba(56,189,248,0.05); border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0; font-size: 0.87rem; color: var(--text-secondary);
+    }
+
+    /* ── 升級規劃 ── */
+    .planner-settings { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .planner-settings .calc-group { flex: 1; min-width: 160px; }
+    .state-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .state-table th, .state-table td { border: 1px solid var(--border-color); padding: 0.5rem 0.8rem; }
+    .state-table th { background: var(--bg-secondary); color: var(--accent); }
+    .state-table td select {
+      background: var(--bg-primary); border: 1px solid var(--border-color);
+      border-radius: 4px; color: var(--text-primary); padding: 0.25rem 0.4rem;
+      font-size: 0.88rem; width: 100%;
+    }
+    .resource-inputs { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .calc-btn-large {
+      display: inline-block; padding: 0.75rem 2.5rem;
+      background: var(--accent); color: var(--bg-primary);
+      border: none; border-radius: 6px; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .calc-btn-large:hover { background: var(--accent-hover); }
+
+    /* ── 結果區 ── */
+    .result-section { margin-top: 1.75rem; }
+    .result-section h3 { font-size: 1.1rem; color: var(--accent); margin-bottom: 1rem; }
+    .result-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color); font-size: 0.92rem; }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .r-label { color: var(--text-secondary); }
+    .result-row .r-value { font-weight: 600; color: var(--text-primary); }
+    .result-row .r-value.accent { color: var(--frost); }
+    .result-box { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.1rem 1.25rem; margin-bottom: 1rem; }
+    .verdict {
+      padding: 0.8rem 1.1rem; border-radius: 8px; font-size: 1rem; font-weight: 600; margin-top: 1rem;
+    }
+    .verdict.ok { background: rgba(74,222,128,0.1); border: 1px solid var(--success); color: var(--success); }
+    .verdict.warn { background: rgba(251,191,36,0.1); border: 1px solid var(--warning); color: var(--warning); }
+    .verdict.fail { background: rgba(248,113,113,0.1); border: 1px solid var(--danger); color: var(--danger); }
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .plan-card {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1rem 1.1rem;
+    }
+    .plan-card h4 { font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .plan-card h4.expected-head { color: var(--accent); }
+    .plan-card h4.worst-head { color: var(--warning); }
+    .plan-card .big-num { font-size: 1.4rem; font-weight: 700; color: var(--frost); }
+    .plan-card .sub-row { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.4rem; }
+    .hidden { display: none; }
+    @media (max-width: 640px) {
+      .plan-grid { grid-template-columns: 1fr; }
+      .refine-result-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="../index.html" class="site-logo">克菈莉絲的WOS筆記 <span>Whiteout Survival</span></a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">首頁</a></li>
+      <li><a href="../articles.html">攻略文章</a></li>
+      <li><a href="../calculators.html" class="active">計算工具</a></li>
+      <li><a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">官方Wiki ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../index.html">首頁</a> <span>›</span> <a href="../calculators.html">計算工具</a> <span>›</span> 火城升級計算機
+  </div>
+
+  <h1 style="font-size:1.6rem; color:var(--frost); margin-bottom:0.4rem;">火城升級計算機</h1>
+  <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+    資料來源：玩家 柑仔（momiji）整理｜資料支援：甜甜｜勘誤與前置確認：克菈莉絲
+  </p>
+
+  <!-- 分頁標籤 -->
+  <div class="calc-tabs">
+    <button class="calc-tab active" onclick="switchTab('refining', this)">精煉計算</button>
+    <button class="calc-tab" onclick="switchTab('planner', this)">升級規劃</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       Tab 1：精煉計算
+  ══════════════════════════════════════════════════ -->
+  <div id="tab-refining" class="tab-panel active">
+    <div class="calc-container" style="max-width:100%;">
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.25rem;">
+        每週可提煉最多 100 次。每天首次提煉享 5 折火晶費用，策略為第一天集中提煉，剩餘天每天 1 次。
+      </p>
+
+      <div class="calc-group" style="margin-bottom:0.5rem;">
+        <label style="font-size:0.95rem; color:var(--text-secondary);">本週提煉次數</label>
+      </div>
+      <div class="refine-controls">
+        <input type="range" class="refine-slider" id="refineSlider" min="1" max="100" value="20" oninput="syncRefine('slider')">
+        <input type="number" class="refine-number" id="refineNum" min="1" max="100" value="20" oninput="syncRefine('num')">
+        <span style="color:var(--text-muted); font-size:0.85rem;">次</span>
+        <!-- 快捷按鈕 -->
+        <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+          <button class="filter-btn" onclick="setRefine(20)">20</button>
+          <button class="filter-btn" onclick="setRefine(40)">40</button>
+          <button class="filter-btn" onclick="setRefine(60)">60</button>
+          <button class="filter-btn" onclick="setRefine(80)">80</button>
+          <button class="filter-btn" onclick="setRefine(100)">100</button>
+        </div>
+      </div>
+
+      <div class="refine-result-grid" id="refineResultGrid">
+        <div class="stat-card">
+          <div class="label">火晶消耗（含折扣）</div>
+          <div class="value" id="rCost">—</div>
+          <div class="sub" id="rDiscount"></div>
+        </div>
+        <div class="stat-card">
+          <div class="label">精煉火晶（期望值）</div>
+          <div class="value" id="rExpected">—</div>
+          <div class="sub">以平均機率推算</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">精煉火晶（最低值）</div>
+          <div class="value" id="rMin">—</div>
+          <div class="sub">每次都拿最低數量</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">每顆精煉火晶均攤成本</div>
+          <div class="value" id="rEfficiency">—</div>
+          <div class="sub">火晶 / 期望精煉火晶</div>
+        </div>
+      </div>
+
+      <table class="tier-table" id="tierTable">
+        <thead>
+          <tr>
+            <th>段落</th>
+            <th>次數</th>
+            <th>每次花費</th>
+            <th>小計（火晶）</th>
+            <th>期望 RFC</th>
+            <th>最低 RFC</th>
+          </tr>
+        </thead>
+        <tbody id="tierBody"></tbody>
+      </table>
+
+      <div class="tip-box" id="refineTip"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       Tab 2：升級規劃
+  ══════════════════════════════════════════════════ -->
+  <div id="tab-planner" class="tab-panel">
+    <div class="calc-container" style="max-width:100%;">
+
+      <!-- 目標設定 -->
+      <h3 style="color:var(--frost); margin-bottom:1rem;">目標設定</h3>
+      <div class="planner-settings">
+        <div class="calc-group">
+          <label>目標火城等級</label>
+          <select id="targetFC" onchange="rebuildStateTable()">
+            <option value="6">火城 6</option>
+            <option value="7">火城 7</option>
+            <option value="8" selected>火城 8</option>
+            <option value="9">火城 9</option>
+            <option value="10">火城 10</option>
+          </select>
+        </div>
+        <div class="calc-group">
+          <label>目標類型</label>
+          <select id="targetType" onchange="rebuildStateTable()">
+            <option value="三兵營">三兵營（盾+矛+弓）</option>
+            <option value="全建築">全建築</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 現況輸入 -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">目前建築狀態</h3>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:0.75rem;">
+        「目前等級」填入已完成的等級，「已做幾段」填入已完成的進度格數（0–4），每升一級共 5 格。
+      </p>
+      <div style="overflow-x:auto;">
+        <table class="state-table" id="stateTable">
+          <thead>
+            <tr>
+              <th>建築</th>
+              <th>目前等級</th>
+              <th>已做幾段<br><small style="font-weight:400; color:var(--text-muted);">（升到下一級的進度）</small></th>
+              <th>需升至</th>
+            </tr>
+          </thead>
+          <tbody id="stateBody"></tbody>
+        </table>
+      </div>
+
+      <!-- 資源輸入 -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">手上的資源</h3>
+      <div class="resource-inputs">
+        <div class="calc-group">
+          <label>現有火晶</label>
+          <input type="number" id="availFC" value="0" min="0" placeholder="0">
+        </div>
+        <div class="calc-group">
+          <label>現有精煉火晶（RFC）</label>
+          <input type="number" id="availRFC" value="0" min="0" placeholder="0">
+        </div>
+        <div class="calc-group">
+          <label>規劃週數</label>
+          <input type="number" id="availWeeks" value="4" min="1" max="52" placeholder="4">
+        </div>
+      </div>
+
+      <button class="calc-btn-large" onclick="calcPlanner()">計算路線</button>
+
+      <!-- 結果區 -->
+      <div id="plannerResult" class="hidden result-section">
+
+        <h3>升級所需資源</h3>
+        <div class="result-box" id="costBreakdown"></div>
+
+        <h3>資源缺口與精煉規劃</h3>
+        <div id="deficitSection"></div>
+
+        <div id="verdictDiv"></div>
+
+        <div id="refiningPlanSection" class="hidden">
+          <h3>最佳精煉路線（最省火晶）</h3>
+          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            以下為在限定週數內、火晶消耗最少的精煉策略。<br>
+            「期望值路線」以平均機率推算；「最低值路線」確保就算手氣最差也能達標。
+          </p>
+          <div class="plan-grid" id="planGrid"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 來源 -->
+  <div class="sources" style="margin-top:2rem;">
+    <h3>資料來源</h3>
+    <ul>
+      <li>升級費用表：玩家 柑仔（momiji）整理，資料支援：甜甜</li>
+      <li>精煉機率：遊戲內「機率展示」畫面（克菈莉絲截圖確認）</li>
+      <li>勘誤（戰爭學院 L6 總計、火九/火十漏算大使館）：克菈莉絲確認</li>
+    </ul>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>克菈莉絲的WOS筆記 — 本站為玩家自製攻略站，與官方無關</p>
+  <p style="margin-top:0.5rem;">
+    官方Wiki：<a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">中文版</a>
+    ｜ <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
+  </p>
+</footer>
+
+<script src="../data/fire-crystal-costs.js"></script>
+<script>
+// ────────────────────────────────────────────────
+//  分頁切換
+// ────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ────────────────────────────────────────────────
+//  精煉計算（Tab 1）
+// ────────────────────────────────────────────────
+const TIERS = [
+  { label: '第 1–20 次',   start: 1,  end: 20,  costPer: 20  },
+  { label: '第 21–40 次',  start: 21, end: 40,  costPer: 50  },
+  { label: '第 41–60 次',  start: 41, end: 60,  costPer: 100 },
+  { label: '第 61–80 次',  start: 61, end: 80,  costPer: 130 },
+  { label: '第 81–100 次', start: 81, end: 100, costPer: 160 },
+];
+
+function getTierCost(n) {
+  for (const t of TIERS) if (n <= t.end) return t.costPer;
+  return 160;
+}
+
+function calcRefining(total) {
+  const data = window.FIRE_CRYSTAL_DATA.refiningRates;
+  let fullCost = 0, expRFC = 0, minRFC = 0;
+  const breakdown = [];
+
+  for (let i = 0; i < TIERS.length; i++) {
+    const t = TIERS[i];
+    const d = data[i];
+    if (t.start > total) { breakdown.push({ ...t, count: 0, fullCost: 0, expRFC: 0, minRFC: 0 }); continue; }
+    const count = Math.min(total, t.end) - t.start + 1;
+    const tierFull = count * t.costPer;
+    const tierExp = count * d.每次期望RFC;
+    const tierMin = count * d.RFC產出範圍[0];
+    fullCost += tierFull; expRFC += tierExp; minRFC += tierMin;
+    breakdown.push({ ...t, count, fullCost: tierFull, expRFC: tierExp, minRFC: tierMin });
+  }
+
+  // 折扣：第一天第 1 次（最便宜），第 2~7 天各 1 次（最後 6 次，盡量用最貴段落）
+  let savings = getTierCost(1) * 0.5;
+  const lastCount = Math.min(6, total - 1);
+  for (let i = 0; i < lastCount; i++) savings += getTierCost(total - i) * 0.5;
+  savings = Math.round(savings);
+
+  return { fullCost, savings, netCost: fullCost - savings,
+    expRFC: Math.round(expRFC * 10) / 10, minRFC, breakdown };
+}
+
+function syncRefine(from) {
+  const s = document.getElementById('refineSlider');
+  const n = document.getElementById('refineNum');
+  if (from === 'slider') n.value = s.value;
+  else { let v = Math.max(1, Math.min(100, parseInt(n.value) || 1)); n.value = v; s.value = v; }
+  updateRefineDisplay(parseInt(s.value));
+}
+
+function setRefine(v) {
+  document.getElementById('refineSlider').value = v;
+  document.getElementById('refineNum').value = v;
+  updateRefineDisplay(v);
+}
+
+function updateRefineDisplay(total) {
+  const r = calcRefining(total);
+  document.getElementById('rCost').textContent = r.netCost.toLocaleString();
+  document.getElementById('rDiscount').textContent = `省了 ${r.savings} 顆火晶（每日折扣）`;
+  document.getElementById('rExpected').textContent = r.expRFC.toLocaleString();
+  document.getElementById('rMin').textContent = r.minRFC.toLocaleString();
+  document.getElementById('rEfficiency').textContent =
+    r.expRFC > 0 ? (r.netCost / r.expRFC).toFixed(1) : '—';
+
+  // 段落明細表
+  const tbody = document.getElementById('tierBody');
+  tbody.innerHTML = '';
+  let totalExp = 0, totalMin = 0, totalCost = 0;
+  for (const t of r.breakdown) {
+    if (t.count === 0) continue;
+    totalExp += t.expRFC; totalMin += t.minRFC; totalCost += t.fullCost;
+    const tr = document.createElement('tr');
+    tr.className = 'active-tier';
+    tr.innerHTML = `<td>${t.label}</td><td>${t.count}</td><td>${t.costPer}</td>
+      <td>${t.fullCost.toLocaleString()}</td>
+      <td>${t.expRFC.toFixed(1)}</td><td>${t.minRFC}</td>`;
+    tbody.appendChild(tr);
+  }
+  const totRow = document.createElement('tr');
+  totRow.className = 'total-row';
+  totRow.innerHTML = `<td>合計</td><td>${total}</td><td>—</td>
+    <td>${r.netCost.toLocaleString()} <small style="color:var(--text-muted)">（折扣後）</small></td>
+    <td>${r.expRFC}</td><td>${r.minRFC}</td>`;
+  tbody.appendChild(totRow);
+
+  // 策略提示
+  const day1 = Math.max(1, total - Math.min(6, total - 1));
+  const restDays = total - day1;
+  document.getElementById('refineTip').innerHTML =
+    `<strong>建議策略：</strong>第一天提煉 <strong>${day1}</strong> 次，` +
+    (restDays > 0 ? `之後每天 1 次（共 ${restDays} 天）。` : '當天完成即可。') +
+    `<br>這樣可以讓每日折扣發揮在最貴的段落上，省最多火晶。`;
+}
+
+// ────────────────────────────────────────────────
+//  升級規劃（Tab 2）
+// ────────────────────────────────────────────────
+const THREE_BARRACKS = ['熔爐', '大使館', '盾兵營', '矛兵營', '弓兵營'];
+const ALL_BUILDINGS  = ['熔爐', '大使館', '指揮部', '盾兵營', '矛兵營', '弓兵營', '軍醫所', '戰爭學院'];
+
+function getRequiredLevels(targetFC, targetType) {
+  const prereqs = window.FIRE_CRYSTAL_DATA.furnacePrerequisites;
+  const req = {};
+  for (let fc = 6; fc <= targetFC; fc++) {
+    const p = prereqs[fc] || {};
+    for (const [b, l] of Object.entries(p)) req[b] = Math.max(req[b] || 0, l);
+  }
+  req['熔爐'] = targetFC;
+  const barracks = ['盾兵營', '矛兵營', '弓兵營'];
+  if (targetType === '三兵營' || targetType === '全建築')
+    barracks.forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+  if (targetType === '全建築')
+    ['指揮部', '軍醫所', '戰爭學院'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+  return req;
+}
+
+function rebuildStateTable() {
+  const targetFC = parseInt(document.getElementById('targetFC').value);
+  const targetType = document.getElementById('targetType').value;
+  const req = getRequiredLevels(targetFC, targetType);
+  const buildings = targetType === '全建築' ? ALL_BUILDINGS : THREE_BARRACKS;
+  const body = document.getElementById('stateBody');
+  body.innerHTML = '';
+  for (const b of buildings) {
+    const reqLv = req[b] || targetFC;
+    const maxCurrent = reqLv - 1 <= 0 ? 0 : reqLv;
+    let lvOpts = '';
+    for (let i = 0; i <= 9; i++) lvOpts += `<option value="${i}" ${i === 5 ? 'selected' : ''}>${i}</option>`;
+    let segOpts = '';
+    for (let i = 0; i <= 4; i++) segOpts += `<option value="${i}">第 ${i} 段</option>`;
+    const tr = document.createElement('tr');
+    tr.dataset.building = b;
+    tr.innerHTML = `<td>${b}</td>
+      <td><select class="lv-sel" data-b="${b}">${lvOpts}</select></td>
+      <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
+      <td style="color:var(--accent); font-weight:600;">L${reqLv}</td>`;
+    body.appendChild(tr);
+  }
+}
+
+function calcBuildingCost(building, currentLv, segsDone, targetLv) {
+  if (currentLv >= targetLv) return { fc: 0, rfc: 0 };
+  const costs = window.FIRE_CRYSTAL_DATA.perBuildingCost[building] || {};
+  let fc = 0, rfc = 0;
+  const firstUpLv = currentLv + 1;
+  if (firstUpLv <= targetLv) {
+    const c = costs[firstUpLv] || {};
+    if (segsDone > 0) {
+      const segsLeft = 5 - segsDone;
+      fc += Math.round((c.火晶 || 0) * segsLeft / 5);
+      rfc += Math.round((c.精煉火晶 || 0) * segsLeft / 5);
+    } else {
+      fc += c.火晶 || 0;
+      rfc += c.精煉火晶 || 0;
+    }
+  }
+  for (let l = firstUpLv + 1; l <= targetLv; l++) {
+    const c = costs[l] || {};
+    fc += c.火晶 || 0;
+    rfc += c.精煉火晶 || 0;
+  }
+  return { fc, rfc };
+}
+
+// 找到在 N 週內最省火晶達到 targetRFC 的每週提煉次數
+function findMinRefinesForRFC(targetRFC, weeks, useMin) {
+  if (targetRFC <= 0) return { k: 0, weekCost: 0, rfcPerWeek: 0 };
+  const data = window.FIRE_CRYSTAL_DATA.refiningRates;
+  let cumExp = 0, cumMin = 0;
+  for (let k = 1; k <= 100; k++) {
+    const tIdx = k <= 20 ? 0 : k <= 40 ? 1 : k <= 60 ? 2 : k <= 80 ? 3 : 4;
+    cumExp += data[tIdx].每次期望RFC;
+    cumMin += data[tIdx].RFC產出範圍[0];
+    const perWeek = useMin ? cumMin : cumExp;
+    if (perWeek * weeks >= targetRFC) {
+      const r = calcRefining(k);
+      return { k, weekCost: r.netCost, rfcPerWeek: parseFloat(perWeek.toFixed(2)), totalCost: r.netCost * weeks };
+    }
+  }
+  return null; // 100次/週也不夠
+}
+
+function calcPlanner() {
+  const targetFC = parseInt(document.getElementById('targetFC').value);
+  const targetType = document.getElementById('targetType').value;
+  const req = getRequiredLevels(targetFC, targetType);
+  const availFC = parseInt(document.getElementById('availFC').value) || 0;
+  const availRFC = parseInt(document.getElementById('availRFC').value) || 0;
+  const weeks = parseInt(document.getElementById('availWeeks').value) || 4;
+
+  // 計算升級總費用
+  let totalFC = 0, totalRFC = 0;
+  const rows = document.querySelectorAll('#stateBody tr');
+  const buildingDetails = [];
+  for (const row of rows) {
+    const b = row.dataset.building;
+    const lv = parseInt(row.querySelector('.lv-sel').value);
+    const seg = parseInt(row.querySelector('.seg-sel').value);
+    const tgt = req[b] || targetFC;
+    const cost = calcBuildingCost(b, lv, seg, tgt);
+    totalFC += cost.fc;
+    totalRFC += cost.rfc;
+    if (cost.fc > 0 || cost.rfc > 0)
+      buildingDetails.push({ b, lv, seg, tgt, fc: cost.fc, rfc: cost.rfc });
+  }
+
+  // 費用明細
+  let costHTML = `<div class="result-row"><span class="r-label">建築升級需要火晶</span><span class="r-value accent">${totalFC.toLocaleString()} 顆</span></div>
+    <div class="result-row"><span class="r-label">建築升級需要精煉火晶（RFC）</span><span class="r-value accent">${totalRFC.toLocaleString()} 顆</span></div>`;
+  if (buildingDetails.length > 0) {
+    costHTML += `<div style="margin-top:0.75rem; font-size:0.82rem; color:var(--text-muted);">各建築明細：</div>`;
+    for (const d of buildingDetails) {
+      costHTML += `<div class="result-row" style="font-size:0.85rem;">
+        <span class="r-label">${d.b}（L${d.lv}${d.seg > 0 ? '+'+d.seg+'段' : ''} → L${d.tgt}）</span>
+        <span class="r-value">${d.fc.toLocaleString()} 火晶${d.rfc > 0 ? `｜${d.rfc} RFC` : ''}</span>
+      </div>`;
+    }
+  }
+  document.getElementById('costBreakdown').innerHTML = costHTML;
+
+  // 資源缺口
+  const fcDeficit = Math.max(0, totalFC - availFC);
+  const rfcDeficit = Math.max(0, totalRFC - availRFC);
+  let defHTML = `<div class="result-box">
+    <div class="result-row"><span class="r-label">手上火晶</span><span class="r-value">${availFC.toLocaleString()} 顆</span></div>
+    <div class="result-row"><span class="r-label">手上 RFC</span><span class="r-value">${availRFC.toLocaleString()} 顆</span></div>
+    <div class="result-row"><span class="r-label">火晶缺口</span><span class="r-value ${fcDeficit > 0 ? 'fail' : ''}" style="color:${fcDeficit > 0 ? 'var(--danger)' : 'var(--success)'}">${fcDeficit > 0 ? '缺 '+fcDeficit.toLocaleString()+' 顆' : '足夠 ✓'}</span></div>
+    <div class="result-row"><span class="r-label">RFC 缺口</span><span class="r-value" style="color:${rfcDeficit > 0 ? 'var(--warning)' : 'var(--success)'}">${rfcDeficit > 0 ? '缺 '+rfcDeficit.toLocaleString()+' 顆（需透過提煉補足）' : '足夠 ✓'}</span></div>
+  </div>`;
+  document.getElementById('deficitSection').innerHTML = defHTML;
+
+  // 精煉規劃
+  const planSection = document.getElementById('refiningPlanSection');
+  const planGrid = document.getElementById('planGrid');
+  planGrid.innerHTML = '';
+
+  let verdictClass = 'ok', verdictText = '✓ 資源足夠，目標可達！';
+
+  if (rfcDeficit > 0) {
+    planSection.classList.remove('hidden');
+    const planExp = findMinRefinesForRFC(rfcDeficit, weeks, false);
+    const planMin = findMinRefinesForRFC(rfcDeficit, weeks, true);
+
+    function planCard(plan, label, headClass, desc) {
+      if (!plan) return `<div class="plan-card"><h4 class="${headClass}">${label}</h4><p style="color:var(--danger)">100次/週仍不足，需延長週數</p></div>`;
+      const totalNeeded = totalFC + plan.totalCost;
+      const totalFCOK = totalNeeded <= availFC;
+      return `<div class="plan-card">
+        <h4 class="${headClass}">${label}</h4>
+        <div class="big-num">每週 ${plan.k} 次</div>
+        <div class="sub-row">每週獲得 ${plan.rfcPerWeek} RFC（${desc}）</div>
+        <div class="sub-row">${weeks} 週共提煉：約 ${Math.round(plan.rfcPerWeek * weeks)} RFC</div>
+        <div class="sub-row">提煉花費：${plan.weekCost.toLocaleString()} 火晶/週 × ${weeks} 週 = <strong>${plan.totalCost.toLocaleString()}</strong> 火晶</div>
+        <div class="sub-row" style="margin-top:0.5rem; color:${totalFCOK ? 'var(--success)' : 'var(--danger)'}">
+          火晶合計（升級＋提煉）：${totalNeeded.toLocaleString()} 顆 ${totalFCOK ? '≤ 手上數量 ✓' : '> 手上 '+availFC.toLocaleString()+' ✗'}
+        </div>
+      </div>`;
+    }
+
+    planGrid.innerHTML =
+      planCard(planExp, '期望值路線', 'expected-head', '以平均機率') +
+      planCard(planMin, '最低值路線（手氣差也達標）', 'worst-head', '每次都拿最低');
+
+    const expFeasible = planExp && (totalFC + planExp.totalCost) <= availFC;
+    const minFeasible = planMin && (totalFC + planMin.totalCost) <= availFC;
+
+    if (!planExp && !planMin) {
+      verdictClass = 'fail';
+      verdictText = '✗ 在 ' + weeks + ' 週內無法達成（即使每週滿提煉 100 次，RFC 仍不足）。請延長週數或增加起始 RFC。';
+    } else if (minFeasible) {
+      verdictClass = 'ok';
+      verdictText = '✓ 就算手氣最差，' + weeks + ' 週內也能達成目標！';
+    } else if (expFeasible) {
+      verdictClass = 'warn';
+      verdictText = '△ 期望值路線可行，但若手氣不佳可能來不及。建議備多一點緩衝週數。';
+    } else {
+      verdictClass = 'fail';
+      verdictText = '✗ RFC 可透過提煉補足，但火晶總量（升級＋提煉）超過手上數量。需要更多火晶。';
+    }
+  } else if (fcDeficit > 0) {
+    verdictClass = 'fail';
+    verdictText = '✗ RFC 足夠，但火晶不足 ' + fcDeficit.toLocaleString() + ' 顆，需先補充火晶。';
+    planSection.classList.add('hidden');
+  } else {
+    planSection.classList.add('hidden');
+  }
+
+  document.getElementById('verdictDiv').innerHTML =
+    `<div class="verdict ${verdictClass}">${verdictText}</div>`;
+
+  document.getElementById('plannerResult').classList.remove('hidden');
+  document.getElementById('plannerResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── 初始化 ──
+window.addEventListener('load', () => {
+  rebuildStateTable();
+  updateRefineDisplay(20);
+});
+</script>
+</body>
+</html>
