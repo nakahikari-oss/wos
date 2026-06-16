@@ -115,6 +115,87 @@
       .plan-grid { grid-template-columns: 1fr; }
       .refine-result-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ── 機率參照表（折疊式）── */
+    .prob-reference {
+      margin-top: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .prob-reference summary {
+      padding: 0.85rem 1.15rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--accent);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      background: var(--bg-secondary);
+    }
+    .prob-reference summary::-webkit-details-marker { display: none; }
+    .prob-reference summary::before {
+      content: "▶";
+      font-size: 0.7rem;
+      display: inline-block;
+      margin-right: 0.5rem;
+      transition: transform 0.2s;
+    }
+    .prob-reference[open] summary::before { transform: rotate(90deg); }
+    .prob-reference-content { padding: 1.1rem 1.25rem; }
+    .prob-note {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1.1rem;
+      line-height: 1.55;
+    }
+    .prob-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 0.9rem;
+    }
+    .prob-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+    }
+    .prob-card h4 {
+      color: var(--frost);
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .prob-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--border-color);
+    }
+    .prob-meta strong { color: var(--text-primary); }
+    .prob-rows { display: flex; flex-direction: column; gap: 0.32rem; }
+    .prob-row {
+      display: grid;
+      grid-template-columns: 3rem 1fr 3rem;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+    }
+    .prob-count { color: var(--text-secondary); }
+    .prob-bar-wrap {
+      height: 7px;
+      background: var(--bg-card-hover);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .prob-bar {
+      display: block; height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--frost));
+      border-radius: 4px;
+    }
+    .prob-pct { color: var(--text-primary); font-weight: 600; text-align: right; }
   </style>
 </head>
 <body>
@@ -211,6 +292,14 @@
       </table>
 
       <div class="tip-box" id="refineTip"></div>
+
+      <details class="prob-reference">
+        <summary>查看完整機率表（資料庫對照）</summary>
+        <div class="prob-reference-content">
+          <p class="prob-note">下表為遊戲內機率展示畫面的資料整理。計算機所有期望值、最低值都是根據這份資料推算 — 想驗證或自己手算可以對照這裡的機率分布。</p>
+          <div class="prob-grid" id="probRefGrid"></div>
+        </div>
+      </details>
     </div>
   </div>
 
@@ -956,11 +1045,39 @@ function calcPlanner() {
   document.getElementById('plannerResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ── 機率參照表（折疊式） ──
+function fmtPct(p) {
+  return (p * 100).toFixed(1).replace(/\.0$/, '') + '%';
+}
+function renderProbabilityReference() {
+  const grid = document.getElementById('probRefGrid');
+  if (!grid) return;
+  const tiers = window.FIRE_CRYSTAL_DATA.refiningRates;
+  grid.innerHTML = '';
+  for (const tier of tiers) {
+    const card = document.createElement('div');
+    card.className = 'prob-card';
+    let rows = '';
+    for (const [count, prob] of Object.entries(tier.機率)) {
+      rows += `<div class="prob-row">
+        <span class="prob-count">${count} 顆</span>
+        <span class="prob-bar-wrap"><span class="prob-bar" style="width:${prob*100}%"></span></span>
+        <span class="prob-pct">${fmtPct(prob)}</span>
+      </div>`;
+    }
+    card.innerHTML = `<h4>${tier.段落}</h4>
+      <div class="prob-meta">每次 <strong>${tier.每次花費火晶}</strong> 火晶 · 期望 <strong>${tier.每次期望RFC}</strong> RFC</div>
+      <div class="prob-rows">${rows}</div>`;
+    grid.appendChild(card);
+  }
+}
+
 // ── 初始化 ──
 window.addEventListener('load', () => {
   rebuildStateTable();
   updateRefineDisplay(20);
   updateSpeedSummary();
+  renderProbabilityReference();
 });
 </script>
 </body>
