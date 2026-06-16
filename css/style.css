@@ -6,21 +6,22 @@
 }
 
 :root {
-  --bg-primary: #0b1120;
-  --bg-secondary: #111827;
-  --bg-card: #1a2332;
-  --bg-card-hover: #1f2d42;
-  --border-color: #2a3a50;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
+  /* 主題：🅴 霜白晴空＋（淺色 + 飽和冰青強調） */
+  --bg-primary: #f0f9ff;
+  --bg-secondary: #e0f2fe;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --border-color: #7dd3fc;
+  --text-primary: #0c4a6e;
+  --text-secondary: #334155;
   --text-muted: #64748b;
-  --accent: #38bdf8;
-  --accent-hover: #7dd3fc;
-  --accent-dim: #0c4a6e;
-  --frost: #a5f3fc;
-  --danger: #f87171;
-  --success: #4ade80;
-  --warning: #fbbf24;
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+  --accent-dim: #bae6fd;
+  --frost: #0891b2;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --warning: #d97706;
 }
 
 body {
