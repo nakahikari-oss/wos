@@ -72,6 +72,40 @@
 |---|---|---|
 | _（待補）_ | | |
 
+## 資源 / Resources
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 火晶 | Fire Crystal | 縮寫 FC |
+| 精煉火晶 | Refined Fire Crystal | 縮寫 RFC；由火晶提煉而來 |
+
+## 英雄與專家 / Heroes & Experts
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 津曼 | Zinman | 英雄名 |
+| 建築藝術 | Bastionist | 津曼的技能名。⚠️ 曾誤拼為 bastionlist |
+| 艾格妮絲 | Agnes | 專家名 |
+| 工程管理 | Project Management | 艾格妮絲的技能名；每次建造減少若干小時 |
+
+## 寵物 / Pets
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 洞斑鬣狗 | Cave Hyena | 建設類寵物 |
+| 建設助手 | Builder's Aide | 洞斑鬣狗的技能名；提升建造速度 % |
+
+## 領主技能與指令 / Governor Skills & Chief Orders
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 執政官 | Governor | 聯盟職位 |
+| 重商主義 | Mercantilism | 執政官技能；建造速度 +10% |
+| 副執政官 | Vice President | 聯盟職位；建造速度 +10% |
+| 指令 | Chief Order | 特殊增益指令的類型名稱 |
+| 加速建造 | Double Time | 指令名稱；縮短建造時間 20% |
+| 晨曦島 | Daybreak Island | 提供建造速度加成的地點／系統 |
+
 ## 道具 / Items
 
 | 中文 | English | 備註 |

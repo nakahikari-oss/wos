@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Furnace Upgrade Calculator — Clarice's WOS Notes</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .calc-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .calc-tab {
+      padding: 0.55rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: none;
+    }
+    .calc-tab.active { background: var(--bg-secondary); color: var(--frost); border-color: var(--accent-dim); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Refining Tab ── */
+    .refine-controls { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .refine-slider { flex: 1; min-width: 200px; accent-color: var(--accent); }
+    .refine-number {
+      width: 70px; padding: 0.45rem 0.6rem;
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 6px; color: var(--text-primary); font-size: 1rem; text-align: center;
+    }
+    .refine-result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .stat-card {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1rem 1.25rem;
+    }
+    .stat-card .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .stat-card .value { font-size: 1.6rem; font-weight: 700; color: var(--frost); }
+    .stat-card .sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .tier-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 1.25rem; }
+    .tier-table th, .tier-table td { border: 1px solid var(--border-color); padding: 0.5rem 0.8rem; text-align: right; }
+    .tier-table th { background: var(--bg-secondary); color: var(--accent); text-align: center; }
+    .tier-table td:first-child { text-align: left; }
+    .tier-table tr.total-row td { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+    .tier-table .active-tier { background: rgba(56,189,248,0.06); }
+    .tip-box {
+      margin-top: 1.25rem; padding: 0.75rem 1rem;
+      background: rgba(56,189,248,0.05); border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0; font-size: 0.87rem; color: var(--text-secondary);
+    }
+
+    /* ── Upgrade Planner Tab ── */
+    .planner-settings { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .planner-settings .calc-group { flex: 1; min-width: 160px; }
+    .state-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .state-table th, .state-table td { border: 1px solid var(--border-color); padding: 0.5rem 0.8rem; }
+    .state-table th { background: var(--bg-secondary); color: var(--accent); }
+    .state-table td select {
+      background: var(--bg-primary); border: 1px solid var(--border-color);
+      border-radius: 4px; color: var(--text-primary); padding: 0.25rem 0.4rem;
+      font-size: 0.88rem; width: 100%;
+    }
+    .resource-inputs { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .calc-btn-large {
+      display: inline-block; padding: 0.75rem 2.5rem;
+      background: var(--accent); color: var(--bg-primary);
+      border: none; border-radius: 6px; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .calc-btn-large:hover { background: var(--accent-hover); }
+
+    /* ── Results ── */
+    .result-section { margin-top: 1.75rem; }
+    .result-section h3 { font-size: 1.1rem; color: var(--accent); margin-bottom: 1rem; }
+    .result-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color); font-size: 0.92rem; }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .r-label { color: var(--text-secondary); }
+    .result-row .r-value { font-weight: 600; color: var(--text-primary); }
+    .result-row .r-value.accent { color: var(--frost); }
+    .result-box { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.1rem 1.25rem; margin-bottom: 1rem; }
+    .verdict {
+      padding: 0.8rem 1.1rem; border-radius: 8px; font-size: 1rem; font-weight: 600; margin-top: 1rem;
+    }
+    .verdict.ok { background: rgba(74,222,128,0.1); border: 1px solid var(--success); color: var(--success); }
+    .verdict.warn { background: rgba(251,191,36,0.1); border: 1px solid var(--warning); color: var(--warning); }
+    .verdict.fail { background: rgba(248,113,113,0.1); border: 1px solid var(--danger); color: var(--danger); }
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .plan-card {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1rem 1.1rem;
+    }
+    .plan-card h4 { font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .plan-card h4.expected-head { color: var(--accent); }
+    .plan-card h4.worst-head { color: var(--warning); }
+    .plan-card .big-num { font-size: 1.4rem; font-weight: 700; color: var(--frost); }
+    .plan-card .sub-row { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.4rem; }
+    .hidden { display: none; }
+    .speed-inputs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .pct-input { display: flex; align-items: center; gap: 0.4rem; }
+    .pct-input input { flex: 1; }
+    .pct-input span { color: var(--text-muted); white-space: nowrap; }
+    .speed-total-bar {
+      padding: 0.6rem 1rem;
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: 6px; font-size: 0.95rem; margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+    .speed-total-bar strong { color: var(--frost); }
+    .speed-check-group { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .speed-check-label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-secondary); font-size: 0.9rem; flex: 1; }
+    .speed-check-label input[type="checkbox"] { width: 1rem; height: 1rem; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+    .speed-fixed-badge { font-size: 0.82rem; color: var(--frost); font-weight: 600; white-space: nowrap; background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.25); border-radius: 4px; padding: 0.15rem 0.5rem; }
+    @media (max-width: 640px) {
+      .plan-grid { grid-template-columns: 1fr; }
+      .refine-result-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Probability Reference (collapsible) ── */
+    .prob-reference {
+      margin-top: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .prob-reference summary {
+      padding: 0.85rem 1.15rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--accent);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      background: var(--bg-secondary);
+    }
+    .prob-reference summary::-webkit-details-marker { display: none; }
+    .prob-reference summary::before {
+      content: "▶";
+      font-size: 0.7rem;
+      display: inline-block;
+      margin-right: 0.5rem;
+      transition: transform 0.2s;
+    }
+    .prob-reference[open] summary::before { transform: rotate(90deg); }
+    .prob-reference-content { padding: 1.1rem 1.25rem; }
+    .prob-note {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1.1rem;
+      line-height: 1.55;
+    }
+    .prob-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 0.9rem;
+    }
+    .prob-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+    }
+    .prob-card h4 {
+      color: var(--frost);
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .prob-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--border-color);
+    }
+    .prob-meta strong { color: var(--text-primary); }
+    .prob-rows { display: flex; flex-direction: column; gap: 0.32rem; }
+    .prob-row {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr 3rem;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+    }
+    .prob-count { color: var(--text-secondary); }
+    .prob-bar-wrap {
+      height: 7px;
+      background: var(--bg-card-hover);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .prob-bar {
+      display: block; height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--frost));
+      border-radius: 4px;
+    }
+    .prob-pct { color: var(--text-primary); font-weight: 600; text-align: right; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="../index.html" class="site-logo">Clarice's WOS Notes <span>Whiteout Survival</span></a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../articles.html">Guides</a></li>
+      <li><a href="../calculators.html" class="active">Calculators</a></li>
+      <li><a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">Official Wiki ↗</a></li>
+      <li><a href="../../calculators/fire-crystal-buildings.html" class="lang-switch">中文</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a> <span>›</span>
+    <a href="../calculators.html">Calculators</a> <span>›</span>
+    Furnace Upgrade Calculator
+  </div>
+
+  <h1 style="font-size:1.6rem; color:var(--frost); margin-bottom:0.2rem;">Furnace Upgrade Calculator</h1>
+  <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">For Fire Crystal buildings at level 5 and above</p>
+
+  <!-- Tab Buttons -->
+  <div class="calc-tabs">
+    <button class="calc-tab active" onclick="switchTab('refining', this)">Refining</button>
+    <button class="calc-tab" onclick="switchTab('planner', this)">Upgrade Planner</button>
+    <button class="calc-tab" onclick="switchTab('refcards', this)">Quick Reference</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       Tab 1: Refining Calculator
+  ══════════════════════════════════════════════════ -->
+  <div id="tab-refining" class="tab-panel active">
+    <div class="calc-container" style="max-width:100%;">
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.25rem;">
+        You can refine up to 100 times per week. The first refine each day costs only half price — the optimal strategy is to batch most refines on Day 1 and do one per day afterward.
+      </p>
+
+      <div class="calc-group" style="margin-bottom:0.5rem;">
+        <label style="font-size:0.95rem; color:var(--text-secondary);">Refines This Week</label>
+      </div>
+      <div class="refine-controls">
+        <input type="range" class="refine-slider" id="refineSlider" min="1" max="100" value="20" oninput="syncRefine('slider')">
+        <input type="number" class="refine-number" id="refineNum" min="1" max="100" value="20" oninput="syncRefine('num')">
+        <span style="color:var(--text-muted); font-size:0.85rem;">times</span>
+        <!-- Quick-pick buttons (format: Day 1 batch + remaining days × 1) -->
+        <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+          <button class="filter-btn" onclick="setRefine(20)">14+6</button>
+          <button class="filter-btn" onclick="setRefine(26)">20+6</button>
+          <button class="filter-btn" onclick="setRefine(46)">40+6</button>
+          <button class="filter-btn" onclick="setRefine(66)">60+6</button>
+          <button class="filter-btn" onclick="setRefine(86)">80+6</button>
+          <button class="filter-btn" onclick="setRefine(100)">94+6</button>
+        </div>
+      </div>
+
+      <div class="refine-result-grid" id="refineResultGrid">
+        <div class="stat-card">
+          <div class="label">Fire Crystal Cost (with discount)</div>
+          <div class="value" id="rCost">—</div>
+          <div class="sub" id="rDiscount"></div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Refined Fire Crystal — Expected</div>
+          <div class="value" id="rExpected">—</div>
+          <div class="sub">based on average odds</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Refined Fire Crystal — Minimum</div>
+          <div class="value" id="rMin">—</div>
+          <div class="sub">worst-case every refine</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Cost per RFC</div>
+          <div class="value" id="rEfficiency">—</div>
+          <div class="sub">FC ÷ expected RFC</div>
+        </div>
+      </div>
+
+      <table class="tier-table" id="tierTable">
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Count</th>
+            <th>FC/Refine</th>
+            <th>Subtotal (FC)</th>
+            <th>Exp. RFC</th>
+            <th>Min RFC</th>
+          </tr>
+        </thead>
+        <tbody id="tierBody"></tbody>
+      </table>
+
+      <div class="tip-box" id="refineTip"></div>
+
+      <details class="prob-reference">
+        <summary>View Full Probability Table</summary>
+        <div class="prob-reference-content">
+          <p class="prob-note">The table below shows the in-game drop rates. All expected and minimum values in this calculator are derived from this data — use it to verify or do your own math.</p>
+          <div class="prob-grid" id="probRefGrid"></div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       Tab 2: Upgrade Planner
+  ══════════════════════════════════════════════════ -->
+  <div id="tab-planner" class="tab-panel">
+    <div class="calc-container" style="max-width:100%;">
+
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.25rem;">
+        Wondering "do I have enough Fire Crystals to reach Furnace 10?" or "how many more weeks do I need?" Enter your target and current resources — the calculator will tell you how many FC/RFC you need, the optimal weekly refine count, and an estimated timeline.
+      </p>
+
+      <!-- Target Settings -->
+      <h3 style="color:var(--frost); margin-bottom:1rem;">Target Settings</h3>
+      <div class="planner-settings">
+        <div class="calc-group" id="targetFCGroup">
+          <label>Target Furnace Level</label>
+          <select id="targetFC" onchange="rebuildStateTable()">
+            <option value="6">Furnace 6</option>
+            <option value="7">Furnace 7</option>
+            <option value="8" selected>Furnace 8</option>
+            <option value="9">Furnace 9</option>
+            <option value="10">Furnace 10</option>
+          </select>
+        </div>
+        <div class="calc-group">
+          <label>Target Type</label>
+          <select id="targetType" onchange="rebuildStateTable()">
+            <option value="三兵營">3 Barracks (Infantry + Lancer + Marksmen)</option>
+            <option value="全建築">All Buildings</option>
+            <option value="自訂">Custom</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Current Building State -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">Current Building State</h3>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:0.75rem;">
+        "Current Level" is the level you have already completed. "Segments Done" is your progress toward the next level (0–4 out of 5 segments per level).
+      </p>
+      <div style="overflow-x:auto;">
+        <table class="state-table" id="stateTable">
+          <thead>
+            <tr>
+              <th>Building</th>
+              <th>Current Level</th>
+              <th>Segments Done<br><small style="font-weight:400; color:var(--text-muted);">(progress to next level)</small></th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody id="stateBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Available Resources -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">Available Resources</h3>
+      <div class="resource-inputs">
+        <div class="calc-group">
+          <label>Fire Crystals on Hand</label>
+          <input type="number" id="availFC" value="0" min="0" placeholder="0">
+        </div>
+        <div class="calc-group">
+          <label>Refined Fire Crystals (RFC) on Hand</label>
+          <input type="number" id="availRFC" value="0" min="0" placeholder="0">
+        </div>
+        <div class="calc-group">
+          <label>Weeks to Plan</label>
+          <input type="number" id="availWeeks" value="4" min="1" max="52" placeholder="4">
+        </div>
+      </div>
+
+      <!-- Construction Speed Buffs -->
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">Construction Speed Buffs</h3>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:0.75rem;">
+        All buffs are pre-set to maximum. Adjust as needed for your actual setup.
+      </p>
+      <div class="speed-inputs">
+        <div class="calc-group speed-check-group">
+          <label class="speed-check-label">
+            <input type="checkbox" id="spMerc" checked onchange="updateSpeedSummary()">
+            Governor "Mercantilism"
+          </label>
+          <span class="speed-fixed-badge">+10%</span>
+        </div>
+        <div class="calc-group speed-check-group">
+          <label class="speed-check-label">
+            <input type="checkbox" id="spViceGov" checked onchange="updateSpeedSummary()">
+            Vice President
+          </label>
+          <span class="speed-fixed-badge">+10%</span>
+        </div>
+        <div class="calc-group speed-check-group">
+          <label class="speed-check-label">
+            <input type="checkbox" id="spCommand" checked onchange="updateSpeedSummary()">
+            Chief Order "Double Time"
+          </label>
+          <span class="speed-fixed-badge">−20% build time</span>
+        </div>
+        <div class="calc-group">
+          <label>Cave Hyena "Builder's Aide"</label>
+          <select id="spHyena" onchange="updateSpeedSummary()">
+            <option value="0">Not used</option>
+            <option value="1">Lv 1 (+5%)</option>
+            <option value="2">Lv 2 (+7%)</option>
+            <option value="3">Lv 3 (+9%)</option>
+            <option value="4">Lv 4 (+12%)</option>
+            <option value="5" selected>Lv 5 (+15%)</option>
+          </select>
+        </div>
+        <div class="calc-group">
+          <label>Hero Zinman "Bastionist"</label>
+          <select id="spZinman" onchange="updateSpeedSummary()">
+            <option value="0">Not used</option>
+            <option value="1">Lv 1 (+3%)</option>
+            <option value="2">Lv 2 (+6%)</option>
+            <option value="3">Lv 3 (+9%)</option>
+            <option value="4">Lv 4 (+12%)</option>
+            <option value="5" selected>Lv 5 (+15%)</option>
+          </select>
+        </div>
+        <div class="calc-group">
+          <label>Expert Agnes "Project Management"</label>
+          <select id="spAgnes" onchange="updateSpeedSummary()">
+            <option value="0">Not used</option>
+            <option value="1">Lv 1 (−2 hrs/build)</option>
+            <option value="2">Lv 2 (−3 hrs/build)</option>
+            <option value="3">Lv 3 (−4 hrs/build)</option>
+            <option value="4">Lv 4 (−6 hrs/build)</option>
+            <option value="5" selected>Lv 5 (−8 hrs/build)</option>
+          </select>
+        </div>
+        <div class="calc-group">
+          <label>Daybreak Island Construction Speed</label>
+          <div class="pct-input">
+            <input type="number" id="spDawnIsle" value="10" min="0" max="999" placeholder="0" oninput="updateSpeedSummary()">
+            <span>%</span>
+          </div>
+        </div>
+      </div>
+      <div class="speed-total-bar">
+        Speed bonus: <strong id="speedTotalPct">45</strong>%
+        <span id="speedCommandBadge"> | −20% build time</span>
+        <span id="speedAgnesBadge"> | Agnes −8h/build</span>
+      </div>
+
+      <button class="calc-btn-large" onclick="calcPlanner()">Calculate</button>
+
+      <!-- Results -->
+      <div id="plannerResult" class="hidden result-section">
+
+        <h3>Resources Required</h3>
+        <div class="result-box" id="costBreakdown"></div>
+
+        <h3>Resource Gap &amp; Refining Plan</h3>
+        <div id="deficitSection"></div>
+
+        <div id="verdictDiv"></div>
+
+        <div id="refiningPlanSection" class="hidden">
+          <h3>Optimal Refining Strategy (minimum FC spent)</h3>
+          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            The most FC-efficient refining strategy to reach your goal within the given weeks.<br>
+            "Expected" uses average odds; "Guaranteed" ensures success even with worst-case luck.
+          </p>
+          <div class="plan-grid" id="planGrid"></div>
+        </div>
+
+        <div id="buildTimeSection" class="hidden result-section">
+          <h3>Build Time Estimate</h3>
+          <div class="result-box" id="buildTimeBox"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       Tab 3: Quick Reference Cards
+  ══════════════════════════════════════════════════ -->
+  <div id="tab-refcards" class="tab-panel">
+    <div class="calc-container" style="max-width:100%;">
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1.25rem;">
+        Image credit: 855 柑仔 momiji | Data support: 甜甜
+      </p>
+
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">Fire Crystal Building Requirements</h3>
+      <div style="overflow-x:auto; margin-bottom:2rem;">
+        <img src="../../images/fire-crystal-buildings/ref-building-cost.jpg"
+             alt="Fire Crystal building requirements table (by 柑仔 momiji)"
+             style="max-width:100%; border-radius:8px; border:1px solid var(--border-color);">
+      </div>
+
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">T11 Requirements — Single Troop Type (Full Furnace 10)</h3>
+      <div style="overflow-x:auto; margin-bottom:2rem;">
+        <img src="../../images/fire-crystal-buildings/ref-t11.jpg"
+             alt="T11 single troop type requirements for full Furnace 10 (by 柑仔 momiji)"
+             style="max-width:100%; border-radius:8px; border:1px solid var(--border-color);">
+      </div>
+
+      <h3 style="color:var(--frost); margin-bottom:0.75rem;">Refining Strategy × Milestone Week Reference</h3>
+      <div style="overflow-x:auto; margin-bottom:1rem;">
+        <img src="../../images/fire-crystal-buildings/ref-refining-plan.jpg"
+             alt="Refining strategy and milestone week reference chart (by 柑仔 momiji)"
+             style="max-width:100%; border-radius:8px; border:1px solid var(--border-color);">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>Clarice's WOS Notes — Fan-made guide site, not affiliated with the official game</p>
+  <p style="margin-top:0.5rem;">
+    Official Wiki: <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
+    | <a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">中文版</a>
+  </p>
+</footer>
+
+<script src="../../data/fire-crystal-costs.js"></script>
+<script>
+// Building name display mapping (data keys are Chinese; display in English)
+const BUILDING_NAMES = {
+  '熔爐':   'Furnace',
+  '大使館': 'Embassy',
+  '指揮部': 'Command Center',
+  '盾兵營': 'Infantry Camp',
+  '矛兵營': 'Lancer Camp',
+  '弓兵營': 'Marksmen Camp',
+  '軍醫所': 'Infirmary',
+  '戰爭學院': 'War Academy'
+};
+
+// Tier label translation for probability reference table
+const TIER_LABEL_EN = {
+  '第1-20次':   'Refines 1–20',
+  '第21-40次':  'Refines 21–40',
+  '第41-60次':  'Refines 41–60',
+  '第61-80次':  'Refines 61–80',
+  '第81-100次': 'Refines 81–100'
+};
+
+// ────────────────────────────────────────────────
+//  Tab switching
+// ────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ────────────────────────────────────────────────
+//  Refining Calculator (Tab 1)
+// ────────────────────────────────────────────────
+const TIERS = [
+  { label: 'Refines 1–20',   start: 1,  end: 20,  costPer: 20  },
+  { label: 'Refines 21–40',  start: 21, end: 40,  costPer: 50  },
+  { label: 'Refines 41–60',  start: 41, end: 60,  costPer: 100 },
+  { label: 'Refines 61–80',  start: 61, end: 80,  costPer: 130 },
+  { label: 'Refines 81–100', start: 81, end: 100, costPer: 160 },
+];
+
+function getTierCost(n) {
+  for (const t of TIERS) if (n <= t.end) return t.costPer;
+  return 160;
+}
+
+function calcRefining(total) {
+  const data = window.FIRE_CRYSTAL_DATA.refiningRates;
+  let fullCost = 0, expRFC = 0, minRFC = 0;
+  const breakdown = [];
+
+  for (let i = 0; i < TIERS.length; i++) {
+    const t = TIERS[i];
+    const d = data[i];
+    if (t.start > total) { breakdown.push({ ...t, count: 0, fullCost: 0, expRFC: 0, minRFC: 0 }); continue; }
+    const count = Math.min(total, t.end) - t.start + 1;
+    const tierFull = count * t.costPer;
+    const tierExp = count * d.每次期望RFC;
+    const tierMin = count * d.RFC產出範圍[0];
+    fullCost += tierFull; expRFC += tierExp; minRFC += tierMin;
+    breakdown.push({ ...t, count, fullCost: tierFull, expRFC: tierExp, minRFC: tierMin });
+  }
+
+  // Discount: first refine on Day 1 (cheapest tier), last 6 refines on other days (most expensive tier)
+  let savings = getTierCost(1) * 0.5;
+  const lastCount = Math.min(6, total - 1);
+  for (let i = 0; i < lastCount; i++) savings += getTierCost(total - i) * 0.5;
+  savings = Math.round(savings);
+
+  return { fullCost, savings, netCost: fullCost - savings,
+    expRFC: Math.round(expRFC * 10) / 10, minRFC, breakdown };
+}
+
+function syncRefine(from) {
+  const s = document.getElementById('refineSlider');
+  const n = document.getElementById('refineNum');
+  if (from === 'slider') n.value = s.value;
+  else { let v = Math.max(1, Math.min(100, parseInt(n.value) || 1)); n.value = v; s.value = v; }
+  updateRefineDisplay(parseInt(s.value));
+}
+
+function setRefine(v) {
+  document.getElementById('refineSlider').value = v;
+  document.getElementById('refineNum').value = v;
+  updateRefineDisplay(v);
+}
+
+function updateRefineDisplay(total) {
+  const r = calcRefining(total);
+  document.getElementById('rCost').textContent = r.netCost.toLocaleString();
+  document.getElementById('rDiscount').textContent = `Saved ${r.savings} FC (daily discount)`;
+  document.getElementById('rExpected').textContent = r.expRFC.toLocaleString();
+  document.getElementById('rMin').textContent = r.minRFC.toLocaleString();
+  document.getElementById('rEfficiency').textContent =
+    r.expRFC > 0 ? (r.netCost / r.expRFC).toFixed(1) : '—';
+
+  const tbody = document.getElementById('tierBody');
+  tbody.innerHTML = '';
+  for (const t of r.breakdown) {
+    if (t.count === 0) continue;
+    const tr = document.createElement('tr');
+    tr.className = 'active-tier';
+    tr.innerHTML = `<td>${t.label}</td><td>${t.count}</td><td>${t.costPer}</td>
+      <td>${t.fullCost.toLocaleString()}</td>
+      <td>${t.expRFC.toFixed(1)}</td><td>${t.minRFC}</td>`;
+    tbody.appendChild(tr);
+  }
+  const totRow = document.createElement('tr');
+  totRow.className = 'total-row';
+  totRow.innerHTML = `<td>Total</td><td>${total}</td><td>—</td>
+    <td>${r.netCost.toLocaleString()} <small style="color:var(--text-muted)">(after discount)</small></td>
+    <td>${r.expRFC}</td><td>${r.minRFC}</td>`;
+  tbody.appendChild(totRow);
+
+  const day1 = Math.max(1, total - Math.min(6, total - 1));
+  const restDays = total - day1;
+  document.getElementById('refineTip').innerHTML =
+    `<strong>Recommended strategy:</strong> Refine <strong>${day1}</strong> time${day1 > 1 ? 's' : ''} on Day 1` +
+    (restDays > 0 ? `, then once per day for ${restDays} more day${restDays > 1 ? 's' : ''}.` : ' — done in one day.') +
+    `<br>This concentrates the daily discount on the most expensive refines, saving the most FC.`;
+}
+
+// ────────────────────────────────────────────────
+//  Upgrade Planner (Tab 2)
+// ────────────────────────────────────────────────
+const THREE_BARRACKS = ['熔爐', '大使館', '盾兵營', '矛兵營', '弓兵營'];
+const ALL_BUILDINGS  = ['熔爐', '大使館', '指揮部', '盾兵營', '矛兵營', '弓兵營', '軍醫所', '戰爭學院'];
+
+function getRequiredLevels(targetFC, targetType) {
+  const prereqs = window.FIRE_CRYSTAL_DATA.furnacePrerequisites;
+  const req = {};
+  for (let fc = 6; fc <= targetFC; fc++) {
+    const p = prereqs[fc] || {};
+    for (const [b, l] of Object.entries(p)) req[b] = Math.max(req[b] || 0, l);
+  }
+  req['熔爐'] = targetFC;
+  if (targetType === '三兵營')
+    ['盾兵營', '矛兵營', '弓兵營'].forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+  if (targetType === '全建築')
+    ALL_BUILDINGS.forEach(b => { req[b] = Math.max(req[b] || 0, targetFC); });
+  return req;
+}
+
+function getRequiredLevels_custom(customTargets) {
+  const prereqs = window.FIRE_CRYSTAL_DATA.furnacePrerequisites;
+  const req = {};
+  if (Object.keys(customTargets).length === 0) return req;
+  const maxLv = Math.max(...Object.values(customTargets));
+  req['熔爐'] = maxLv;
+  for (let fc = 6; fc <= maxLv; fc++) {
+    const p = prereqs[fc] || {};
+    for (const [b, l] of Object.entries(p)) req[b] = Math.max(req[b] || 0, l);
+  }
+  for (const [b, l] of Object.entries(customTargets)) {
+    req[b] = Math.max(req[b] || 0, l);
+  }
+  return req;
+}
+
+function refreshCustomReq() {
+  const rows = document.querySelectorAll('#stateBody tr');
+  const customTargets = {};
+  for (const row of rows) {
+    const b = row.dataset.building;
+    const tgtSel = row.querySelector('.tgt-sel');
+    if (!tgtSel) continue;
+    const v = parseInt(tgtSel.value);
+    if (v >= 6) customTargets[b] = v;
+  }
+  const req = getRequiredLevels_custom(customTargets);
+  for (const row of rows) {
+    const b = row.dataset.building;
+    const cell = row.querySelector('.req-cell');
+    if (!cell) continue;
+    const needed = req[b];
+    if (needed && needed >= 6) {
+      const isUserPick = customTargets[b] && customTargets[b] >= needed;
+      cell.textContent = `L${needed}`;
+      cell.style.color = isUserPick ? 'var(--frost)' : 'var(--warning)';
+      cell.title = isUserPick ? 'Your target' : 'Required as a prerequisite for another building';
+    } else {
+      cell.textContent = '—';
+      cell.style.color = 'var(--text-muted)';
+    }
+  }
+}
+
+function applyFurnacePrereqs() {
+  const furnaceRow = document.querySelector('#stateBody tr[data-building="熔爐"]');
+  if (!furnaceRow) return;
+  const furnaceLv = parseInt(furnaceRow.querySelector('.lv-sel').value);
+  const prereqs = window.FIRE_CRYSTAL_DATA.furnacePrerequisites;
+  const minLevels = {};
+  for (let fc = 6; fc <= furnaceLv; fc++) {
+    const p = prereqs[fc] || {};
+    for (const [b, l] of Object.entries(p)) minLevels[b] = Math.max(minLevels[b] || 0, l);
+  }
+  for (const row of document.querySelectorAll('#stateBody tr')) {
+    const b = row.dataset.building;
+    if (b === '熔爐') continue;
+    const lvSel = row.querySelector('.lv-sel');
+    if (!lvSel || !minLevels[b]) continue;
+    if (parseInt(lvSel.value) < minLevels[b]) lvSel.value = minLevels[b];
+  }
+}
+
+function rebuildStateTable() {
+  const targetFC = parseInt(document.getElementById('targetFC').value);
+  const targetType = document.getElementById('targetType').value;
+  const isCustom = targetType === '自訂';
+
+  const fcGroup = document.getElementById('targetFCGroup');
+  if (fcGroup) fcGroup.style.display = isCustom ? 'none' : '';
+
+  const thead = document.querySelector('#stateTable thead tr');
+  if (isCustom) {
+    thead.innerHTML = `<th>Building</th>
+      <th>Current Level</th>
+      <th>Segments Done<br><small style="font-weight:400;color:var(--text-muted);">(progress to next level)</small></th>
+      <th>My Target</th>
+      <th>Required Level</th>`;
+  } else {
+    thead.innerHTML = `<th>Building</th>
+      <th>Current Level</th>
+      <th>Segments Done<br><small style="font-weight:400;color:var(--text-muted);">(progress to next level)</small></th>
+      <th>Target</th>`;
+  }
+
+  const req = isCustom ? {} : getRequiredLevels(targetFC, targetType);
+  const buildings = (isCustom || targetType === '全建築') ? ALL_BUILDINGS : THREE_BARRACKS;
+  const body = document.getElementById('stateBody');
+  body.innerHTML = '';
+
+  for (const b of buildings) {
+    let lvOpts = '';
+    for (let i = 5; i <= 10; i++) lvOpts += `<option value="${i}">${i}</option>`;
+    let segOpts = '';
+    for (let i = 0; i <= 4; i++) segOpts += `<option value="${i}">Seg ${i}</option>`;
+    const lvOnChange = b === '熔爐' ? ' onchange="applyFurnacePrereqs()"' : '';
+    const tr = document.createElement('tr');
+    tr.dataset.building = b;
+    if (isCustom) {
+      let tgtOpts = `<option value="0">— (skip)</option>`;
+      for (let i = 6; i <= 10; i++) tgtOpts += `<option value="${i}">L${i}</option>`;
+      tr.innerHTML = `<td>${BUILDING_NAMES[b] || b}</td>
+        <td><select class="lv-sel" data-b="${b}"${lvOnChange}>${lvOpts}</select></td>
+        <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
+        <td><select class="tgt-sel" data-b="${b}" onchange="refreshCustomReq()">${tgtOpts}</select></td>
+        <td class="req-cell" style="font-weight:600; color:var(--text-muted);">—</td>`;
+    } else {
+      const reqLv = req[b];
+      tr.innerHTML = `<td>${BUILDING_NAMES[b] || b}</td>
+        <td><select class="lv-sel" data-b="${b}"${lvOnChange}>${lvOpts}</select></td>
+        <td><select class="seg-sel" data-b="${b}">${segOpts}</select></td>
+        <td style="color:var(--accent); font-weight:600;">${reqLv ? 'L' + reqLv : '—'}</td>`;
+    }
+    body.appendChild(tr);
+  }
+
+  applyFurnacePrereqs();
+  if (isCustom) refreshCustomReq();
+}
+
+function calcBuildingCost(building, currentLv, segsDone, targetLv) {
+  if (currentLv >= targetLv) return { fc: 0, rfc: 0 };
+  const costs = window.FIRE_CRYSTAL_DATA.perBuildingCost[building] || {};
+  let fc = 0, rfc = 0;
+  const firstUpLv = currentLv + 1;
+  if (firstUpLv <= targetLv) {
+    const c = costs[firstUpLv] || {};
+    if (segsDone > 0) {
+      const segsLeft = 5 - segsDone;
+      fc += Math.round((c.火晶 || 0) * segsLeft / 5);
+      rfc += Math.round((c.精煉火晶 || 0) * segsLeft / 5);
+    } else {
+      fc += c.火晶 || 0;
+      rfc += c.精煉火晶 || 0;
+    }
+  }
+  for (let l = firstUpLv + 1; l <= targetLv; l++) {
+    const c = costs[l] || {};
+    fc += c.火晶 || 0;
+    rfc += c.精煉火晶 || 0;
+  }
+  return { fc, rfc };
+}
+
+function findMinRefinesForRFC(targetRFC, weeks, useMin) {
+  if (targetRFC <= 0) return { k: 0, weekCost: 0, rfcPerWeek: 0 };
+  const data = window.FIRE_CRYSTAL_DATA.refiningRates;
+  let cumExp = 0, cumMin = 0;
+  for (let k = 1; k <= 100; k++) {
+    const tIdx = k <= 20 ? 0 : k <= 40 ? 1 : k <= 60 ? 2 : k <= 80 ? 3 : 4;
+    cumExp += data[tIdx].每次期望RFC;
+    cumMin += data[tIdx].RFC產出範圍[0];
+    const perWeek = useMin ? cumMin : cumExp;
+    if (perWeek * weeks >= targetRFC) {
+      const r = calcRefining(k);
+      return { k, weekCost: r.netCost, rfcPerWeek: parseFloat(perWeek.toFixed(2)), totalCost: r.netCost * weeks };
+    }
+  }
+  return null;
+}
+
+const HYENA_BONUS   = [0, 5, 7, 9, 12, 15];
+const ZINMAN_BONUS  = [0, 3, 6, 9, 12, 15];
+const AGNES_HOURS   = [0, 2, 3, 4, 6, 8];
+
+function updateSpeedSummary() {
+  const merc        = document.getElementById('spMerc').checked ? 10 : 0;
+  const viceGov     = document.getElementById('spViceGov').checked ? 10 : 0;
+  const commandOn   = document.getElementById('spCommand').checked;
+  const hyenaPct    = HYENA_BONUS[parseInt(document.getElementById('spHyena').value) || 0];
+  const zinmanPct   = ZINMAN_BONUS[parseInt(document.getElementById('spZinman').value) || 0];
+  const dawnIslePct = parseFloat(document.getElementById('spDawnIsle').value) || 0;
+  const agnesLv     = parseInt(document.getElementById('spAgnes').value) || 0;
+  const totalSpeed  = merc + viceGov + hyenaPct + zinmanPct + dawnIslePct;
+  const el = document.getElementById('speedTotalPct');
+  if (el) el.textContent = Number.isInteger(totalSpeed) ? totalSpeed : totalSpeed.toFixed(1);
+  const cmdBadge = document.getElementById('speedCommandBadge');
+  if (cmdBadge) cmdBadge.style.display = commandOn ? '' : 'none';
+  const agnesBadge = document.getElementById('speedAgnesBadge');
+  if (agnesBadge) {
+    if (agnesLv > 0) {
+      agnesBadge.textContent = ` | Agnes −${AGNES_HOURS[agnesLv]}h/build`;
+      agnesBadge.style.display = '';
+    } else {
+      agnesBadge.style.display = 'none';
+    }
+  }
+}
+
+function fmtMin(min) {
+  if (min <= 0) return '< 1 min';
+  min = Math.round(min);
+  const d = Math.floor(min / 1440);
+  const h = Math.floor((min % 1440) / 60);
+  const m = Math.floor(min % 60);
+  const parts = [];
+  if (d > 0) parts.push(d + 'd');
+  if (h > 0) parts.push(h + 'h');
+  if (m > 0) parts.push(m + 'm');
+  return parts.length ? parts.join(' ') : '< 1 min';
+}
+
+function calcBuildTimeMin(building, currentLv, segsDone, targetLv) {
+  if (currentLv >= targetLv) return 0;
+  const btData = (window.FIRE_CRYSTAL_DATA.buildTimePerSegment || {})[building] || {};
+  let total = 0;
+  for (let lv = currentLv + 1; lv <= targetLv; lv++) {
+    const minPerSeg = btData[lv] || 0;
+    const segs = (lv === currentLv + 1 && segsDone > 0) ? (5 - segsDone) : 5;
+    total += minPerSeg * segs;
+  }
+  return total;
+}
+
+function countSegments(currentLv, segsDone, targetLv) {
+  if (currentLv >= targetLv) return 0;
+  let segs = 0;
+  for (let lv = currentLv + 1; lv <= targetLv; lv++) {
+    segs += (lv === currentLv + 1 && segsDone > 0) ? (5 - segsDone) : 5;
+  }
+  return segs;
+}
+
+function calcPlanner() {
+  const targetFC = parseInt(document.getElementById('targetFC').value);
+  const targetType = document.getElementById('targetType').value;
+  const isCustom = targetType === '自訂';
+
+  let req;
+  if (isCustom) {
+    const rows0 = document.querySelectorAll('#stateBody tr');
+    const customTargets = {};
+    for (const row of rows0) {
+      const b = row.dataset.building;
+      const tgtSel = row.querySelector('.tgt-sel');
+      if (!tgtSel) continue;
+      const v = parseInt(tgtSel.value);
+      if (v >= 6) customTargets[b] = v;
+    }
+    req = getRequiredLevels_custom(customTargets);
+  } else {
+    req = getRequiredLevels(targetFC, targetType);
+  }
+
+  const availFC = parseInt(document.getElementById('availFC').value) || 0;
+  const availRFC = parseInt(document.getElementById('availRFC').value) || 0;
+  const weeks = parseInt(document.getElementById('availWeeks').value) || 4;
+
+  let totalFC = 0, totalRFC = 0;
+  const rows = document.querySelectorAll('#stateBody tr');
+  const buildingDetails = [];
+  for (const row of rows) {
+    const b = row.dataset.building;
+    const lv = parseInt(row.querySelector('.lv-sel').value);
+    const seg = parseInt(row.querySelector('.seg-sel').value);
+    const tgt = isCustom
+      ? (req[b] !== undefined ? req[b] : lv)
+      : (req[b] || targetFC);
+    const cost = calcBuildingCost(b, lv, seg, tgt);
+    totalFC += cost.fc;
+    totalRFC += cost.rfc;
+    if (cost.fc > 0 || cost.rfc > 0)
+      buildingDetails.push({ b, lv, seg, tgt, fc: cost.fc, rfc: cost.rfc });
+  }
+
+  let costHTML = `<div class="result-row"><span class="r-label">Fire Crystals for upgrades</span><span class="r-value accent">${totalFC.toLocaleString()} FC</span></div>
+    <div class="result-row"><span class="r-label">Refined Fire Crystals (RFC) for upgrades</span><span class="r-value accent">${totalRFC.toLocaleString()} RFC</span></div>`;
+  if (buildingDetails.length > 0) {
+    costHTML += `<div style="margin-top:0.75rem; font-size:0.82rem; color:var(--text-muted);">Per building breakdown:</div>`;
+    for (const d of buildingDetails) {
+      const name = BUILDING_NAMES[d.b] || d.b;
+      costHTML += `<div class="result-row" style="font-size:0.85rem;">
+        <span class="r-label">${name} (L${d.lv}${d.seg > 0 ? '+'+d.seg+'seg' : ''} → L${d.tgt})</span>
+        <span class="r-value">${d.fc.toLocaleString()} FC${d.rfc > 0 ? ` | ${d.rfc} RFC` : ''}</span>
+      </div>`;
+    }
+  }
+  document.getElementById('costBreakdown').innerHTML = costHTML;
+
+  const fcDeficit = Math.max(0, totalFC - availFC);
+  const rfcDeficit = Math.max(0, totalRFC - availRFC);
+  let defHTML = `<div class="result-box">
+    <div class="result-row"><span class="r-label">FC on Hand</span><span class="r-value">${availFC.toLocaleString()}</span></div>
+    <div class="result-row"><span class="r-label">RFC on Hand</span><span class="r-value">${availRFC.toLocaleString()}</span></div>
+    <div class="result-row"><span class="r-label">FC Gap</span><span class="r-value" style="color:${fcDeficit > 0 ? 'var(--danger)' : 'var(--success)'}">${fcDeficit > 0 ? 'Short '+fcDeficit.toLocaleString() : 'Sufficient ✓'}</span></div>
+    <div class="result-row"><span class="r-label">RFC Gap</span><span class="r-value" style="color:${rfcDeficit > 0 ? 'var(--warning)' : 'var(--success)'}">${rfcDeficit > 0 ? 'Short '+rfcDeficit.toLocaleString()+' (need to refine)' : 'Sufficient ✓'}</span></div>
+  </div>`;
+  document.getElementById('deficitSection').innerHTML = defHTML;
+
+  const planSection = document.getElementById('refiningPlanSection');
+  const planGrid = document.getElementById('planGrid');
+  planGrid.innerHTML = '';
+
+  let verdictClass = 'ok', verdictText = '✓ Resources are sufficient — goal achievable!';
+
+  if (rfcDeficit > 0) {
+    planSection.classList.remove('hidden');
+    const planExp = findMinRefinesForRFC(rfcDeficit, weeks, false);
+    const planMin = findMinRefinesForRFC(rfcDeficit, weeks, true);
+
+    function planCard(plan, label, headClass, desc) {
+      if (!plan) return `<div class="plan-card"><h4 class="${headClass}">${label}</h4><p style="color:var(--danger)">Even 100 refines/week is insufficient — extend your timeline</p></div>`;
+      const totalNeeded = totalFC + plan.totalCost;
+      const totalFCOK = totalNeeded <= availFC;
+      return `<div class="plan-card">
+        <h4 class="${headClass}">${label}</h4>
+        <div class="big-num">${plan.k} refines/week</div>
+        <div class="sub-row">${plan.rfcPerWeek} RFC/week (${desc})</div>
+        <div class="sub-row">Over ${weeks} weeks: ~${Math.round(plan.rfcPerWeek * weeks)} RFC</div>
+        <div class="sub-row">Refining cost: ${plan.weekCost.toLocaleString()} FC/week × ${weeks} weeks = <strong>${plan.totalCost.toLocaleString()}</strong> FC</div>
+        <div class="sub-row" style="margin-top:0.5rem; color:${totalFCOK ? 'var(--success)' : 'var(--danger)'}">
+          Total FC (upgrades + refining): ${totalNeeded.toLocaleString()} ${totalFCOK ? '≤ available ✓' : '> available '+availFC.toLocaleString()+' ✗'}
+        </div>
+      </div>`;
+    }
+
+    planGrid.innerHTML =
+      planCard(planExp, 'Expected Outcome Route', 'expected-head', 'average odds') +
+      planCard(planMin, 'Guaranteed Route (worst-case still succeeds)', 'worst-head', 'minimum every time');
+
+    const expFeasible = planExp && (totalFC + planExp.totalCost) <= availFC;
+    const minFeasible = planMin && (totalFC + planMin.totalCost) <= availFC;
+
+    if (!planExp && !planMin) {
+      verdictClass = 'fail';
+      verdictText = '✗ Cannot reach goal in ' + weeks + ' weeks even at 100 refines/week. Extend your timeline or add more RFC.';
+    } else if (minFeasible) {
+      verdictClass = 'ok';
+      verdictText = '✓ Even with worst-case luck, you can reach your goal in ' + weeks + ' weeks!';
+    } else if (expFeasible) {
+      verdictClass = 'warn';
+      verdictText = '△ The expected-odds route works, but bad luck could delay you. Consider adding a buffer week or two.';
+    } else {
+      verdictClass = 'fail';
+      verdictText = '✗ RFC can be covered by refining, but total FC needed (upgrades + refining) exceeds your available amount. You need more Fire Crystals.';
+    }
+  } else if (fcDeficit > 0) {
+    verdictClass = 'fail';
+    verdictText = '✗ RFC is sufficient, but you are short ' + fcDeficit.toLocaleString() + ' FC. Get more Fire Crystals first.';
+    planSection.classList.add('hidden');
+  } else {
+    planSection.classList.add('hidden');
+  }
+
+  document.getElementById('verdictDiv').innerHTML =
+    `<div class="verdict ${verdictClass}">${verdictText}</div>`;
+
+  // Build time estimate
+  updateSpeedSummary();
+  const merc        = document.getElementById('spMerc').checked ? 10 : 0;
+  const viceGov     = document.getElementById('spViceGov').checked ? 10 : 0;
+  const commandOn   = document.getElementById('spCommand').checked;
+  const hyenaPct    = HYENA_BONUS[parseInt(document.getElementById('spHyena').value) || 0];
+  const zinmanPct   = ZINMAN_BONUS[parseInt(document.getElementById('spZinman').value) || 0];
+  const dawnIslePct = parseFloat(document.getElementById('spDawnIsle').value) || 0;
+  const agnesLv     = parseInt(document.getElementById('spAgnes').value) || 0;
+  const agnesH      = AGNES_HOURS[agnesLv];
+  const totalSpeedPct = merc + viceGov + hyenaPct + zinmanPct + dawnIslePct;
+
+  let baseTotalMin = 0, totalSegs = 0;
+  for (const d of buildingDetails) {
+    baseTotalMin += calcBuildTimeMin(d.b, d.lv, d.seg, d.tgt);
+    totalSegs    += countSegments(d.lv, d.seg, d.tgt);
+  }
+
+  const buildTimeEl = document.getElementById('buildTimeSection');
+  if (baseTotalMin > 0) {
+    const agnesSavedMin = agnesH * 60 * totalSegs;
+    const afterAgnesMin = Math.max(0, baseTotalMin - agnesSavedMin);
+    const afterCmdMin   = commandOn ? afterAgnesMin * 0.8 : afterAgnesMin;
+    const actualMin     = afterCmdMin / (1 + totalSpeedPct / 100);
+    const speedupH      = Math.ceil(actualMin / 60);
+
+    let html = `<div class="result-row"><span class="r-label">Total base build time</span><span class="r-value">${fmtMin(baseTotalMin)}</span></div>`;
+    if (agnesLv > 0 && totalSegs > 0)
+      html += `<div class="result-row"><span class="r-label">Agnes saves</span><span class="r-value" style="color:var(--success)">−${fmtMin(Math.min(agnesSavedMin, baseTotalMin))} (Lv${agnesLv} × ${totalSegs} builds)</span></div>`;
+    if (totalSpeedPct > 0)
+      html += `<div class="result-row"><span class="r-label">Speed bonus</span><span class="r-value">+${Number.isInteger(totalSpeedPct) ? totalSpeedPct : totalSpeedPct.toFixed(1)}%</span></div>`;
+    if (commandOn)
+      html += `<div class="result-row"><span class="r-label">Chief Order reduction</span><span class="r-value">20%</span></div>`;
+    html += `<div class="result-row"><span class="r-label">Actual build time</span><span class="r-value accent">${fmtMin(actualMin)}</span></div>` +
+      `<div class="result-row"><span class="r-label">Speedup items needed</span><span class="r-value">${speedupH > 0 ? speedupH + 'h of speedup items' : 'No speedups needed'}</span></div>`;
+    document.getElementById('buildTimeBox').innerHTML = html;
+    buildTimeEl.classList.remove('hidden');
+  } else {
+    buildTimeEl.classList.add('hidden');
+  }
+
+  document.getElementById('plannerResult').classList.remove('hidden');
+  document.getElementById('plannerResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Probability Reference Table ──
+function fmtPct(p) {
+  return (p * 100).toFixed(1).replace(/\.0$/, '') + '%';
+}
+function renderProbabilityReference() {
+  const grid = document.getElementById('probRefGrid');
+  if (!grid) return;
+  const tiers = window.FIRE_CRYSTAL_DATA.refiningRates;
+  grid.innerHTML = '';
+  for (const tier of tiers) {
+    const card = document.createElement('div');
+    card.className = 'prob-card';
+    let rows = '';
+    for (const [count, prob] of Object.entries(tier.機率)) {
+      rows += `<div class="prob-row">
+        <span class="prob-count">${count} RFC</span>
+        <span class="prob-bar-wrap"><span class="prob-bar" style="width:${prob*100}%"></span></span>
+        <span class="prob-pct">${fmtPct(prob)}</span>
+      </div>`;
+    }
+    card.innerHTML = `<h4>${TIER_LABEL_EN[tier.段落] || tier.段落}</h4>
+      <div class="prob-meta"><strong>${tier.每次花費火晶}</strong> FC/refine · expected <strong>${tier.每次期望RFC}</strong> RFC</div>
+      <div class="prob-rows">${rows}</div>`;
+    grid.appendChild(card);
+  }
+}
+
+// ── Init ──
+window.addEventListener('load', () => {
+  rebuildStateTable();
+  updateRefineDisplay(20);
+  updateSpeedSummary();
+  renderProbabilityReference();
+});
+</script>
+</body>
+</html>
