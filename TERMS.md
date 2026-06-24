@@ -106,6 +106,16 @@
 | 加速建造 | Double Time | 指令名稱；縮短建造時間 20% |
 | 晨曦島 | Daybreak Island | 提供建造速度加成的地點／系統 |
 
+## 遊戲系統 / Game Systems
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 流浪商人 | Wandering Merchant | 定期刷新的商店 NPC |
+| 鑽石 | Gem | 遊戲硬通貨，英文社群通稱 Gem（非 Diamond） |
+| 高級遷城 | Advanced Teleporter | 重要道具，簡稱高遷 |
+| 隨機遷城 | Random Teleporter | 流浪商人可能出現，落地點隨機 |
+| VIP商店 | VIP Shop | |
+
 ## 道具 / Items
 
 | 中文 | English | 備註 |
