@@ -14,6 +14,7 @@
 |---|---|---|
 | 兵工廠 | Foundry Battle | ⚠️ 曾誤譯為 Arsenal / Armory |
 | 峽谷會戰 | Canyon Clash | ⚠️ 中文曾誤用「峽谷衝突」 |
+| 釣魚錦標賽 | Fishing Tournament | 每月一次的三天活動 |
 
 ### 峽谷會戰的四個階段
 | 中文 | English | 備註 |
@@ -22,6 +23,20 @@
 | 攻城掠地 | Seize & Conquer | 17 分鐘 |
 | 爭奪前哨要塞 | Fortress Occupation | 20 分鐘 |
 | 進軍冰封殿堂 | Citadel Onslaught | 20 分鐘 |
+
+### 釣魚錦標賽相關 / Fishing Tournament Terms
+| 中文 | English | 備註 |
+|---|---|---|
+| 普通關卡 | Ice Fishing | 標準釣魚模式 |
+| 寶藏關卡 | Frosty Prospector | 可下降到 550m，一場可釣 20 條魚 |
+| 釣魚專家套裝 | Fishing Pro Set | 衝高分必買禮包，含冰釣紀念幣 |
+| 垂釣達人 | Fishing Pro | 較小型禮包 |
+| 垂釣大師 | Fishing Master | 含 20% buff 大藥的禮包 |
+| 圖鑑 | Guide | 魚種收集圖鑑 |
+| 冰釣紀念幣 | Fishing token | 升級釣具的素材 |
+| 海神號角 | Horn of Poseidon | 召喚特殊發光魚的道具 |
+| 深海感應器 | Ocean Scanner | 接近高級魚時提醒 |
+| 冰釣禮券 | Icefisher Voucher | 觸發五倍模式的釣魚券 |
 
 ## 建築 / Buildings & Map
 
