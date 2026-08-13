@@ -127,6 +127,7 @@
 
 | 中文 | English | 備註 |
 |---|---|---|
+| 打塔 | Turret Attacker | SVS 角色描述，中文口語稱「打塔」，英文為 Turret（砲塔），非 Tower |
 | 流浪商人 | Nomadic Merchant | 定期刷新的商店 NPC |
 | 鑽石 | Gem | 遊戲硬通貨，英文社群通稱 Gem（非 Diamond） |
 | 高級遷城 | Advanced Teleporter | 重要道具，簡稱高遷 |
