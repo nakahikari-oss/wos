@@ -18,8 +18,11 @@
 // Your Google Sheet's ID (from its URL: docs.google.com/spreadsheets/d/THIS_PART/edit)
 const SHEET_ID = "PASTE_YOUR_SHEET_ID_HERE";
 
-// Sheet tab name where responses will be appended
+// Main sheet: one row per player, updated in place (upsert by Game ID)
 const SHEET_NAME = "Responses";
+
+// History sheet: append-only log of every submission (for comparing over time)
+const HISTORY_SHEET_NAME = "History";
 
 // ═══════════════════════════════════════════════════════
 // Hero list — must match heroes-data.js (kept in sync manually)
@@ -104,7 +107,8 @@ function doPost(e) {
       throw new Error("No payload received");
     }
 
-    appendRow(payload);
+    upsertResponse(payload);
+    appendHistory(payload);
     return ContentService
       .createTextOutput(JSON.stringify({ status: "ok" }))
       .setMimeType(ContentService.MimeType.JSON);
@@ -128,30 +132,73 @@ function doGet() {
 // Sheet writing
 // ═══════════════════════════════════════════════════════
 
-function appendRow(payload) {
+/**
+ * Main sheet: one row per Game ID.
+ * If the Game ID already exists, overwrite that row. Otherwise append.
+ */
+function upsertResponse(payload) {
   const ss = SpreadsheetApp.openById(SHEET_ID);
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
   }
 
-  // If sheet is empty, write bilingual header row first
+  // Ensure header exists
   if (sheet.getLastRow() === 0) {
     const header = buildHeader();
     sheet.getRange(1, 1, 1, header.length).setValues([header]);
     sheet.setFrozenRows(1);
-    // Bold header
     sheet.getRange(1, 1, 1, header.length).setFontWeight("bold");
   }
 
   const row = buildRow(payload);
-  sheet.appendRow(row);
+  const gameIdKey = String(payload.game_id || "").trim();
+
+  // Find existing row with same Game ID (column C = 3rd column)
+  const lastRow = sheet.getLastRow();
+  let matchedRowNum = -1;
+  if (lastRow >= 2 && gameIdKey) {
+    const gameIdCol = sheet.getRange(2, 3, lastRow - 1, 1).getValues();
+    for (let i = 0; i < gameIdCol.length; i++) {
+      if (String(gameIdCol[i][0]).trim() === gameIdKey) {
+        matchedRowNum = i + 2; // +2 because we start reading from row 2
+        break;
+      }
+    }
+  }
+
+  if (matchedRowNum > 0) {
+    // Update existing row in place
+    sheet.getRange(matchedRowNum, 1, 1, row.length).setValues([row]);
+  } else {
+    sheet.appendRow(row);
+  }
+}
+
+/**
+ * History sheet: append every submission, never overwrite.
+ * Same column structure as main sheet — you can compare snapshots over time.
+ */
+function appendHistory(payload) {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let sheet = ss.getSheetByName(HISTORY_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(HISTORY_SHEET_NAME);
+  }
+  if (sheet.getLastRow() === 0) {
+    const header = buildHeader();
+    sheet.getRange(1, 1, 1, header.length).setValues([header]);
+    sheet.setFrozenRows(1);
+    sheet.getRange(1, 1, 1, header.length).setFontWeight("bold");
+  }
+  sheet.appendRow(buildRow(payload));
 }
 
 function buildHeader() {
   const cols = [
-    "Timestamp 時間",
+    "Last Updated 最後更新",
     "Language 語言",
+    "Game ID 遊戲 ID",
     "IGN 遊戲暱稱",
     "Alliance 聯盟",
     "Hero Count 英雄數"
@@ -184,6 +231,7 @@ function buildRow(payload) {
   const row = [
     payload.timestamp || new Date().toISOString(),
     payload.lang || "",
+    payload.game_id || "",
     payload.ign || "",
     payload.alliance || "",
     payload.heroesCount || 0,

@@ -117,6 +117,7 @@ async function submitForm(e) {
   const payload = {
     timestamp: new Date().toISOString(),
     lang: currentLang,
+    game_id: document.getElementById("gameId").value.trim(),
     ign: document.getElementById("ign").value.trim(),
     alliance: document.getElementById("alliance").value.trim(),
     heroes: Array.from(selectedHeroes),
