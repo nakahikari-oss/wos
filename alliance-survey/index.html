@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alliance Member Survey</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="survey.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">Clarice's WOS Notes <span>Whiteout Survival</span></a>
+      <div class="lang-picker">
+        <label for="langSel" data-i18n="lang_pick" style="color:var(--text-muted); font-size:0.85rem;">Language</label>
+        <select id="langSel" onchange="setLang(this.value)">
+          <option value="en">English</option>
+          <option value="zh">繁體中文</option>
+          <option value="ko">한국어</option>
+          <option value="de">Deutsch</option>
+          <option value="ar">العربية</option>
+          <option value="el">Ελληνικά</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container survey-container">
+
+    <h1 data-i18n="page_title" class="survey-title">Alliance Member Survey</h1>
+    <p data-i18n="intro" class="survey-intro">Loading…</p>
+
+    <form id="surveyForm" onsubmit="return submitForm(event)">
+
+      <!-- Section 1: Identity -->
+      <section class="survey-section">
+        <h2 data-i18n="section_identity">About You</h2>
+        <div class="field-grid">
+          <div class="calc-group">
+            <label for="ign" data-i18n="label_ign">IGN</label>
+            <input type="text" id="ign" required
+                   data-i18n-attr="placeholder" data-i18n="placeholder_ign">
+          </div>
+          <div class="calc-group">
+            <label for="alliance" data-i18n="label_alliance">Alliance</label>
+            <input type="text" id="alliance" required
+                   data-i18n-attr="placeholder" data-i18n="placeholder_alliance">
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Heroes -->
+      <section class="survey-section">
+        <h2 data-i18n="section_heroes">Heroes You Own</h2>
+        <p class="section-desc"><span data-i18n="heroes_desc">Loading…</span><strong id="heroCount">0</strong> <span data-i18n="hero_count_suffix">heroes</span></p>
+
+        <div class="hero-filters">
+          <button type="button" class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
+          <button type="button" class="filter-btn" data-filter="Infantry" data-i18n="filter_infantry">Infantry</button>
+          <button type="button" class="filter-btn" data-filter="Lancer" data-i18n="filter_lancer">Lancer</button>
+          <button type="button" class="filter-btn" data-filter="Marksman" data-i18n="filter_marksman">Marksman</button>
+          <button type="button" class="filter-btn" data-filter="All" data-i18n="filter_all_types">All-Class</button>
+        </div>
+
+        <div class="hero-grid" id="heroGrid"></div>
+      </section>
+
+      <!-- Section 3: Troops -->
+      <section class="survey-section">
+        <h2 data-i18n="section_troops">Your Troops</h2>
+        <p class="section-desc" data-i18n="troops_desc">…</p>
+
+        <div class="troops-grid">
+          <div class="barracks-card">
+            <h3 data-i18n="barracks_infantry">Infantry Camp</h3>
+            <div class="calc-group">
+              <label data-i18n="fc_level">FC Level</label>
+              <select id="tp_infantry_fc" required>
+                <option value="">—</option>
+                <option value="5">5</option><option value="6">6</option>
+                <option value="7">7</option><option value="8">8</option>
+                <option value="9">9</option><option value="10">10</option>
+              </select>
+            </div>
+            <div class="calc-group">
+              <label data-i18n="tier">Tier</label>
+              <select id="tp_infantry_tier" required>
+                <option value="">—</option>
+                <option value="T10">T10</option>
+                <option value="T11">T11</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="barracks-card">
+            <h3 data-i18n="barracks_lancer">Lancer Camp</h3>
+            <div class="calc-group">
+              <label data-i18n="fc_level">FC Level</label>
+              <select id="tp_lancer_fc" required>
+                <option value="">—</option>
+                <option value="5">5</option><option value="6">6</option>
+                <option value="7">7</option><option value="8">8</option>
+                <option value="9">9</option><option value="10">10</option>
+              </select>
+            </div>
+            <div class="calc-group">
+              <label data-i18n="tier">Tier</label>
+              <select id="tp_lancer_tier" required>
+                <option value="">—</option>
+                <option value="T10">T10</option>
+                <option value="T11">T11</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="barracks-card">
+            <h3 data-i18n="barracks_marksman">Marksmen Camp</h3>
+            <div class="calc-group">
+              <label data-i18n="fc_level">FC Level</label>
+              <select id="tp_marksman_fc" required>
+                <option value="">—</option>
+                <option value="5">5</option><option value="6">6</option>
+                <option value="7">7</option><option value="8">8</option>
+                <option value="9">9</option><option value="10">10</option>
+              </select>
+            </div>
+            <div class="calc-group">
+              <label data-i18n="tier">Tier</label>
+              <select id="tp_marksman_tier" required>
+                <option value="">—</option>
+                <option value="T10">T10</option>
+                <option value="T11">T11</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: SVS Role -->
+      <section class="survey-section">
+        <h2 data-i18n="section_svs">SVS Role Preference</h2>
+        <p class="section-desc" data-i18n="svs_desc">…</p>
+
+        <div class="role-list">
+          <div class="role-row" data-role="rally_head">
+            <div class="role-label" data-i18n="role_rally_head">Rally Leader</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_rally_head" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_rally_head" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_rally_head" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+          <div class="role-row" data-role="rally_body">
+            <div class="role-label" data-i18n="role_rally_body">Rally Joiner</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_rally_body" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_rally_body" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_rally_body" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+          <div class="role-row" data-role="tower">
+            <div class="role-label" data-i18n="role_tower">Tower Attacker</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_tower" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_tower" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_tower" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+          <div class="role-row" data-role="solo">
+            <div class="role-label" data-i18n="role_solo">Solo Fighter</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_solo" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_solo" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_solo" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <button type="submit" id="submitBtn" class="calc-btn-large" data-i18n="submit">Submit</button>
+
+      <div id="statusMsg" class="status-msg" style="display:none;"></div>
+
+      <p class="footer-note" data-i18n="footer_note">Data only goes to your alliance leader.</p>
+
+    </form>
+
+  </div>
+
+<script src="heroes-data.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

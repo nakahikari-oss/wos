@@ -1,0 +1,933 @@
+{
+  "_meta": {
+    "source": "https://www.whiteoutsurvival.wiki/",
+    "generated": "2026-08-13",
+    "filter": "Epic (4-star/SR) and above only",
+    "rarity_mapping": {
+      "Epic": "4-star (SR)",
+      "Legendary": "5-star (SSR)"
+    },
+    "notes": [
+      "Wiki has a language switcher (footer) supporting 9 languages: en, tw (zh), fr, ja, ko, de, ar, es, pt. NO Greek (el) version exists.",
+      "Non-English wikis are on the SAME domain under /LANG/ paths (e.g. /tw/, /ko/, /arb/, /de/). All localized versions share infrastructure — reliable long-term.",
+      "IMPORTANT: hero page slugs DIFFER by language (e.g. /heroes/jeronimo/ vs /de/heroes/jeronimo-3/). Only images are shared across languages (single S3 bucket).",
+      "Arabic wiki uses /arb/ prefix, not /ar/. Korean uses /ko/ (Korean slugs are URL-encoded Hangul).",
+      "The 8 lower-rarity 'Construction' heroes (Smith/Eugene/Charlie/Cloris/Ling Xue/Zinman/Jasser/Seo-yoon) are Rare tier and excluded from this file.",
+      "Rarity is NOT shown on the /heroes/ index page — must visit each detail page.",
+      "Some Korean/Arabic translations use slightly different romanizations than the English wiki (noted per hero).",
+      "Aiden/Bertha/Eleanor are the newest heroes (July 2026); not yet in Korean or Arabic wikis."
+    ]
+  },
+  "heroes": [
+    {
+      "id": "sergey",
+      "name": {
+        "en": "Sergey",
+        "zh": "謝爾蓋",
+        "ko": "세르게이",
+        "ar": "سيرجي",
+        "de": "Sergej"
+      },
+      "rarity": "Epic",
+      "stars": 4,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/sergey.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/sergey/"
+    },
+    {
+      "id": "jessie",
+      "name": {
+        "en": "Jessie",
+        "zh": "杰西",
+        "ko": "제시",
+        "ar": "جيسي",
+        "de": "Jessie"
+      },
+      "rarity": "Epic",
+      "stars": 4,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/jessie.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/jessie/"
+    },
+    {
+      "id": "patrick",
+      "name": {
+        "en": "Patrick",
+        "zh": "派翠克",
+        "ko": "패트릭",
+        "ar": "باتريك",
+        "de": "Patrick"
+      },
+      "rarity": "Epic",
+      "stars": 4,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/patrick.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/patrick/"
+    },
+    {
+      "id": "lumak-bokan",
+      "name": {
+        "en": "Lumak Bokan",
+        "zh": "盧姆·波根",
+        "ko": "룸 보겐",
+        "ar": "لوماك بوكان",
+        "de": "Lumak Bokan"
+      },
+      "rarity": "Epic",
+      "stars": 4,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/05/3.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/lumak-bokan/"
+    },
+    {
+      "id": "gina",
+      "name": {
+        "en": "Gina",
+        "zh": "吉娜",
+        "ko": "지나",
+        "ar": "جينا",
+        "de": "Gina"
+      },
+      "rarity": "Epic",
+      "stars": 4,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/Gina.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gina/"
+    },
+    {
+      "id": "bahiti",
+      "name": {
+        "en": "Bahiti",
+        "zh": "巴希提",
+        "ko": "바히티",
+        "ar": "باهيتي",
+        "de": "Bahiti"
+      },
+      "rarity": "Epic",
+      "stars": 4,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/bahiti.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/bahiti/"
+    },
+    {
+      "id": "natalia",
+      "name": {
+        "en": "Natalia",
+        "zh": "娜塔莉亞",
+        "ko": "나탈리아",
+        "ar": "ناتاليا",
+        "de": "Natalia"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/natalia.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/natalia/"
+    },
+    {
+      "id": "jeronimo",
+      "name": {
+        "en": "Jeronimo",
+        "zh": "赫羅尼莫",
+        "ko": "제로니모",
+        "ar": "جيرونيمو",
+        "de": "Jerónimo"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/jeronimo.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/jeronimo/"
+    },
+    {
+      "id": "molly",
+      "name": {
+        "en": "Molly",
+        "zh": "茉莉",
+        "ko": "몰리",
+        "ar": "مولي",
+        "de": "Molly"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/molly.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/molly/"
+    },
+    {
+      "id": "flint",
+      "name": {
+        "en": "Flint",
+        "zh": "弗林特",
+        "ko": "플린트",
+        "ar": "فلينت",
+        "de": "Flint"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/flint.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/flint/"
+    },
+    {
+      "id": "philly",
+      "name": {
+        "en": "Philly",
+        "zh": "菲蘭德",
+        "ko": "필리",
+        "ar": "فيلي",
+        "de": "Philly"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/philly.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/philly/"
+    },
+    {
+      "id": "alonso",
+      "name": {
+        "en": "Alonso",
+        "zh": "阿隆索",
+        "ko": "알론소",
+        "ar": "ألونسو",
+        "de": "Alonso"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/alonso.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/alonso/"
+    },
+    {
+      "id": "logan",
+      "name": {
+        "en": "Logan",
+        "zh": "羅根",
+        "ko": "로건",
+        "ar": "لوجان",
+        "de": "Logan"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/logan.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/logan/"
+    },
+    {
+      "id": "mia",
+      "name": {
+        "en": "Mia",
+        "zh": "米婭",
+        "ko": "미야",
+        "ar": "ميا",
+        "de": "Mia"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/mia.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/mia/"
+    },
+    {
+      "id": "greg",
+      "name": {
+        "en": "Greg",
+        "zh": "格雷格",
+        "ko": "그렉",
+        "ar": "جريغ",
+        "de": "Greg"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/05/greg.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/greg/"
+    },
+    {
+      "id": "ahmose",
+      "name": {
+        "en": "Ahmose",
+        "zh": "阿赫摩斯",
+        "ko": "아모세",
+        "ar": "أحمس",
+        "de": "Ahmose"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/09/ahmos.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/ahmose/"
+    },
+    {
+      "id": "reina",
+      "name": {
+        "en": "Reina",
+        "zh": "玲奈",
+        "ko": "레이나",
+        "ar": "رينا",
+        "de": "Reina"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/09/1690429616516_7.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/reina/"
+    },
+    {
+      "id": "lynn",
+      "name": {
+        "en": "Lynn",
+        "zh": "琳恩",
+        "ko": "린",
+        "ar": "لين",
+        "de": "Lynn"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/09/1690429616507_5.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/lynn/"
+    },
+    {
+      "id": "hector",
+      "name": {
+        "en": "Hector",
+        "zh": "赫克托",
+        "ko": "헥터",
+        "ar": "هيكتور",
+        "de": "Hector"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/09/1690429616489_3.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/hector/"
+    },
+    {
+      "id": "norah",
+      "name": {
+        "en": "Norah",
+        "zh": "諾拉",
+        "ko": "노라",
+        "ar": "نوره",
+        "de": "Norah"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/09/1690429616480_2.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gwen/",
+      "notes": "Wiki URL uses 'gwen' slug — appears to be a wiki quirk; hero is Norah."
+    },
+    {
+      "id": "gwen",
+      "name": {
+        "en": "Gwen",
+        "zh": "格溫",
+        "ko": "그웬",
+        "ar": "جوين",
+        "de": "Gwen"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/09/1690429616472_1.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gwen-2/"
+    },
+    {
+      "id": "wu-ming",
+      "name": {
+        "en": "Wu Ming",
+        "zh": "無名",
+        "ko": "무명",
+        "ar": "وو مينغ",
+        "de": "Wu Ming"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/11/wuming.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/wu-ming/"
+    },
+    {
+      "id": "renee",
+      "name": {
+        "en": "Renee",
+        "zh": "芮妮",
+        "ko": "레니",
+        "ar": "رينيه",
+        "de": "Renee"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/11/rene.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/renee/"
+    },
+    {
+      "id": "wayne",
+      "name": {
+        "en": "Wayne",
+        "zh": "韋恩",
+        "ko": "웨인",
+        "ar": "واين",
+        "de": "Wayne"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/11/wayne.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/wayne/"
+    },
+    {
+      "id": "edith",
+      "name": {
+        "en": "Edith",
+        "zh": "艾迪絲",
+        "ko": "에디스",
+        "ar": "إديث",
+        "de": "Edith"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/03/20240222_2.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/edith/"
+    },
+    {
+      "id": "gordon",
+      "name": {
+        "en": "Gordon",
+        "zh": "哥頓",
+        "ko": "고든",
+        "ar": "جوردون",
+        "de": "Gordon"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/03/20240222_1.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gordon/"
+    },
+    {
+      "id": "bradley",
+      "name": {
+        "en": "Bradley",
+        "zh": "布拉德利",
+        "ko": "브레들리",
+        "ar": "برادلي",
+        "de": "Bradley"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/03/20240222_3.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/bradley/"
+    },
+    {
+      "id": "gatot",
+      "name": {
+        "en": "Gatot",
+        "zh": "加托",
+        "ko": "가토",
+        "ar": "جاتوت",
+        "de": "Gatot"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/07/5.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gatot/"
+    },
+    {
+      "id": "sonya",
+      "name": {
+        "en": "Sonya",
+        "zh": "索妮婭",
+        "ko": "소냐",
+        "ar": "سونيا",
+        "de": "Sonya"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/07/6.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/sonya/"
+    },
+    {
+      "id": "hendrik",
+      "name": {
+        "en": "Hendrik",
+        "zh": "亨德里克",
+        "ko": "헨드릭",
+        "ar": "هيندريك",
+        "de": "Hendrik"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/07/7.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/hendrik/"
+    },
+    {
+      "id": "magnus",
+      "name": {
+        "en": "Magnus",
+        "zh": "馬格努斯",
+        "ko": "마그누스",
+        "ar": "ماغنوس",
+        "de": "Magnus"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/08/magnus.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/magnus/"
+    },
+    {
+      "id": "fred",
+      "name": {
+        "en": "Fred",
+        "zh": "弗雷德",
+        "ko": "프레드",
+        "ar": "فريد",
+        "de": "Fred"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/08/fred.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/fred/"
+    },
+    {
+      "id": "xura",
+      "name": {
+        "en": "Xura",
+        "zh": "修拉",
+        "ko": "쇠라",
+        "ar": "شورا",
+        "de": "Xura"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/08/xura.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/xura/"
+    },
+    {
+      "id": "gregory",
+      "name": {
+        "en": "Gregory",
+        "zh": "格里高利",
+        "ko": "그레고리",
+        "ar": "جريجوري",
+        "de": "Gregory"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/12/gregory350.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gregory/"
+    },
+    {
+      "id": "freya",
+      "name": {
+        "en": "Freya",
+        "zh": "芙蕾雅",
+        "ko": "프레야",
+        "ar": "فريا",
+        "de": "Freya"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/12/freya350.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/freya/"
+    },
+    {
+      "id": "blanchette",
+      "name": {
+        "en": "Blanchette",
+        "zh": "布蘭琪",
+        "ko": "블랑쉬",
+        "ar": "بلانشيت",
+        "de": "Blanchette"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2024/12/blanchette350.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/blanchette/"
+    },
+    {
+      "id": "eleonora",
+      "name": {
+        "en": "Eleonora",
+        "zh": "埃萊奧諾拉",
+        "ko": "엘레오노라",
+        "ar": "إليونورا",
+        "de": "Eleonora"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/03/eleonora.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/eleonora/"
+    },
+    {
+      "id": "lloyd",
+      "name": {
+        "en": "Lloyd",
+        "zh": "勞埃德",
+        "ko": "로이드",
+        "ar": "لويد",
+        "de": "Lloyd"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/03/Lloyd.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/lloyd/"
+    },
+    {
+      "id": "rufus",
+      "name": {
+        "en": "Rufus",
+        "zh": "魯弗斯",
+        "ko": "루퍼스",
+        "ar": "روفوس",
+        "de": "Rufus"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/03/rufus.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/rufus/"
+    },
+    {
+      "id": "hervor",
+      "name": {
+        "en": "Hervor",
+        "zh": "赫爾薇爾",
+        "ko": "헤르보르",
+        "ar": "هيرفور",
+        "de": "Hervor"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/05/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8FHervor-1.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/hervor/"
+    },
+    {
+      "id": "karol",
+      "name": {
+        "en": "Karol",
+        "zh": "加羅爾",
+        "ko": "가로얼",
+        "ar": "كارول",
+        "de": "Karol"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/05/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8Fkarol-1.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/karol/"
+    },
+    {
+      "id": "ligeia",
+      "name": {
+        "en": "Ligeia",
+        "zh": "麗姬婭",
+        "ko": "리지아",
+        "ar": "ليجيا",
+        "de": "Ligeia"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/05/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8FLigeia-1.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/ligeia/"
+    },
+    {
+      "id": "gisela",
+      "name": {
+        "en": "Gisela",
+        "zh": "吉塞拉",
+        "ko": "기젤라",
+        "ar": "جيزيلا",
+        "de": "Gisela"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/08/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8Fgisela.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/gisela/"
+    },
+    {
+      "id": "flora",
+      "name": {
+        "en": "Flora",
+        "zh": "弗洛拉",
+        "ko": "플로라",
+        "ar": "فلورا",
+        "de": "Flora"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/08/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8FFlora.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/flora/"
+    },
+    {
+      "id": "vulcanus",
+      "name": {
+        "en": "Vulcanus",
+        "zh": "烏爾卡努斯",
+        "ko": "올카누스",
+        "ar": "فولكانوس",
+        "de": "Vulcanus"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2025/08/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8Fvulcanus.jpg",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/vulcanus/"
+    },
+    {
+      "id": "elif",
+      "name": {
+        "en": "Elif",
+        "zh": "艾麗芙",
+        "ko": "엘리프",
+        "ar": "إليف",
+        "de": "Elif"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/01/%E8%89%BE%E4%B8%BD%E8%8A%99.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/elif/"
+    },
+    {
+      "id": "dominic",
+      "name": {
+        "en": "Dominic",
+        "zh": "多米尼克",
+        "ko": "도미니카",
+        "ar": "دومينيك",
+        "de": "Dominic"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/01/%E5%A4%9A%E7%B1%B3%E5%B0%BC%E5%85%8B.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/dominic/"
+    },
+    {
+      "id": "cara",
+      "name": {
+        "en": "Cara",
+        "zh": "卡拉",
+        "ko": "카라",
+        "ar": "كارا",
+        "de": "Cara"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/01/%E5%8D%A1%E6%8B%89.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/cara/"
+    },
+    {
+      "id": "hank",
+      "name": {
+        "en": "Hank",
+        "zh": "漢克",
+        "ko": "행크",
+        "ar": "هانك",
+        "de": "Hank"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/01/%E6%B1%89%E5%85%8B.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/hank-2/"
+    },
+    {
+      "id": "estrella",
+      "name": {
+        "en": "Estrella",
+        "zh": "艾絲黛拉",
+        "ko": "에스텔라",
+        "ar": "إستريلا",
+        "de": "Estrella"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/01/%E8%89%BE%E6%96%AF%E9%BB%9B%E6%8B%89%EF%BC%88%E7%94%BB%E5%AE%B6%EF%BC%89.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/estrella/"
+    },
+    {
+      "id": "viveca",
+      "name": {
+        "en": "Viveca",
+        "zh": "維薇卡",
+        "ko": "비비카",
+        "ar": "فيفيكا",
+        "de": "Viveca"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/01/%E7%BB%B4%E8%96%87%E5%8D%A1.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/viveca-2/"
+    },
+    {
+      "id": "seigel",
+      "name": {
+        "en": "Seigel",
+        "zh": "西格爾",
+        "ko": "시걸",
+        "ar": "سيغل",
+        "de": "Seigel"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/03/hero_headpic_50059.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/seigel-6/"
+    },
+    {
+      "id": "ursar",
+      "name": {
+        "en": "Ursar",
+        "zh": "烏爾撒",
+        "ko": "우르사",
+        "ar": "أورصار",
+        "de": "Ursar"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/03/hero_headpic_50060.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/ursar/"
+    },
+    {
+      "id": "aisling",
+      "name": {
+        "en": "Aisling",
+        "zh": "艾詩琳",
+        "ko": "애슐린",
+        "ar": "آيسلينغ",
+        "de": "Aisling"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/03/hero_headpic_50061.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/aisling/"
+    },
+    {
+      "id": "aiden",
+      "name": {
+        "en": "Aiden",
+        "zh": "Aiden",
+        "de": "Aiden"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Infantry",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/07/hero_headpic_50062.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/aiden/",
+      "notes": "Newest hero (July 2026) — Chinese/Korean/Arabic translations not yet on wiki."
+    },
+    {
+      "id": "bertha",
+      "name": {
+        "en": "Bertha",
+        "zh": "Bertha",
+        "de": "Bertha"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Lancer",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/07/hero_headpic_50063.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/bertha/",
+      "notes": "Newest hero (July 2026) — Chinese/Korean/Arabic translations not yet on wiki."
+    },
+    {
+      "id": "eleanor",
+      "name": {
+        "en": "Eleanor",
+        "zh": "Eleanor",
+        "de": "Eleanor"
+      },
+      "rarity": "Legendary",
+      "stars": 5,
+      "type": "Marksman",
+      "sub_class": "Combat",
+      "image_url": "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads/2026/07/hero_headpic_50064.png",
+      "wiki_url": "https://www.whiteoutsurvival.wiki/heroes/eleanor/",
+      "notes": "Newest hero (July 2026) — Chinese/Korean/Arabic translations not yet on wiki."
+    }
+  ]
+}
