@@ -1,0 +1,209 @@
+/* Alliance Survey — form-specific styles (extends site-wide style.css) */
+
+.survey-container { max-width: 900px; }
+
+.lang-picker { display: flex; align-items: center; gap: 0.5rem; }
+.lang-picker select {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.survey-title { font-size: 1.7rem; color: var(--frost); margin-bottom: 0.5rem; }
+.survey-intro { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
+
+.survey-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+.survey-section h2 {
+  font-size: 1.15rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.section-desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+  line-height: 1.55;
+}
+.section-desc strong { color: var(--frost); font-size: 1rem; margin: 0 0.15rem; }
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+/* Hero grid */
+.hero-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 0.55rem;
+}
+.hero-card {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.12s, border-color 0.12s;
+  opacity: 0.45;
+  filter: grayscale(0.6);
+}
+.hero-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-dim);
+}
+.hero-card.selected {
+  opacity: 1;
+  filter: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(56,189,248,0.25);
+}
+.hero-card img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  display: block;
+}
+.hero-card .hero-name {
+  padding: 0.2rem 0.25rem 0.15rem;
+  font-size: 0.68rem;
+  line-height: 1.1;
+  color: var(--text-primary);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: var(--bg-primary);
+}
+.hero-card .stars-badge {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  font-size: 0.6rem;
+  color: #facc15;
+  background: rgba(0,0,0,0.6);
+  padding: 1px 4px;
+  border-radius: 3px;
+  line-height: 1.2;
+}
+.hero-card.hidden { display: none; }
+
+/* Troops grid */
+.troops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.barracks-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.barracks-card h3 {
+  font-size: 0.95rem;
+  color: var(--frost);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.barracks-card .calc-group { margin-bottom: 0.6rem; }
+.barracks-card .calc-group:last-child { margin-bottom: 0; }
+
+/* Roles list */
+.role-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.role-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+.role-label {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+.role-prefs {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.role-prefs label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.role-prefs label:hover { background: rgba(56,189,248,0.08); }
+.role-prefs input[type="radio"] {
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.role-prefs input[type="radio"]:checked + span {
+  color: var(--frost);
+  font-weight: 600;
+}
+
+/* Submit + status */
+#submitBtn { display: block; margin: 1.5rem auto 0.5rem; }
+.status-msg {
+  margin: 1rem 0;
+  padding: 0.85rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.status-msg.success {
+  background: rgba(74,222,128,0.1);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+.status-msg.error {
+  background: rgba(248,113,113,0.1);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+.footer-note {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin-top: 1rem;
+}
+
+/* RTL for Arabic */
+html[dir="rtl"] .role-row { grid-template-columns: auto 1fr; }
+html[dir="rtl"] .lang-picker { flex-direction: row-reverse; }
+
+@media (max-width: 640px) {
+  .hero-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 0.4rem; }
+  .hero-card .hero-name { font-size: 0.6rem; }
+  .role-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .survey-title { font-size: 1.4rem; }
+}
