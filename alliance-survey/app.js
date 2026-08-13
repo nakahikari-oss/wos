@@ -63,7 +63,6 @@ function buildHeroGrid() {
     card.innerHTML = `
       <img src="${hero.image}" alt="${hero.name.en}" loading="lazy">
       <div class="hero-name">${getHeroName(hero)}</div>
-      <div class="stars-badge">${"★".repeat(hero.stars)}</div>
     `;
     card.addEventListener("click", () => toggleHero(hero.id, card));
     grid.appendChild(card);
