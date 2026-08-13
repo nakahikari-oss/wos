@@ -16,7 +16,7 @@
 // ═══════════════════════════════════════════════════════
 
 // Your Google Sheet's ID (from its URL: docs.google.com/spreadsheets/d/THIS_PART/edit)
-const SHEET_ID = "PASTE_YOUR_SHEET_ID_HERE";
+const SHEET_ID = "12sOxhT5UIDpWqPSdp9d6s0LstpJoBtjnGjv3W8r30zU";
 
 // Main sheet: one row per player, updated in place (upsert by Game ID)
 const SHEET_NAME = "Responses";
@@ -216,7 +216,7 @@ function buildHeader() {
   cols.push(
     "Rally Leader 車頭",
     "Rally Joiner 車身",
-    "Tower 打塔",
+    "Turret 打塔",
     "Solo 單打"
   );
   // Heroes — one column per hero, bilingual header

@@ -33,7 +33,7 @@ window.I18N = {
     svs_desc: "Rate each role: your leaders will use this to plan rally lineups.",
     role_rally_head: "Rally Leader (open rallies, lead attacks)",
     role_rally_body: "Rally Joiner (join others' rallies)",
-    role_tower: "Tower Attacker",
+    role_tower: "Turret Attacker",
     role_solo: "Solo Fighter",
     pref_love: "Prefer",
     pref_ok: "Willing",
