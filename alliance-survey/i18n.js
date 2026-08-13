@@ -47,7 +47,7 @@ window.I18N = {
     success: "Thanks! Your response has been recorded.",
     error: "Something went wrong. Please try again or contact your leader.",
     required_field: "This field is required",
-    footer_note: "Data goes to your alliance leader only. Not shared publicly.",
+    footer_note: "This info is primarily used by #3209 alliance managers. It is not public — please fill in with confidence.",
     lang_pick: "Language"
   },
   zh: {
@@ -94,7 +94,7 @@ window.I18N = {
     success: "感謝！你的回應已經收到。",
     error: "送出失敗，請重試或聯絡盟主。",
     required_field: "此欄位必填",
-    footer_note: "資料只會提供給你的盟主，不會公開。",
+    footer_note: "這個資訊主要提供給 #3209 管理者們使用，非公開資訊請放心填寫。",
     lang_pick: "語言"
   },
   ko: {
@@ -141,7 +141,7 @@ window.I18N = {
     success: "감사합니다! 응답이 기록되었습니다.",
     error: "오류가 발생했습니다. 다시 시도하거나 리더에게 문의하세요.",
     required_field: "필수 입력 항목입니다",
-    footer_note: "데이터는 연맹장에게만 전달되며 공개되지 않습니다.",
+    footer_note: "이 정보는 주로 #3209 연맹 관리자들이 사용합니다. 비공개 정보이므로 안심하고 작성해주세요.",
     lang_pick: "언어"
   },
   de: {
@@ -188,7 +188,7 @@ window.I18N = {
     success: "Danke! Deine Antwort wurde gespeichert.",
     error: "Etwas ist schiefgelaufen. Bitte erneut versuchen oder Leiter kontaktieren.",
     required_field: "Pflichtfeld",
-    footer_note: "Die Daten werden nur an deinen Allianzleiter weitergegeben, nicht öffentlich geteilt.",
+    footer_note: "Diese Informationen werden hauptsächlich von den #3209 Allianz-Managern verwendet. Nicht öffentlich — bitte mit Vertrauen ausfüllen.",
     lang_pick: "Sprache"
   },
   ar: {
@@ -235,7 +235,7 @@ window.I18N = {
     success: "شكراً! تم تسجيل ردك.",
     error: "حدث خطأ. يرجى المحاولة مرة أخرى أو الاتصال بقائدك.",
     required_field: "هذا الحقل مطلوب",
-    footer_note: "البيانات تُرسل فقط إلى قائد التحالف ولا تُشارك علنياً.",
+    footer_note: "تُستخدم هذه المعلومات بشكل أساسي من قِبَل مديري تحالف #3209. غير علنية — يرجى التعبئة بثقة.",
     lang_pick: "اللغة"
   },
   el: {
@@ -282,7 +282,7 @@ window.I18N = {
     success: "Ευχαριστούμε! Η απάντησή σας καταγράφηκε.",
     error: "Κάτι πήγε στραβά. Παρακαλώ δοκιμάστε ξανά ή επικοινωνήστε με τον αρχηγό.",
     required_field: "Αυτό το πεδίο είναι υποχρεωτικό",
-    footer_note: "Τα δεδομένα πηγαίνουν μόνο στον αρχηγό της συμμαχίας, δεν κοινοποιούνται δημόσια.",
+    footer_note: "Αυτές οι πληροφορίες χρησιμοποιούνται κυρίως από τους διαχειριστές της συμμαχίας #3209. Δεν είναι δημόσιες — συμπληρώστε με άνεση.",
     lang_pick: "Γλώσσα"
   }
 };
