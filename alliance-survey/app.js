@@ -2,7 +2,7 @@
 // Dependencies: heroes-data.js (window.HEROES_DATA), i18n.js (window.I18N)
 
 // ⚠️ REPLACE THIS with your Google Apps Script Web App URL after deployment (see SETUP.md)
-const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzJvzEalYGdjhoKED6N1E9Todv_1y5ZI3CVVg_UtBegTIrK9HEO7FhiQdvmQGZJvec-w/exec";
 
 const RTL_LANGS = new Set(["ar"]);
 const FALLBACK_LANG = "en";
