@@ -196,76 +196,78 @@ function appendHistory(payload) {
 
 function buildHeader() {
   const cols = [
-    "Last Updated 最後更新",
-    "Language 語言",
-    "Game ID 遊戲 ID",
-    "IGN 遊戲暱稱",
-    "Alliance 聯盟",
-    "Hero Count 英雄數"
+    "最後更新",
+    "語言",
+    "遊戲 ID",
+    "遊戲暱稱",
+    "聯盟"
   ];
+  // Attendance (per-round) — 排在前面方便安排人力
+  cols.push(
+    "本回請假",
+    "第1小時",
+    "第2小時",
+    "第3小時",
+    "第4小時",
+    "第5小時"
+  );
+  // SVS role prefs
+  cols.push(
+    "車頭",
+    "車身",
+    "打塔",
+    "單打"
+  );
+  cols.push("英雄數");
   // Troops
   cols.push(
-    "Infantry FC 盾兵火晶",
-    "Infantry Tier 盾兵階級",
-    "Lancer FC 矛兵火晶",
-    "Lancer Tier 矛兵階級",
-    "Marksman FC 弓兵火晶",
-    "Marksman Tier 弓兵階級"
+    "盾兵火晶",
+    "盾兵階級",
+    "矛兵火晶",
+    "矛兵階級",
+    "弓兵火晶",
+    "弓兵階級"
   );
-  // SVS
-  cols.push(
-    "Rally Leader 車頭",
-    "Rally Joiner 車身",
-    "Turret 打塔",
-    "Solo 單打"
-  );
-  // Attendance (per-round)
-  cols.push(
-    "Skip 本回請假",
-    "H1 第1小時",
-    "H2 第2小時",
-    "H3 第3小時",
-    "H4 第4小時",
-    "H5 第5小時"
-  );
-  // Heroes — one column per hero, bilingual header (skip duplicate if zh == en)
+  // Heroes — one column per hero, Chinese name (fallback to English if no zh)
   for (const h of HEROES) {
-    cols.push(h.zh && h.zh !== h.en ? h.en + " / " + h.zh : h.en);
+    cols.push(h.zh || h.en);
   }
   return cols;
 }
 
 function buildRow(payload) {
   const owned = new Set(payload.heroes || []);
+  const att = payload.attendance || {};
+  const hoursSet = new Set(att.hours || []);
   const row = [
     payload.timestamp || new Date().toISOString(),
     payload.lang || "",
     payload.game_id || "",
     payload.ign || "",
     payload.alliance || "",
-    payload.heroesCount || 0,
-    payload.troops.infantry_fc || "",
-    payload.troops.infantry_tier || "",
-    payload.troops.lancer_fc || "",
-    payload.troops.lancer_tier || "",
-    payload.troops.marksman_fc || "",
-    payload.troops.marksman_tier || "",
-    payload.svs.rally_head || "",
-    payload.svs.rally_body || "",
-    payload.svs.tower || "",
-    payload.svs.solo || ""
-  ];
-  // Attendance
-  const att = payload.attendance || {};
-  const hoursSet = new Set(att.hours || []);
-  row.push(
+    // Attendance
     att.skip ? "✓" : "",
     hoursSet.has(1) ? "✓" : "",
     hoursSet.has(2) ? "✓" : "",
     hoursSet.has(3) ? "✓" : "",
     hoursSet.has(4) ? "✓" : "",
-    hoursSet.has(5) ? "✓" : ""
-  );
+    hoursSet.has(5) ? "✓" : "",
+    // SVS role prefs
+    payload.svs.rally_head || "",
+    payload.svs.rally_body || "",
+    payload.svs.tower || "",
+    payload.svs.solo || "",
+    // Hero count
+    payload.heroesCount || 0,
+    // Troops
+    payload.troops.infantry_fc || "",
+    payload.troops.infantry_tier || "",
+    payload.troops.lancer_fc || "",
+    payload.troops.lancer_tier || "",
+    payload.troops.marksman_fc || "",
+    payload.troops.marksman_tier || ""
+  ];
+  // Heroes
   for (const h of HEROES) {
     row.push(owned.has(h.id) ? "✓" : "");
   }
