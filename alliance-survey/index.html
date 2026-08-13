@@ -183,6 +183,21 @@
         </div>
       </section>
 
+      <!-- Section 5: SVS Attendance (per-round) -->
+      <section class="survey-section attendance-section">
+        <h2 data-i18n="section_svs_attendance">SVS Attendance</h2>
+        <p class="section-desc warning-desc" data-i18n="svs_attendance_desc">…</p>
+
+        <label class="attend-skip-label">
+          <input type="checkbox" id="attendSkip">
+          <span data-i18n="attend_skip">Skip this SVS</span>
+        </label>
+
+        <div class="attend-hours" id="attendHours">
+          <!-- hour checkboxes injected by JS -->
+        </div>
+      </section>
+
       <button type="submit" id="submitBtn" class="calc-btn-large" data-i18n="submit">Submit</button>
 
       <div id="statusMsg" class="status-msg" style="display:none;"></div>

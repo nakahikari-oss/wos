@@ -41,6 +41,9 @@ function setLang(lang) {
     if (hero && nameEl) nameEl.textContent = getHeroName(hero);
   });
 
+  // Re-render attendance hour labels (they use {n} template)
+  updateAttendanceHourLabels();
+
   // Persist choice
   try { localStorage.setItem("survey_lang", lang); } catch (e) {}
 }
@@ -82,6 +85,50 @@ function toggleHero(id, card) {
 
 function updateHeroCount() {
   document.getElementById("heroCount").textContent = selectedHeroes.size;
+}
+
+// ────────────────────────────────────────────────
+// SVS Attendance
+// ────────────────────────────────────────────────
+const ATTEND_HOURS = [1, 2, 3, 4, 5];
+
+function buildAttendanceHours() {
+  const container = document.getElementById("attendHours");
+  container.innerHTML = "";
+  for (const n of ATTEND_HOURS) {
+    const label = document.createElement("label");
+    label.className = "attend-hour-label";
+    label.innerHTML = `<input type="checkbox" class="attend-hour" data-hour="${n}"><span data-hour-label="${n}">Hour ${n}</span>`;
+    container.appendChild(label);
+  }
+  updateAttendanceHourLabels();
+
+  // Skip toggle disables hours
+  const skipBox = document.getElementById("attendSkip");
+  const hoursDiv = container;
+  skipBox.addEventListener("change", () => {
+    if (skipBox.checked) {
+      hoursDiv.classList.add("disabled");
+      hoursDiv.querySelectorAll("input").forEach(cb => { cb.checked = false; });
+    } else {
+      hoursDiv.classList.remove("disabled");
+    }
+  });
+  // Selecting any hour un-checks skip
+  hoursDiv.addEventListener("change", (e) => {
+    if (e.target.matches(".attend-hour") && e.target.checked && skipBox.checked) {
+      skipBox.checked = false;
+      hoursDiv.classList.remove("disabled");
+    }
+  });
+}
+
+function updateAttendanceHourLabels() {
+  const template = t("attend_hour_template");
+  document.querySelectorAll("[data-hour-label]").forEach(el => {
+    const n = el.dataset.hourLabel;
+    el.textContent = template.replace("{n}", n);
+  });
 }
 
 function setupHeroFilters() {
@@ -134,6 +181,10 @@ async function submitForm(e) {
       rally_body: getRadioValue("role_rally_body"),
       tower: getRadioValue("role_tower"),
       solo: getRadioValue("role_solo")
+    },
+    attendance: {
+      skip: document.getElementById("attendSkip").checked,
+      hours: Array.from(document.querySelectorAll(".attend-hour:checked")).map(cb => parseInt(cb.dataset.hour))
     }
   };
 
@@ -161,6 +212,7 @@ async function submitForm(e) {
     selectedHeroes.clear();
     updateHeroCount();
     document.querySelectorAll(".hero-card.selected").forEach(c => c.classList.remove("selected"));
+    document.getElementById("attendHours").classList.remove("disabled");
     window.scrollTo({ top: 0, behavior: "smooth" });
   } catch (err) {
     console.error(err);
@@ -185,6 +237,7 @@ function getRadioValue(name) {
 window.addEventListener("DOMContentLoaded", () => {
   buildHeroGrid();
   setupHeroFilters();
+  buildAttendanceHours();
 
   // Language: try localStorage, then browser, then fallback
   let saved = null;

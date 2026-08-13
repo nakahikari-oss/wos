@@ -219,6 +219,15 @@ function buildHeader() {
     "Turret 打塔",
     "Solo 單打"
   );
+  // Attendance (per-round)
+  cols.push(
+    "Skip 本回請假",
+    "H1 第1小時",
+    "H2 第2小時",
+    "H3 第3小時",
+    "H4 第4小時",
+    "H5 第5小時"
+  );
   // Heroes — one column per hero, bilingual header (skip duplicate if zh == en)
   for (const h of HEROES) {
     cols.push(h.zh && h.zh !== h.en ? h.en + " / " + h.zh : h.en);
@@ -246,6 +255,17 @@ function buildRow(payload) {
     payload.svs.tower || "",
     payload.svs.solo || ""
   ];
+  // Attendance
+  const att = payload.attendance || {};
+  const hoursSet = new Set(att.hours || []);
+  row.push(
+    att.skip ? "✓" : "",
+    hoursSet.has(1) ? "✓" : "",
+    hoursSet.has(2) ? "✓" : "",
+    hoursSet.has(3) ? "✓" : "",
+    hoursSet.has(4) ? "✓" : "",
+    hoursSet.has(5) ? "✓" : ""
+  );
   for (const h of HEROES) {
     row.push(owned.has(h.id) ? "✓" : "");
   }
