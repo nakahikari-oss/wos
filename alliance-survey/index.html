@@ -55,7 +55,63 @@
         </div>
       </section>
 
-      <!-- Section 2: Heroes -->
+      <!-- Section 2: SVS Attendance (per-round) — 排在前面方便安排人力 -->
+      <section class="survey-section attendance-section">
+        <h2 data-i18n="section_svs_attendance">SVS Attendance</h2>
+        <p class="section-desc warning-desc" data-i18n="svs_attendance_desc">…</p>
+
+        <label class="attend-skip-label">
+          <input type="checkbox" id="attendSkip">
+          <span data-i18n="attend_skip">Skip this SVS</span>
+        </label>
+
+        <div class="attend-hours" id="attendHours">
+          <!-- hour checkboxes injected by JS -->
+        </div>
+      </section>
+
+      <!-- Section 3: SVS Role Preference -->
+      <section class="survey-section">
+        <h2 data-i18n="section_svs">SVS Role Preference</h2>
+        <p class="section-desc" data-i18n="svs_desc">…</p>
+
+        <div class="role-list">
+          <div class="role-row" data-role="rally_head">
+            <div class="role-label" data-i18n="role_rally_head">Rally Leader</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_rally_head" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_rally_head" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_rally_head" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+          <div class="role-row" data-role="rally_body">
+            <div class="role-label" data-i18n="role_rally_body">Rally Joiner</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_rally_body" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_rally_body" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_rally_body" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+          <div class="role-row" data-role="tower">
+            <div class="role-label" data-i18n="role_tower">Tower Attacker</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_tower" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_tower" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_tower" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+          <div class="role-row" data-role="solo">
+            <div class="role-label" data-i18n="role_solo">Solo Fighter</div>
+            <div class="role-prefs">
+              <label><input type="radio" name="role_solo" value="love" required><span data-i18n="pref_love">Prefer</span></label>
+              <label><input type="radio" name="role_solo" value="ok"><span data-i18n="pref_ok">Willing</span></label>
+              <label><input type="radio" name="role_solo" value="no"><span data-i18n="pref_no">Not really</span></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Heroes -->
       <section class="survey-section">
         <h2 data-i18n="section_heroes">Heroes You Own</h2>
         <p class="section-desc"><span data-i18n="heroes_desc">Loading…</span><strong id="heroCount">0</strong> <span data-i18n="hero_count_suffix">heroes</span></p>
@@ -71,7 +127,7 @@
         <div class="hero-grid" id="heroGrid"></div>
       </section>
 
-      <!-- Section 3: Troops -->
+      <!-- Section 5: Troops -->
       <section class="survey-section">
         <h2 data-i18n="section_troops">Your Troops</h2>
         <p class="section-desc" data-i18n="troops_desc">…</p>
@@ -139,62 +195,6 @@
               </select>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Section 4: SVS Role -->
-      <section class="survey-section">
-        <h2 data-i18n="section_svs">SVS Role Preference</h2>
-        <p class="section-desc" data-i18n="svs_desc">…</p>
-
-        <div class="role-list">
-          <div class="role-row" data-role="rally_head">
-            <div class="role-label" data-i18n="role_rally_head">Rally Leader</div>
-            <div class="role-prefs">
-              <label><input type="radio" name="role_rally_head" value="love" required><span data-i18n="pref_love">Prefer</span></label>
-              <label><input type="radio" name="role_rally_head" value="ok"><span data-i18n="pref_ok">Willing</span></label>
-              <label><input type="radio" name="role_rally_head" value="no"><span data-i18n="pref_no">Not really</span></label>
-            </div>
-          </div>
-          <div class="role-row" data-role="rally_body">
-            <div class="role-label" data-i18n="role_rally_body">Rally Joiner</div>
-            <div class="role-prefs">
-              <label><input type="radio" name="role_rally_body" value="love" required><span data-i18n="pref_love">Prefer</span></label>
-              <label><input type="radio" name="role_rally_body" value="ok"><span data-i18n="pref_ok">Willing</span></label>
-              <label><input type="radio" name="role_rally_body" value="no"><span data-i18n="pref_no">Not really</span></label>
-            </div>
-          </div>
-          <div class="role-row" data-role="tower">
-            <div class="role-label" data-i18n="role_tower">Tower Attacker</div>
-            <div class="role-prefs">
-              <label><input type="radio" name="role_tower" value="love" required><span data-i18n="pref_love">Prefer</span></label>
-              <label><input type="radio" name="role_tower" value="ok"><span data-i18n="pref_ok">Willing</span></label>
-              <label><input type="radio" name="role_tower" value="no"><span data-i18n="pref_no">Not really</span></label>
-            </div>
-          </div>
-          <div class="role-row" data-role="solo">
-            <div class="role-label" data-i18n="role_solo">Solo Fighter</div>
-            <div class="role-prefs">
-              <label><input type="radio" name="role_solo" value="love" required><span data-i18n="pref_love">Prefer</span></label>
-              <label><input type="radio" name="role_solo" value="ok"><span data-i18n="pref_ok">Willing</span></label>
-              <label><input type="radio" name="role_solo" value="no"><span data-i18n="pref_no">Not really</span></label>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 5: SVS Attendance (per-round) -->
-      <section class="survey-section attendance-section">
-        <h2 data-i18n="section_svs_attendance">SVS Attendance</h2>
-        <p class="section-desc warning-desc" data-i18n="svs_attendance_desc">…</p>
-
-        <label class="attend-skip-label">
-          <input type="checkbox" id="attendSkip">
-          <span data-i18n="attend_skip">Skip this SVS</span>
-        </label>
-
-        <div class="attend-hours" id="attendHours">
-          <!-- hour checkboxes injected by JS -->
         </div>
       </section>
 
