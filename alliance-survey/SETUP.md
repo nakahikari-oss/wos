@@ -112,7 +112,10 @@ Sheet 欄位標題已經是中英雙語，Excel 打開直接可讀。
 
 ## 幾個進階建議（可選）
 
-- **收多份、去重**：Sheet 裡如果同一個 IGN 填了兩次，最新的那筆為準。目前程式碼是「無腦 append」，不會覆蓋。想改成覆蓋要在 `appendRow()` 加邏輯。
+- **兩個分頁自動建立**：
+  - **`Responses`** — 主表，一個「遊戲 ID」一列。同一人再填一次會直接覆蓋舊列，「Last Updated」欄會更新到最新時間。
+  - **`History`** — 只 append，每次送出都新增一列，永遠保留。想比對「這人上次 SVS vs 這次 SVS」就看這個分頁。
+  - 兩個分頁欄位結構一樣，你可以隨時把 History 篩選匯出比對。
 - **驗證欄位**：目前只驗證 IGN 和 Alliance 有填。如果想強制「英雄至少選 1 隻」，可以在 `app.js` 的 `submitForm` 加檢查。
 - **通知**：想每次有人填寫都收 email，可以在 Apps Script 的 `appendRow()` 之後加：
   ```javascript
