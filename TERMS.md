@@ -15,6 +15,19 @@
 | 兵工廠 | Foundry Battle | ⚠️ 曾誤譯為 Arsenal / Armory |
 | 峽谷會戰 | Canyon Clash | ⚠️ 中文曾誤用「峽谷衝突」 |
 | 釣魚錦標賽 | Fishing Tournament | 每月一次的三天活動 |
+| 銀霜商鋪 | Silverfrost Shop | ⚠️ 多個英文攻略站一致使用此名，但官方 Wiki 只寫 "event shop" — 待克菈莉絲切英文介面確認 |
+
+### 銀霜商鋪相關 / Silverfrost Shop Terms
+| 中文 | English | 備註 |
+|---|---|---|
+| 銀貝 | Silver Shell(s) | 活動代幣，用於銀霜商鋪兌換道具。官方 Wiki 確認 ✅ |
+| （活動類別總稱） | Silver Shell Events | 官方 Wiki 用此名統稱這一系列不定期活動 |
+| 盈途輕歌 | _（待確認）_ | 與銀霜商鋪同期的活動任務名稱。⚠️ 每一期名字可能不同（例：2026/02 那期叫 Petals of Desire），做英文版前需切英文介面確認 |
+| 晨星積分 | _（待確認）_ | 第二條回饋進度條的積分單位，門檻 50/200/400/1000/2000/5000 |
+| 霜色祝福 | _（待確認）_ | 售價 5 美金的活動通行證，效果為每日任務獎勵翻倍。官方 Wiki 稱這類東西為 event pass |
+
+> ⚠️ **重要**：官方 Wiki 明言商鋪內道具的銀貝標價**每一期都會變動**（"amount will vary per silver shell event"）。
+> 寫攻略時務必標註是哪一期的數據，過期後整篇要下架或更新。
 
 ### 峽谷會戰的四個階段
 | 中文 | English | 備註 |
