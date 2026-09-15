@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>漫遊劇場完全攻略：期望值、消費階梯與奇異小舖購買順序 — 克菈莉絲的WOS筆記</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .limited-banner {
+      margin: 0 0 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(217,119,6,0.07);
+      border: 1px solid var(--warning);
+      border-left: 4px solid var(--warning);
+      border-radius: 0 8px 8px 0;
+    }
+    .limited-banner .limited-label {
+      display: inline-block;
+      background: var(--warning);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .limited-banner p {
+      margin: 0.35rem 0 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .stat-highlight {
+      margin: 1.25rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-highlight .stat-number {
+      display: block;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--frost);
+      line-height: 1.2;
+    }
+    .stat-highlight .stat-unit {
+      font-size: 1.1rem;
+      color: var(--frost);
+    }
+    .stat-highlight .stat-caption {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .tip-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(56,189,248,0.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .tip-box strong { color: var(--frost); }
+    .warn-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(217,119,6,0.06);
+      border-left: 3px solid var(--warning);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .warn-box strong { color: var(--warning); }
+    .flow-box {
+      margin: 1rem 0;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      overflow-x: auto;
+    }
+    .flow-box strong { color: var(--frost); }
+    td.num, th.num { text-align: right; }
+    .tier1 { color: var(--success); font-weight: 600; }
+    .tier2 { color: var(--accent); font-weight: 600; }
+    .tier3 { color: var(--text-secondary); }
+    .tier4 { color: var(--danger); font-weight: 600; }
+    table tr.divider td { border-top: 2px solid var(--accent-dim); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">克菈莉絲的WOS筆記 <span>Whiteout Survival</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">首頁</a></li>
+        <li><a href="../articles.html" class="active">攻略文章</a></li>
+        <li><a href="../calculators.html">計算工具</a></li>
+        <li><a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">官方Wiki ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">首頁</a> <span>›</span>
+      <a href="../articles.html">攻略文章</a> <span>›</span>
+      漫遊劇場完全攻略
+    </div>
+
+    <article>
+      <div class="article-header">
+        <h1>漫遊劇場完全攻略：期望值、消費階梯與奇異小舖購買順序</h1>
+        <div class="article-meta">
+          <span>撰文：克菈莉絲</span>
+          <span>分類：<span class="tag">活動攻略</span></span>
+        </div>
+      </div>
+
+      <div class="article-content">
+
+        <div class="limited-banner">
+          <span class="limited-label">限時活動</span>
+          <p class="period">活動期間：6 天</p>
+          <p><strong>本頁的商鋪標價、每日禮包內容為這一期的數據。</strong>下一期漫遊劇場開放時，官方通常會微調標價與限購數量，數字請以當期為準；但打法邏輯與期望值分析在機率不變的前提下仍然適用。</p>
+        </div>
+
+        <p>漫遊劇場是六天限時的登台階活動，用「寒冰護符」升層領獎，累積活動代幣「奇境星幣」到「奇異小舖」兌換道具。這篇要回答三件事：<strong>怎麼打護符效率最高、每個消費檔位大概能拿到多少東西、奇異小舖裡的道具該按什麼順序買</strong>。</p>
+
+        <p>結論寫在前面：不管你是零課還是頂課，最佳打法都是<strong>只賭 L2、不衝 L8</strong>；商鋪好貨排名<strong>火晶 > 傳說裝備客箱 > 領主裝備寶箱</strong>，1 小時加速道具千萬別在這買（比常規貴 6–20 倍）。以下是完整推導。</p>
+
+        <h2>一、活動基本機制</h2>
+
+        <h3>1. 登台階與五種結果</h3>
+
+        <p>活動內容是「用寒冰護符從第一層爬到第七層（極少數狀況能到第八層）」。從第二層開始，每次探索都會抽一個結果：<strong>-2、-1、+1、+2、+3</strong> 五種其中一種，決定你這次升幾層或掉幾層。</p>
+
+        <p>探索有兩種模式，用哪一種你自己決定：</p>
+
+        <ul>
+          <li><strong>普通探索</strong>：<strong>不消耗護符</strong>，但抽到 -2 或 -1 就往下掉並結束本輪</li>
+          <li><strong>保護探索</strong>：<strong>要花護符</strong>（依當前層數不同），抽到負數不掉層、可以繼續嘗試；連續失敗 3 次後第 4 次強制升層（保底）</li>
+        </ul>
+
+        <p>每爬到新的一層都可以選擇「見好就收」領該層獎勵並結束本輪；下一輪重回第一層。</p>
+
+        <h3>2. 各層護符消耗（保護探索）</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>升層</th>
+              <th class="num">保護護符</th>
+              <th class="num">普通護符</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L1 → L2（必成功）</td><td class="num">5</td><td class="num">—</td></tr>
+            <tr><td>L2 → L3</td><td class="num">7</td><td class="num">0</td></tr>
+            <tr><td>L3 → L4</td><td class="num">20</td><td class="num">0</td></tr>
+            <tr><td>L4 → L5</td><td class="num">30</td><td class="num">0</td></tr>
+            <tr><td>L5 → L6</td><td class="num">50</td><td class="num">0</td></tr>
+            <tr><td>L6 → L7</td><td class="num">90</td><td class="num">0</td></tr>
+            <tr><td>L7 → L8</td><td class="num">120</td><td class="num">0</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3. 抽層機率</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>結果</th>
+              <th class="num">L1→L2</th>
+              <th class="num">L2+ 普通</th>
+              <th class="num">L2+ 保護</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>-2</td><td class="num">—</td><td class="num">10%</td><td class="num">10%（不掉）</td></tr>
+            <tr><td>-1</td><td class="num">—</td><td class="num">70%</td><td class="num">60%（不掉）</td></tr>
+            <tr><td>+1</td><td class="num">80%</td><td class="num">19.4%</td><td class="num">24%</td></tr>
+            <tr><td>+2</td><td class="num">19.5%</td><td class="num">0.59%</td><td class="num">5.9%</td></tr>
+            <tr><td>+3</td><td class="num">0.5%</td><td class="num">0.01%</td><td class="num">0.1%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warn-box">
+          <strong>注意：普通模式的正數結果只有 20%。</strong>換句話說，L2 以上用普通模式，每次抽都有 80% 機率讓你掉層並結束探索。這是後面所有策略分析的核心：普通模式看起來「免費」，但代價是層數大量流失。
+        </div>
+
+        <h3>4. L8 的星星機制</h3>
+
+        <p>L8 平常關閉，要滿足特殊條件才能爬。每次到達 L7 會隨機獲得 1–5 顆星（機率：1 顆 72%、2 顆 14%、3 顆 8%、4 顆 4%、5 顆 2%），累積到 5 顆星之後的下一輪才會開放 L8。</p>
+
+        <p><strong>累積 5 顆星平均要進 L7 幾次？答：3.69 次</strong>（用機率精算得出）。</p>
+
+        <h3>5. 各層獎勵</h3>
+
+        <p>每層固定給「奇境星幣」+ 一個從選項中挑一個的物品（L3 以上）。物品是「系統隨機顯示 2 個選項，你從裡面挑 1 個」的機制。</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>層數</th>
+              <th class="num">星幣</th>
+              <th>物品選項（挑 1）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L1</td><td class="num">50</td><td>—</td></tr>
+            <tr><td>L2</td><td class="num">500</td><td>—</td></tr>
+            <tr><td>L3</td><td class="num">2,500</td><td>拋光液×105 / 印記×4 / 設計圖紙×21 / 寶石手冊×21 / 寶石圖紙×21</td></tr>
+            <tr><td>L4</td><td class="num">9,500</td><td>印記×15 / 領主裝備寶箱×31 / 領主寶石寶箱×26</td></tr>
+            <tr><td>L5</td><td class="num">20,000</td><td>印記×32 / 裝備寶箱×65 / 寶石寶箱×55</td></tr>
+            <tr><td>L6</td><td class="num">28,000</td><td>印記×62 / 裝備寶箱×126 / 寶石寶箱×107</td></tr>
+            <tr><td>L7</td><td class="num">56,000</td><td>印記×123 / 裝備寶箱×252 / 寶石寶箱×213</td></tr>
+            <tr><td>L8</td><td class="num">120,000</td><td>印記×265 / 裝備寶箱×538 / 寶石寶箱×455</td></tr>
+          </tbody>
+        </table>
+
+        <h2>二、期望值分析（關鍵發現）</h2>
+
+        <h3>1. 每個目標層的護符效率</h3>
+
+        <p>假設每輪都用「保護探索」爬到目標層 T 就收，各層的星幣效率（含 +2、+3 的跨層 overshoot 加成）：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>目標層 T</th>
+              <th class="num">平均護符</th>
+              <th class="num">期望星幣/輪</th>
+              <th class="num">星幣/護符</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L2（不做保護，只吃 L1→L2 幸運跳）</td><td class="num">5</td><td class="num">935</td><td class="num">187</td></tr>
+            <tr><td>L3</td><td class="num">19</td><td class="num">3,683</td><td class="num tier2">192</td></tr>
+            <tr><td>L4</td><td class="num">61</td><td class="num">11,305</td><td class="num">184</td></tr>
+            <tr><td>L5</td><td class="num">124</td><td class="num">21,500</td><td class="num">173</td></tr>
+            <tr><td>L6</td><td class="num">230</td><td class="num">32,760</td><td class="num tier4">143</td></tr>
+            <tr><td>L7</td><td class="num">419</td><td class="num">56,000</td><td class="num">134</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>兩個要記住的：</strong></p>
+        <ul>
+          <li><strong>T=3 是純保護模式下最有效率的停留點</strong>（192 星幣/護符）</li>
+          <li><strong>L6 是最爛的停留點</strong>——L5→L6 花大錢（127 護符）換小獎（8,000 星幣）。到 L5 之後要嘛見好就收，要嘛就一路衝 L7，別停在 L6</li>
+        </ul>
+
+        <h3>2. 該不該在某層賭一次普通？</h3>
+
+        <p>直覺可能是「越高層獎勵越大，跳上去很值得賭」。實際算下來會發現，只有 <strong>L2 這一個特例</strong>值得賭。</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>目前所在層</th>
+              <th class="num">見好就收得到</th>
+              <th class="num">賭普通期望值</th>
+              <th>該做什麼</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L2</td><td class="num">500</td><td class="num tier1">583</td><td class="tier1">✓ 賭！</td></tr>
+            <tr><td>L3</td><td class="num">2,500</td><td class="num">2,319</td><td>× 見好就收</td></tr>
+            <tr><td>L4</td><td class="num">9,500</td><td class="num">5,851</td><td>× 見好就收</td></tr>
+            <tr><td>L5</td><td class="num">20,000</td><td class="num">12,668</td><td>× 見好就收</td></tr>
+            <tr><td>L6</td><td class="num">28,000</td><td class="num">26,150</td><td>× 見好就收</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>為什麼只有 L2 例外？</strong>因為 L2 掉層懲罰極小（L1 才 50 星幣，跟 L2 的 500 差距只有 450），而上升報酬相對誇張（跳到 L3 +2,000、L4 +9,000）。只有 L2 符合「downside 有限、upside 誇張」——這是唯一該賭的層。
+        </div>
+
+        <h2>三、最強策略：T=2 + L2 賭</h2>
+
+        <p>把上面兩個發現組合起來，就得到全預算通用的最佳打法：</p>
+
+        <div class="flow-box">
+花 5 護符 打 L1→L2
+├── 80% 落 L2 → <strong>賭一次普通</strong>
+│   ├── 10%  抽到 -2 → 掉回 L1（領 50 星幣）
+│   ├── 70%  抽到 -1 → 掉回 L1（領 50 星幣）
+│   ├── 19.4% +1 → L3（<strong>領 2,500 + 物品</strong>）
+│   ├── 0.59% +2 → L4（<strong>領 9,500 + 物品</strong>）
+│   └── 0.01% +3 → L5（<strong>領 20,000 + 物品</strong>）
+├── 19.5% 落 L3 → 直接收（<strong>2,500 + 物品</strong>）
+└── 0.5%  落 L4 → 直接收（<strong>9,500 + 物品</strong>）
+        </div>
+
+        <div class="stat-highlight">
+          <span class="stat-number">1,001</span><span class="stat-unit"> 星幣</span>
+          <span class="stat-caption">T=2 + L2 賭策略，每輪期望星幣（每輪只花 5 護符）</span>
+        </div>
+
+        <p>每 5 護符換 1,001 星幣，等於 <strong>200 星幣/護符</strong>——這是全策略最高效率，甚至比純保護 T=3（192）稍勝一籌。</p>
+
+        <p>操作步驟：</p>
+        <ol>
+          <li>花 5 護符按 L1→L2</li>
+          <li>看落點：如果是 L3 或 L4 直接領獎，本輪結束</li>
+          <li>如果是 L2，選「普通探索」抽一次</li>
+          <li>不管結果好壞都領獎，本輪結束</li>
+          <li>回到步驟 1 開下一輪</li>
+        </ol>
+
+        <div class="warn-box">
+          <strong>重要：不要在 L3 以上做普通探索。</strong>不管你多想賭運氣，數學已經證明從 L3 開始賭都是虧的。掉層的懲罰（-1,750～-17,500 星幣）遠大於跳層的期望收益。
+        </div>
+
+        <h2>四、消費階梯：能拿到多少護符</h2>
+
+        <p>護符從三個地方來：每日免費任務、有課金解鎖的第二個每日任務、每日禮包。</p>
+
+        <h3>1. 護符來源</h3>
+
+        <ul>
+          <li><strong>免費任務（每日）</strong>：20 個護符</li>
+          <li><strong>課金任務（每日）</strong>：多 20 個護符（當日任意課金即解鎖）</li>
+          <li><strong>禮包（每日限購，各檔限一次）</strong>：見下表</li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>禮包</th>
+              <th class="num">護符</th>
+              <th class="num">護符/美金</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>$5</td><td class="num">80</td><td class="num tier1">16.0 ⭐</td></tr>
+            <tr><td>$10</td><td class="num">140</td><td class="num">14.0</td></tr>
+            <tr><td>$20</td><td class="num">240</td><td class="num">12.0</td></tr>
+            <tr><td>$50</td><td class="num">580</td><td class="num">11.6</td></tr>
+            <tr><td>$100</td><td class="num">1,000</td><td class="num">10.0</td></tr>
+          </tbody>
+        </table>
+
+        <p>跟其他遊戲禮包一樣：<strong>越小的檔次效率越好，越大越吃虧</strong>。</p>
+
+        <h3>2. 六天總量與美金換護符效率</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>每日購買組合</th>
+              <th class="num">護符/天</th>
+              <th class="num">6 天總量</th>
+              <th class="num">總花費</th>
+              <th class="num">美金/護符</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>純免費任務</td><td class="num">20</td><td class="num">120</td><td class="num">$0</td><td class="num">—</td></tr>
+            <tr><td>$5 pack（解鎖 +20 任務）</td><td class="num">120</td><td class="num">720</td><td class="num">$30</td><td class="num tier1">$0.042 ⭐</td></tr>
+            <tr><td>$5 + $10</td><td class="num">260</td><td class="num">1,560</td><td class="num">$90</td><td class="num">$0.058</td></tr>
+            <tr><td>$5 + $10 + $20</td><td class="num">500</td><td class="num">3,000</td><td class="num">$210</td><td class="num">$0.070</td></tr>
+            <tr><td>$5 + $10 + $20 + $50</td><td class="num">1,080</td><td class="num">6,480</td><td class="num">$510</td><td class="num">$0.079</td></tr>
+            <tr><td>全買（$185/天）</td><td class="num">2,080</td><td class="num">12,480</td><td class="num">$1,110</td><td class="num tier4">$0.089</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>甜蜜點：每天 $5。</strong>解鎖了額外 20 護符的任務、單位護符成本又是全場最低（$0.042）。如果你想「花最少錢拿最多好處」，就是每天 $5。
+        </div>
+
+        <h2>五、奇異小舖 CP 排行</h2>
+
+        <p>用「銀霜商鋪攻略」裡整理的常規售價當基準，反推 1 星幣值多少美金。分數越高代表在奇異小舖越划算。</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>排名</th>
+              <th>物品</th>
+              <th class="num">星幣</th>
+              <th class="num">限購</th>
+              <th class="num">1 星幣值</th>
+              <th>評價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tier1">
+              <td>🥇 1</td>
+              <td><strong>火晶 ×1</strong></td>
+              <td class="num">105</td>
+              <td class="num">300</td>
+              <td class="num">$0.0015–0.0030</td>
+              <td>必買，超值 3–4 倍</td>
+            </tr>
+            <tr class="tier1">
+              <td>🥈 2</td>
+              <td><strong>傳說英雄裝備客製化箱子</strong></td>
+              <td class="num">19,200</td>
+              <td class="num">2</td>
+              <td class="num">$0.0007–0.0013</td>
+              <td>次好，缺英雄裝備必買</td>
+            </tr>
+            <tr class="tier1">
+              <td>🥉 3</td>
+              <td><strong>領主裝備材料寶箱</strong>（每日 5 個）</td>
+              <td class="num">210</td>
+              <td class="num">30</td>
+              <td class="num">$0.00070</td>
+              <td>每日別忘買滿</td>
+            </tr>
+            <tr class="tier2 divider">
+              <td>4</td>
+              <td>通用專家印記 ×1</td>
+              <td class="num">640</td>
+              <td class="num">500</td>
+              <td class="num">$0.00098</td>
+              <td>看曙光禮包時機（見備註）</td>
+            </tr>
+            <tr class="tier2">
+              <td>5</td>
+              <td>寶石秘典 ×1</td>
+              <td class="num">3,360</td>
+              <td class="num">80</td>
+              <td class="num">$0.00063</td>
+              <td>比常規略好</td>
+            </tr>
+            <tr class="tier2">
+              <td>6</td>
+              <td>寶石手冊 ×5</td>
+              <td class="num">600</td>
+              <td class="num">200</td>
+              <td class="num">$0.00052</td>
+              <td>常用資源，值得補</td>
+            </tr>
+            <tr class="tier2">
+              <td>7</td>
+              <td>寶石圖紙 ×5</td>
+              <td class="num">600</td>
+              <td class="num">200</td>
+              <td class="num">$0.00052</td>
+              <td>常用資源，值得補</td>
+            </tr>
+            <tr class="tier3 divider">
+              <td>8</td>
+              <td>英雄裝備幸運寶箱 ×1</td>
+              <td class="num">340</td>
+              <td class="num">1,000</td>
+              <td class="num">$0.00049</td>
+              <td>持平，有需再買</td>
+            </tr>
+            <tr class="tier3">
+              <td>9</td>
+              <td>專精能源石 ×1</td>
+              <td class="num">340</td>
+              <td class="num">500</td>
+              <td class="num">$0.00049</td>
+              <td>持平，有需再買</td>
+            </tr>
+            <tr class="tier3">
+              <td>10</td>
+              <td>拋光液 ×25</td>
+              <td class="num">600</td>
+              <td class="num">200</td>
+              <td class="num">$0.00047</td>
+              <td>持平</td>
+            </tr>
+            <tr class="tier3">
+              <td>11</td>
+              <td>強韌合金 ×2,500</td>
+              <td class="num">600</td>
+              <td class="num">200</td>
+              <td class="num">$0.00047</td>
+              <td>持平</td>
+            </tr>
+            <tr class="tier3">
+              <td>12</td>
+              <td>設計圖紙 ×5</td>
+              <td class="num">600</td>
+              <td class="num">200</td>
+              <td class="num">$0.00047</td>
+              <td>持平</td>
+            </tr>
+            <tr class="tier4 divider">
+              <td>❌</td>
+              <td><strong>1 小時通用加速 ×1</strong></td>
+              <td class="num">800</td>
+              <td class="num">300</td>
+              <td class="num">$0.00008–0.00016</td>
+              <td><strong>比常規貴 6–20 倍，絕對不要買</strong></td>
+            </tr>
+            <tr>
+              <td colspan="6" style="padding-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">
+                <strong>價格未知（需玩家自評需求）：</strong>學識之書×100（740）、征服之帆（640）、傳說通用英雄碎片（850）、100 點強化經驗零件（200）
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>關於通用專家印記的備註</h4>
+
+        <p>印記在奇異小舖是 640 星幣一個，如果拿它跟「5 美金 8 個」的常規禮包比，是好貨；但實際上大部分玩家會等「曙光禮包」的印記檔（單價便宜得多）。如果最近有曙光禮包，這裡的印記就不划算；如果很久沒有，就補一些。</p>
+
+        <h2>六、各預算的具體購物清單</h2>
+
+        <p>以下每個預算都用 <strong>T=2+L2 賭策略</strong>估算總星幣，並按 CP 排行給出建議購買順序。</p>
+
+        <h3>🐟 零課（$0，24,000 星幣）</h3>
+
+        <p>只有 24,000 星幣，連火晶都買不滿（火晶滿買要 31,500）。全丟火晶：</p>
+        <ul>
+          <li><strong>火晶 ×228</strong>（用掉 23,940 星幣，剩 60 沒用）</li>
+        </ul>
+        <p>總價值換算 <strong>$36–$71 的火晶</strong>。零課能拿到這樣算不錯。</p>
+
+        <h3>🐟 小課 $30（144,000 星幣）</h3>
+
+        <ol>
+          <li>火晶 ×300（滿買，用 31,500）</li>
+          <li>傳說裝備客箱 ×2（38,400）</li>
+          <li>領主裝備寶箱 ×30（6,300）</li>
+          <li>剩下的 67,800 星幣 → 挑你缺的資源（推薦順序：通用印記 → 寶石秘典 → 寶石手冊/圖紙）</li>
+        </ol>
+        <p>預估總價值 <strong>$70–$140</strong>（如果火晶按 $0.313 算）。<strong>2.3–4.7 倍回本</strong>，這活動 $30 是最佳性價比。</p>
+
+        <h3>🐬 中課 $90（312,000 星幣）</h3>
+
+        <ol>
+          <li>Tier 1 全滿買：火晶 300 + 裝備客箱 2 + 領主寶箱 30 = 76,200 星幣</li>
+          <li>剩 235,800 星幣，優先補印記或寶石秘典</li>
+          <li>建議：印記 ×368（235,520）或寶石秘典 ×70（235,200）</li>
+        </ol>
+        <p>預估價值 <strong>$150–$300</strong>。</p>
+
+        <h3>🐳 大課 $210（600,000 星幣）</h3>
+
+        <ol>
+          <li>Tier 1 全滿：76,200</li>
+          <li>通用印記全滿：320,000（合計 396,200）</li>
+          <li>寶石秘典 ×60：201,600（合計 597,800，剩 2,200）</li>
+        </ol>
+        <p>預估價值 <strong>$300–$600</strong>。這個檔位可以吃到大部分 Tier 1 + Tier 2 的好貨。</p>
+
+        <h3>🐋 頂課 $1,110（2,500,000 星幣）</h3>
+
+        <p><strong>幾乎能買光整間店</strong>（滿買所有東西需要 2.79M 星幣，只差 ~290K）。</p>
+        <p>建議直接<strong>跳過 1 小時加速（省 240K）</strong>就能把所有其他好貨買到頂：</p>
+        <ul>
+          <li>Tier 1 全滿（火晶、裝備客箱、領主寶箱）</li>
+          <li>Tier 2 全滿（印記、寶石秘典、寶石手冊、寶石圖紙）</li>
+          <li>Tier 3 全滿（幸運寶箱、專精能源石、拋光液、合金、設計圖紙）</li>
+          <li>未知類（學識之書、征服之帆、英雄碎片、強化經驗）依個人需求</li>
+        </ul>
+        <p>預估價值 <strong>$1,300–$3,700</strong>（火晶佔了主要價值）。<strong>1.2–3.3 倍回本</strong>。</p>
+
+        <h2>七、L8 該不該衝？</h2>
+
+        <p>L8 表面上看起來很威（120,000 星幣 + 大禮包），但實際算下來：<strong>對星幣效率來說 L8 很虧</strong>。</p>
+
+        <h3>L8 全套成本</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>步驟</th>
+              <th class="num">護符</th>
+              <th class="num">拿到的星幣</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>累積 5 星（3.69 次到 L7）</td><td class="num">~1,546</td><td class="num">~207,000（順便拿 L7 獎勵）</td></tr>
+            <tr><td>最後一輪爬到 L7</td><td class="num">~419</td><td class="num">—</td></tr>
+            <tr><td>L7 → L8（保護 2.53 次抽）</td><td class="num">~303</td><td class="num">120,000</td></tr>
+            <tr><td><strong>合計</strong></td><td class="num"><strong>~2,268</strong></td><td class="num"><strong>~327,000</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h3>同樣 2,268 護符做 T=2 賭：</h3>
+
+        <ul>
+          <li>2,268 ÷ 5 = 453 輪 × 1,001 星幣 = <strong>約 453,000 星幣</strong></li>
+          <li>另外還有一堆 L3/L4 選項物品（估計 $210）</li>
+        </ul>
+
+        <div class="stat-highlight">
+          <span class="stat-number">+126,000</span><span class="stat-unit"> 星幣</span>
+          <span class="stat-caption">同樣護符量下，T=2 賭比 L8 push 多拿的星幣（大約多 40%）</span>
+        </div>
+
+        <h3>什麼時候該衝 L8？</h3>
+
+        <p>L8 唯一的優勢是「集中的大禮包」（538 個裝備寶箱、265 個印記等等）。如果你正好在需要一次性補很多這類物品，衝一次 L8 有意義。否則<strong>老老實實刷 T=2 星幣效率永遠更高</strong>。</p>
+
+        <h2>八、常見陷阱清單</h2>
+
+        <ul>
+          <li>❌ <strong>不要在 L3 以上做普通探索</strong>——數學算過了，任何比 L2 高的層做普通都是虧的</li>
+          <li>❌ <strong>不要停在 L6</strong>——L5→L6 花大錢換小獎，這一層是效率最差的停留點</li>
+          <li>❌ <strong>不要在奇異小舖買加速道具</strong>——比其他管道貴 6–20 倍</li>
+          <li>❌ <strong>不要衝 L8</strong>（除非你剛好缺 L8 的大禮包物品）</li>
+          <li>❌ <strong>不要漏領每日護符任務</strong>——每天 20 護符累積六天就是 120，等於 60 顆火晶</li>
+          <li>❌ <strong>不要一次性大額課金</strong>——分成六天每天買小禮包，同樣的錢多拿護符</li>
+          <li>⚠️ <strong>領主裝備寶箱每日限購 5</strong>——記得每天上線點滿</li>
+        </ul>
+
+        <h2>懶人包</h2>
+
+        <div class="tip-box">
+          <p><strong>三十秒決策：</strong></p>
+          <ol style="margin-top:0.5rem;">
+            <li>每天登入領 20 護符（免費）</li>
+            <li>想課的話買 $5 pack，會多解鎖 20 護符任務——一天 120 護符</li>
+            <li>打法：花 5 護符打 L1→L2；落 L2 就賭一次普通、落 L3+ 直接收</li>
+            <li>星幣先買火晶，再買傳說裝備客箱、領主裝備寶箱，然後看需求補印記或寶石</li>
+            <li>絕對不要在這裡買 1 小時加速</li>
+          </ol>
+        </div>
+
+        <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.9rem;">祝大家火晶爆買、星幣滿滿。願妳的每一次 L2 賭都跳到 L4。</p>
+
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <p>克菈莉絲的WOS筆記 — 本站為玩家自製攻略站，與官方無關</p>
+    <p>部分資料引用自其他來源，已於各頁面標註出處</p>
+    <p style="margin-top:0.5rem;">
+      官方Wiki：<a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">中文版</a>
+       ｜ <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
+    </p>
+  </footer>
+
+</body>
+</html>
