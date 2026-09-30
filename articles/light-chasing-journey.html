@@ -64,31 +64,6 @@
     }
     .flow span { color: var(--text-muted); margin: 0 0.4rem; font-weight: 400; }
 
-    .recurring-banner {
-      margin: 0 0 1.5rem;
-      padding: 1rem 1.25rem;
-      background: rgba(56,189,248,0.06);
-      border: 1px solid var(--accent);
-      border-left: 4px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-    }
-    .recurring-banner .recurring-label {
-      display: inline-block;
-      background: var(--accent);
-      color: #0b1220;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 0.15rem 0.6rem;
-      border-radius: 4px;
-      margin-bottom: 0.5rem;
-    }
-    .recurring-banner p {
-      margin: 0.35rem 0 0;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
     td.num, th.num { text-align: right; }
     .good { color: var(--success); font-weight: 600; }
     .bad  { color: var(--warning); font-weight: 600; }
@@ -123,12 +98,6 @@
           <span>撰文：克菈莉絲</span>
           <span>分類：<span class="tag">活動攻略</span></span>
         </div>
-      </div>
-
-      <div class="recurring-banner">
-        <span class="recurring-label">不定期重複登場</span>
-        <p>逐光之旅是<strong>會不定期再次開放</strong>的活動，跟釣魚錦標賽一樣，這篇整理的是<strong>通用的判斷邏輯</strong>，下次開的時候還能直接套用。</p>
-        <p>但要注意：<strong>禮包內容與進度條獎勵每期都可能調整</strong>，下次開放時請先對一下數字有沒有變；算法不變，換數字重算就好。</p>
       </div>
 
       <div class="article-content">
@@ -407,38 +376,76 @@
 
         <h2>七、各預算該怎麼花</h2>
 
-        <p>下表是每個預算檔位<strong>實際能跑到幾趟、領到哪一格</strong>。所有檔位都假設<strong>已經用鑽石開到第 3 隊</strong>（因為那不花現金）：</p>
+        <p><strong>禮包是每日限購的</strong>（$5～$50 每天各 1 包、$100 每天 3 包），所以你<strong>沒辦法第一天就把錢一次花完</strong>——必須每天上線買。下面給兩套方案：懶得算的照「每日菜單」做，想精打細算的看「最低成本表」。</p>
+
+        <h3>方案 A：每日固定菜單（照做就好）</h3>
+
+        <p>所有檔位都假設<strong>已經用鑽石開到第 3 隊</strong>（那不花現金），$5 以上再加開第 4 隊：</p>
 
         <table>
           <thead>
-            <tr><th>預算</th><th>怎麼花</th><th class="num">總趟數</th><th>進度條到</th><th class="num">進度獎勵</th><th class="num">寶石材料</th><th class="num">寶藏收益</th><th class="num">CP 值</th></tr>
+            <tr><th>預算</th><th>每天買什麼</th><th class="num">5 天總計</th><th class="num">總趟數</th><th>進度條到</th><th class="num">CP 值</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>$0</strong></td><td>只開第 1 隊</td><td class="num">15</td><td>10 趟</td><td class="num">$0.19</td><td class="num">—</td><td class="num">$4.4</td><td class="num good">免費</td></tr>
-            <tr><td><strong>$0</strong></td><td>用鑽石開到 3 隊</td><td class="num">45</td><td>30 趟</td><td class="num">$3.19</td><td class="num">—</td><td class="num">$13.1</td><td class="num good">免費 ★</td></tr>
-            <tr><td><strong>$5</strong></td><td>＋開第 4 隊</td><td class="num">60</td><td>50 趟</td><td class="num">$3.19</td><td class="num">—</td><td class="num">$17.5</td><td class="num good">4.13～4.86 倍 ★★</td></tr>
-            <tr><td><strong>$30</strong></td><td>4 隊＋每日 $5 包 ×5</td><td class="num">160</td><td class="good">150 趟（秘銀 ×8）</td><td class="num">$52.78</td><td class="num">$21.9</td><td class="num">$46.5</td><td class="num good">4.04～4.36 倍 ★★</td></tr>
-            <tr><td><strong>$80</strong></td><td>4 隊＋$5 ×5＋$10 ×5</td><td class="num">310</td><td>270 趟</td><td class="num">$69.48</td><td class="num">$65.6</td><td class="num">$90.2</td><td class="num good">2.82～3.05 倍</td></tr>
-            <tr><td><strong>$180</strong></td><td>4 隊＋$5／$10／$20 各 ×5</td><td class="num">560</td><td>420 趟</td><td class="num">$169.48</td><td class="num">$153.1</td><td class="num">$162.9</td><td class="num good">2.70～2.89 倍</td></tr>
-            <tr><td><strong>$430</strong></td><td>再加 $50 包 ×5</td><td class="num">1,123</td><td class="good">900 趟（全滿）</td><td class="num">$494.48</td><td class="num">$371.9</td><td class="num">$326.6</td><td class="num good">2.77～2.93 倍</td></tr>
-            <tr><td><strong>$430 以上</strong></td><td>—</td><td class="num">—</td><td class="bad">沒有東西可領了</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num bad">停損點</td></tr>
+            <tr><td><strong>零課</strong></td><td>不買禮包（只用鑽石開到 3 隊）</td><td class="num">$0</td><td class="num">45</td><td>30 趟</td><td class="num good">免費</td></tr>
+            <tr><td><strong>$5</strong></td><td>不買禮包，只開第 4 隊</td><td class="num">$5</td><td class="num">60</td><td>50 趟</td><td class="num good">4.1～4.9 倍 ★★</td></tr>
+            <tr><td><strong>$30</strong></td><td><strong>$5 包 ×1</strong></td><td class="num">$30</td><td class="num">160</td><td class="good">150 趟（秘銀 ×8）</td><td class="num good">4.0～4.4 倍 ★★</td></tr>
+            <tr><td><strong>$80</strong></td><td><strong>$5 ＋ $10</strong></td><td class="num">$80</td><td class="num">310</td><td>270 趟</td><td class="num good">2.8～3.1 倍</td></tr>
+            <tr><td><strong>$180</strong></td><td><strong>$5 ＋ $10 ＋ $20</strong></td><td class="num">$180</td><td class="num">560</td><td>420 趟</td><td class="num good">2.7～2.9 倍</td></tr>
+            <tr><td><strong>$380</strong></td><td><strong>$5 ＋ $10 ＋ $20 ＋ $50</strong><br><span style="font-size:0.85em;color:var(--text-muted);">（$50 只買前 4 天）</span></td><td class="num">$380</td><td class="num">1,010</td><td class="good">900 趟（全滿）</td><td class="num good">2.9～3.1 倍</td></tr>
           </tbody>
         </table>
 
-        <p style="font-size:0.9rem;color:var(--text-muted);">※ CP 值 ＝（進度條獎勵 ＋ 禮包附帶的寶石材料 ＋ 寶藏收益）÷ 花的現金。<strong>大於 1 就是划算。</strong>未知定價項目（強化經驗零件、傳說通用英雄碎片、領主寶石材料寶箱）一律以 $0 計入，所以實際數字只會更好。</p>
+        <p style="font-size:0.9rem;color:var(--text-muted);">※「每天買什麼」那欄的金額是<strong>單日</strong>的，×5 天才是總計。例如 $180 檔 ＝ 每天花 $35 × 5 天 ＝ $175，再加開第 4 隊的 $5。</p>
+
+        <h3>方案 B：各里程碑的最低成本（精打細算）</h3>
+
+        <p>如果你心裡有個明確目標（例如「我就是要拿到 900 趟的秘銀 ×25」），下表是<strong>達成該格所需的最低現金</strong>，比上面的懶人菜單省一截：</p>
+
+        <table>
+          <thead>
+            <tr><th>目標</th><th>該格獎勵</th><th class="num">最低現金</th><th>整場要買的包</th><th class="num">CP 值</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">50 趟</td><td>傳說通用英雄碎片 ×10</td><td class="num good">$5</td><td>只開第 4 隊，不買包</td><td class="num good">4.1～4.9 倍</td></tr>
+            <tr><td class="num">70 趟</td><td>設計圖紙 ×40</td><td class="num">$10</td><td>$5 包 ×1</td><td class="num good">3.3～3.8 倍</td></tr>
+            <tr><td class="num">100 趟</td><td>領主裝備材料寶箱 ×50</td><td class="num">$15</td><td>$5 包 ×2</td><td class="num good">3.4～3.8 倍</td></tr>
+            <tr><td class="num">150 趟</td><td><strong>秘銀 ×8</strong></td><td class="num good">$30</td><td>$5 ×3、$10 ×1</td><td class="num good">3.9～4.2 倍 ★</td></tr>
+            <tr><td class="num">200 趟</td><td>英雄裝備幸運寶箱 ×100</td><td class="num">$45</td><td>$5 ×4、$10 ×2</td><td class="num good">3.6～3.9 倍</td></tr>
+            <tr><td class="num">270 趟</td><td>領主寶石材料寶箱 ×60</td><td class="num">$70</td><td>$5 ×3、$10 ×5</td><td class="num good">2.9～3.2 倍</td></tr>
+            <tr><td class="num">420 趟</td><td><strong>秘銀 ×20</strong></td><td class="num good">$130</td><td>$5 ×3、$10 ×5、$20 ×3</td><td class="num good">3.1～3.3 倍</td></tr>
+            <tr><td class="num">570 趟</td><td><strong>秘銀 ×20</strong></td><td class="num">$190</td><td>$5 ×5、$10 ×5、$20 ×3、$50 ×1</td><td class="num good">3.1～3.3 倍</td></tr>
+            <tr><td class="num">720 趟</td><td><strong>秘銀 ×20</strong></td><td class="num">$260</td><td>$5 ×5、$10 ×3、$20 ×5、$100 ×1</td><td class="num good">3.1～3.3 倍</td></tr>
+            <tr><td class="num">900 趟</td><td><strong>秘銀 ×25</strong>（全滿）</td><td class="num good">$340</td><td>$5 ×5、$10 ×3、$20 ×4、$100 ×2</td><td class="num good">3.1～3.2 倍</td></tr>
+            <tr><td class="bad">$340 以上</td><td class="bad">沒有東西可領了</td><td class="num bad">停損點</td><td>—</td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:0.9rem;color:var(--text-muted);">※「整場要買的包」是<strong>5 天的總量</strong>。因為每日限購 1 包，所以「$10 ×3」的意思是<strong>挑 3 天各買 1 包 $10</strong>，不是一次買 3 包。<br>
+        ※ CP 值 ＝（進度條獎勵 ＋ 禮包附帶的寶石材料 ＋ 寶藏收益）÷ 花的現金。<strong>大於 1 就是划算。</strong>未知定價項目（強化經驗零件、傳說通用英雄碎片、領主寶石材料寶箱）一律以 $0 計入，所以實際數字只會更好。</p>
+
+        <div class="warn-box">
+          <strong>⚠️ 衝 900 趟有個很嘔的臨界點。</strong>如果你照「每種包都買滿 5 天」的懶人買法：
+          <ul style="margin-top:0.5rem;">
+            <li>$5／$10／$20 各買滿 ＋ <strong>$50 買 3 天</strong> ＝ $330 → <strong class="bad">898 趟，差 2 趟領不到！</strong></li>
+            <li>$5／$10／$20 各買滿 ＋ <strong>$50 買 4 天</strong> ＝ $380 → 1,010 趟，達成（但超買了 110 趟）</li>
+            <li><strong class="good">最佳解：$5 ×5、$10 ×3、$20 ×4、$100 ×2 ＝ $340 → 剛好 900 趟</strong></li>
+          </ul>
+          <strong>快到 900 的時候一定要先算一下再買最後一包</strong>，差個幾趟就白費了。
+        </div>
 
         <div class="warn-box">
           <strong>⚠️ CP 值看起來都很高，但別被騙了。</strong>這些數字有一大塊來自<strong>禮包附帶的寶石圖紙／手冊</strong>。
-          如果你根本不缺寶石材料，那一整欄要直接劃掉——例如 $430 那檔會從 2.77 倍掉到約 <strong>1.91 倍</strong>，
-          $80 那檔更會從 2.82 倍掉到 <strong>2.00 倍</strong>。<strong>划算與否，取決於你缺不缺寶石材料。</strong>
+          如果你根本不缺寶石材料，那一整欄要直接劃掉——例如 $380 那檔會從 2.9 倍掉到約 <strong>2.1 倍</strong>，
+          $80 那檔會從 2.8 倍掉到 <strong>2.0 倍</strong>。<strong>划算與否，取決於你缺不缺寶石材料。</strong>
         </div>
 
         <div class="tip-box">
           <strong>三個關鍵數字：</strong>
           <ul style="margin-top:0.5rem;">
             <li><strong>$5</strong> — 開第 4 隊。全場效益最高的一筆錢，任何預算都該花。</li>
-            <li><strong>$30</strong> — 衝到 150 趟拿秘銀 ×8。CP 值 <strong>4.04～4.36 倍</strong>，是整個活動的最佳甜蜜點。</li>
-            <li><strong>$430</strong> — 進度條全滿（900 趟）。<strong>超過這個數字就別再課了</strong>，進度條已經沒東西可以領。</li>
+            <li><strong>$30</strong> — 衝到 150 趟拿秘銀 ×8。CP 值 <strong>4.0～4.4 倍</strong>，是整個活動的最佳甜蜜點。</li>
+            <li><strong>$340</strong> — 進度條全滿（900 趟）的<strong>最低成本</strong>。<strong>超過這個數字就別再課了</strong>，進度條已經沒東西可以領。</li>
           </ul>
         </div>
 
@@ -448,6 +455,7 @@
           <li><strong>活動一開始，立刻用鑽石開到第 3 隊</strong>（2,000＋10,000 = 12,000 鑽）。越早開，免費的 120 小時才吃得滿。</li>
           <li><strong>如果打算花任何錢，$5 先拿去開第 4 隊</strong>，不要拿去買禮包。</li>
           <li><strong>隊伍不要放著空轉。</strong>每趟 8 小時，睡前記得派滿，起床立刻再派。空轉 1 小時就等於浪費 1 個懷錶。</li>
+          <li><strong>禮包是每日限購，所以每天都要上線買</strong>（$5～$50 每天各 1 包、$100 每天 3 包）。漏買一天就少一包，活動結束前補不回來。</li>
           <li><strong>要買禮包的話，每天的 $5 包先買滿</strong>（懷錶效率最高），有多的預算再往 $10、$20 加。</li>
           <li><strong>懷錶集中用在快回來的隊伍上</strong>，湊滿 8 小時就是實實在在多一趟。</li>
           <li><strong>寶藏合成看你缺不缺傳說英雄碎片</strong>——缺就一路合成到精緻／華美，不缺就直接開普通的拿鑽石。<strong>千萬不要停在「高級」</strong>，那是最虧的選擇。</li>
@@ -466,10 +474,10 @@
           <p style="margin-top:0;"><strong>這是純課金活動，沒有技巧，只有「錢花在哪」的問題。</strong></p>
           <ul>
             <li><strong>零課</strong>：用鑽石開到 3 隊 → 45 趟 → 領到 30 趟那格。鑽石不夠就有多少開多少。</li>
-            <li><strong>微課（$5）</strong>：開第 4 隊 → 60 趟 → 領到 50 趟那格。CP <strong>4.13～4.86 倍</strong>，<strong>這 $5 是全場最值得的。</strong></li>
-            <li><strong>小課（$30）</strong>：4 隊＋每日 $5 包 → 160 趟 → 拿到 <strong>秘銀 ×8</strong>。CP <strong>4.04～4.36 倍</strong>，最佳性價比。</li>
-            <li><strong>中課（$180）</strong>：560 趟、進度條到 420。進度獎勵 $169＋寶石材料 $153＋寶藏 $163。</li>
-            <li><strong>大課（$430）</strong>：1,123 趟，進度條全滿 900。<strong>這就是停損點，再多花沒有意義。</strong></li>
+            <li><strong>微課（$5）</strong>：開第 4 隊 → 60 趟 → 領到 50 趟那格。CP <strong>4.1～4.9 倍</strong>，<strong>這 $5 是全場最值得的。</strong></li>
+            <li><strong>小課（$30）</strong>：4 隊＋每天買 $5 包 → 160 趟 → 拿到 <strong>秘銀 ×8</strong>。CP <strong>4.0～4.4 倍</strong>，最佳性價比。</li>
+            <li><strong>中課（$180）</strong>：每天買 $5＋$10＋$20 → 560 趟、進度條到 420。（其實 <strong>$130</strong> 就能到 420 那格，想省錢看第七段的最低成本表。）</li>
+            <li><strong>大課（$340）</strong>：$5 ×5、$10 ×3、$20 ×4、$100 ×2 → <strong>剛好 900 趟，進度條全滿</strong>。<strong>這就是停損點，再多花沒有意義。</strong></li>
             <li><strong>合成</strong>：精緻／華美是 <strong>75%／25%</strong>，9 個普通期望換到 <strong>4 個</strong>傳說碎片。損益兩平點是每個碎片值 <strong>$0.34～$0.40</strong> 以上。</li>
           </ul>
           <p style="margin-bottom:0;"><strong>買禮包前先問自己一句：我需要寶石圖紙和手冊嗎？</strong>
