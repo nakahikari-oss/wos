@@ -15,6 +15,7 @@
 | 兵工廠 | Foundry Battle | ⚠️ 曾誤譯為 Arsenal / Armory |
 | 峽谷會戰 | Canyon Clash | ⚠️ 中文曾誤用「峽谷衝突」 |
 | 釣魚錦標賽 | Fishing Tournament | 每月一次的三天活動 |
+| 逐光之旅 | Journey of Light | 不定期重複登場的 5 天課金活動。克菈莉絲遊戲內確認 ✅ |
 | 銀霜商鋪 | Silverfrost Shop | ⚠️ 多個英文攻略站一致使用此名，但官方 Wiki 只寫 "event shop" — 待克菈莉絲切英文介面確認 |
 | 漫遊劇場 | _（待確認）_ | 登台階類活動，用寒冰護符升層領獎 |
 | 奇異小舖 | _（待確認）_ | 漫遊劇場的兌換商店 |
@@ -41,11 +42,28 @@
 | 奇境星幣 | _（待確認）_ | 漫遊劇場活動代幣 |
 | 普通探索 | _（待確認）_ | 免費升層模式，有掉層風險 |
 | 保護探索 | _（待確認）_ | 消耗護符升層，抽到負數不掉層 |
-| 領主裝備材料寶箱 | _（待確認）_ | 每日限購 5 個，內容為 1 設計圖紙 + 4 拋光液 + 400 強韌合金 |
-| 領主寶石材料隨機寶箱 | _（待確認）_ | 隨機開出寶石手冊或圖紙 1–15 個 |
+| 領主裝備材料寶箱 | Chief Gear Materials Chest | 每日限購 5 個，內容為 1 設計圖紙 + 4 拋光液 + 400 強韌合金。克菈莉絲確認 ✅ |
+| 領主寶石材料隨機寶箱 | Random Chief Charm Material Chest | 隨機開出寶石手冊或圖紙 1–15 個。克菈莉絲確認 ✅ |
 | 學識之書 | _（待確認）_ | 奇異小舖商品 |
 | 征服之帆 | _（待確認）_ | 奇異小舖商品 |
-| 傳說通用英雄碎片 | _（待確認）_ | 奇異小舖商品 |
+| 傳說通用英雄碎片 | Mythic General Hero Shard | 奇異小舖商品。克菈莉絲確認 ✅ |
+
+> ℹ️ 上面三個是**通用道具**（不限漫遊劇場），逐光之旅的進度條獎勵也會出現，另見「道具 / Items」段。
+
+### 逐光之旅相關 / Journey of Light Terms
+> 全部由克菈莉絲遊戲內確認 ✅（2026-09-30）
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 考察 | Expedition | 派隊伍出去一趟＝1 Expedition；進度條計數單位 |
+| 時光懷錶 | Pocket Watch | 活動道具，1 個折抵 1 小時考察時間 |
+| 普通曦光寶藏 | Common Radiance Treasure | 考察帶回的寶箱（90%） |
+| 高級曦光寶藏 | Premium Radiance Treasure | 考察帶回（10%）或 3 普通合成 |
+| 精緻曦光寶藏 | Exquisite Radiance Treasure | 3 高級合成，75% 機率 |
+| 華美曦光寶藏 | Dazzling Radiance Treasure | 3 高級合成，25% 機率 |
+
+> ⚠️ 「曦光寶藏」系列的四個等級**中文都叫「曦光」，但英文統一用 Radiance**，
+> 差別在前綴 Common / Premium / Exquisite / Dazzling，翻譯時不要自己換字。
 
 ### 銀霜商鋪相關 / Silverfrost Shop Terms
 | 中文 | English | 備註 |
@@ -184,6 +202,23 @@
 | 治療加速 | Healing Speedup | 一般道具，遊戲內常用 |
 | 隊伍加速 | March Speedup | 中文字面是「隊伍」但遊戲內英文是 March |
 | 戰鬥加速 | Battle Speedup | 峽谷會戰專用、需鑽石的加速 |
+| 1 小時通用加速 | 1h General Speedup | 注意是 **1h** 不是 1 Hour；「通用」＝ General。克菈莉絲確認 ✅ |
+| 5 分鐘通用加速 | 5m General Speedup | 克菈莉絲確認 ✅ |
+
+### 裝備 / 寶石材料 / Gear & Charm Materials
+> 全部由克菈莉絲遊戲內確認 ✅（2026-09-30）
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 秘銀 | Mithril | 領主裝備升級的高階材料 |
+| 設計圖紙 | Design Plans | ⚠️ **複數 Plans**，不是 Design Plan |
+| 寶石圖紙 | Charm Design | ⚠️ 注意與「設計圖紙」是不同東西：寶石用 **Charm Design**（單數），裝備用 **Design Plans**（複數） |
+| 寶石手冊 | Charm Guide | 與寶石圖紙配對使用 |
+| 英雄裝備幸運寶箱 | Lucky Hero Gear Chest | ⚠️ 語序是 Lucky 在最前面 |
+| 強化經驗零件 | Enhancement XP Component | 「經驗」＝ XP（縮寫），非 Experience |
+| 傳說通用英雄碎片 | Mythic General Hero Shard | ⚠️ 「傳說」＝ **Mythic**，不是 Legendary；「通用」＝ General |
+| 領主裝備材料寶箱 | Chief Gear Materials Chest | ⚠️ **Materials 複數** |
+| 領主寶石材料隨機寶箱 | Random Chief Charm Material Chest | ⚠️ 語序是 Random 在最前面，且此處 **Material 單數**（與上一列相反） |
 
 ## 稱號 / Titles & Roles
 
@@ -217,6 +252,7 @@
 |---|---|---|
 | 隊伍列（畫面左上方部隊條） | Squad Bar | ⚠️ Wiki 沒提到此 UI 名稱，可能是自取 — 待克菈莉絲遊戲內查證 |
 | 小地圖 | Minimap | 通用詞 |
+| 機率說明（活動內公布掉落機率的頁籤） | Chances of Rewards | ⚠️ 不是 Rate Details / Drop Rates，官方用的是這個說法。克菈莉絲確認 ✅ |
 | 部署頁面 | Deployment page | |
 | 戰場頻道 | battle channel | 小寫，非專有名詞 |
 | 補給路線 | supply route | 小寫，非專有名詞 |
