@@ -12,7 +12,8 @@
 
 | 中文（遊戲內） | English（遊戲內） | 備註 |
 |---|---|---|
-| 兵工廠 | Foundry Battle | ⚠️ 曾誤譯為 Arsenal / Armory |
+| 兵工廠 | Foundry Battle | ⚠️ 曾誤譯為 Arsenal / Armory。⚠️ **不是 FDT**，見下一條 |
+| 霜龍霸主 | Frostdragon Tyrant | 社群縮寫 **FDT**。⚠️ 曾把 FDT 誤當成 Foundry Battle（2026-10-12 修正） |
 | 峽谷會戰 | Canyon Clash | ⚠️ 中文曾誤用「峽谷衝突」 |
 | 釣魚錦標賽 | Fishing Tournament | 每月一次的三天活動 |
 | 逐光之旅 | Journey of Light | 不定期重複登場的 5 天課金活動。克菈莉絲遊戲內確認 ✅ |
@@ -21,6 +22,19 @@
 | 奇異小舖 | _（待確認）_ | 漫遊劇場的兌換商店 |
 | 明月的盛典 | _（待確認）_ | 中秋節限時活動（2026/9/21–9/27），賓果玩法 |
 | 望月商店 | _（待確認）_ | 明月的盛典的兌換商店 |
+
+### 霜龍霸主（FDT）各語言官方名稱 — 聯盟問卷用
+> 來源：官方客服中心各語言版同一頁 `helpshift.com/hc/<語言>/64-whiteout-survival/section/1536-frostdragon-tyrant/`
+
+| 語言 | 官方名稱 |
+|---|---|
+| English | Frostdragon Tyrant |
+| 繁體中文 | 霜龍霸主（社群縮寫 FDT） |
+| 한국어 | 프로스트 드래곤 엠페러 ｜⚠️ 韓文用「Emperor」不是 Tyrant |
+| Deutsch | Frostdrachen Tyrann |
+| Español | Tirano Dragón de Escarcha |
+| العربية | طاغية تنين الصقيع |
+| Ελληνικά | _（遊戲無希臘語客戶端，保留英文 Frostdragon Tyrant）_ |
 
 ### 明月的盛典相關 / Moonlight Festival Terms
 | 中文 | English | 備註 |
@@ -292,6 +306,7 @@
 | 中文 | English | Español | 備註 |
 |---|---|---|---|
 | 兵工廠 | Foundry Battle | Batalla de la Fundición | 官方客服中心用語 ✅ |
+| 霜龍霸主 | Frostdragon Tyrant | Tirano Dragón de Escarcha | 官方西語客服 ✅（Wiki 西語版另寫 "Dragón de Hielo Tirano"，以客服為準） |
 | 集結 | Rally | concentración | 官方客服中心用語 ✅ |
 | SVS（勢力之爭） | SVS – State of Power | SVS – Región de Poder | 「州／勢力」西語用 **Región** |
 | 日炎城堡 | Sunfire Castle | Castillo de Fuego Solar | |
