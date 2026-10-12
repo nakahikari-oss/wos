@@ -148,7 +148,16 @@
 
 | 中文 | English | 備註 |
 |---|---|---|
-| _（待補）_ | | |
+| 遠征技能 | **Expedition Skill** | 世界地圖戰鬥／集結時生效的技能。⚠️ 聯盟問卷的 en/de/el 版本曾誤譯為 Exploration Skill（2026-10-12 修正） |
+| 探索技能 | **Exploration Skill** | 探索關卡用的**另一組**技能，與集結無關。⚠️ 和「遠征技能」是兩回事，勿混用 |
+| 遠征技能手冊 | Expedition Skill Manual | 德文：Expeditionsanleitung |
+
+> ⚠️ **阿拉伯文例外**：官方阿語客服把 Expedition Skill 譯作「المهارات الاستكشافية」（字面是 exploration），
+> 和西語版同一句 FAQ 用「habilidades de expedición」對不上。既然阿語客戶端就是這樣寫，
+> 問卷的阿語版沿用「الاستكشاف」是對的，**不要「修正」成別的詞**。
+>
+> ⚠️ **希臘文例外**：遊戲沒有希臘語客戶端（官方語言清單無希臘語），希臘玩家實際看到的是英文介面，
+> 所以希臘語頁面的遊戲名詞直接保留英文原文（例：δεξιότητα **Expedition**）比翻成希臘文更實用。
 
 ## 資源 / Resources
 
@@ -272,6 +281,33 @@
 | 中文 | English | 備註 |
 |---|---|---|
 | 峽谷商店 | Canyon Shop | 峽谷會戰專屬商店 |
+
+---
+
+## 西班牙語 / Español（聯盟問卷用，2026-10-12 查證）
+
+> 來源：官方西語客服中心 `centurygames.helpshift.com/hc/es/` ＋ 官方 Wiki 西語版 `whiteoutsurvival.wiki/es/`
+> 西語版英雄名沿用英文原名（專有名詞不翻），所以問卷的英雄名直接 fallback 到英文。
+
+| 中文 | English | Español | 備註 |
+|---|---|---|---|
+| 兵工廠 | Foundry Battle | Batalla de la Fundición | 官方客服中心用語 ✅ |
+| 集結 | Rally | concentración | 官方客服中心用語 ✅ |
+| SVS（勢力之爭） | SVS – State of Power | SVS – Región de Poder | 「州／勢力」西語用 **Región** |
+| 日炎城堡 | Sunfire Castle | Castillo de Fuego Solar | |
+| 砲塔 | Turret | torreta | |
+| 盾兵 | Infantry | Infantería | |
+| 矛兵 | Lancer | Lanceros | |
+| 弓兵 | Marksman | Tiradores | |
+| 盾兵營 | Infantry Camp | Cuartel Infantería | 兵營一律用 **Cuartel** |
+| 矛兵營 | Lancer Camp | Cuartel Lanceros | |
+| 弓兵營 | Marksmen Camp | Cuartel Tiradores | |
+| 火晶 | Fire Crystal | Cristal de fuego | |
+| 遠征技能 | Expedition Skill | habilidad de expedición | ⚠️ 勿與下一條混用 |
+| 探索技能 | Exploration Skill | habilidad de exploración | ⚠️ 遊戲裡是**另一組**技能 |
+| 聯盟 | Alliance | Alianza | |
+| 聯盟對決 | Alliance Showdown | Enfrentamiento entre Alianzas | |
+| 聯盟動員 | Alliance Mobilization | Movilización de Alianzas | |
 
 ---
 
