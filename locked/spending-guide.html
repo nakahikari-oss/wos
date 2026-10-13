@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>課金指南（需密碼） — 克菈莉絲的WOS筆記</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="gate.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">克菈莉絲的WOS筆記 <span>Whiteout Survival</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">首頁</a></li>
+        <li><a href="../articles.html">攻略文章</a></li>
+        <li><a href="../calculators.html">計算工具</a></li>
+        <li><a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">官方Wiki ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- 密碼門：密碼正確前，這個頁面上沒有任何文章內容 -->
+    <div id="gate" class="gate-wrap">
+      <div class="gate-icon">🔒</div>
+      <h1>課金指南</h1>
+      <p class="gate-note">
+        這篇是私下分享的內容，需要密碼才能閱覽。<br>
+        密碼是針對你的遊戲 UID 單獨發放的，請不要轉給別人。
+      </p>
+
+      <form id="gateForm" class="gate-form">
+        <input type="text" id="gatePw" autocomplete="off" autocapitalize="characters"
+               spellcheck="false" placeholder="例：K7M2-P9XQ-4TRW">
+        <button type="submit" id="gateBtn">閱覽</button>
+        <label class="gate-remember">
+          <input type="checkbox" id="gateRemember" checked>
+          <span>在這台裝置記住密碼</span>
+        </label>
+      </form>
+
+      <div id="gateError" class="gate-error" style="display:none;"></div>
+    </div>
+
+    <!-- 解鎖後的內容會由 Apps Script 傳回來填進這裡 -->
+    <article id="articleBody" style="display:none;"></article>
+
+  </div>
+
+<script>window.LOCKED_ARTICLE = "spending-guide";</script>
+<script src="gate.js"></script>
+</body>
+</html>

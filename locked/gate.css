@@ -1,0 +1,134 @@
+/* ===== 需密碼閱覽的文章：密碼門 ===== */
+
+.gate-wrap {
+  max-width: 520px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.gate-icon {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.gate-wrap h1 {
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.gate-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.6rem;
+}
+
+.gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.gate-form input[type="text"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+  font-family: ui-monospace, "Consolas", monospace;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.gate-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.gate-form button {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.gate-form button:hover:not(:disabled) { background: var(--accent-hover); }
+.gate-form button:disabled { opacity: 0.6; cursor: wait; }
+
+.gate-remember {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.gate-error {
+  margin-top: 1rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  text-align: left;
+  color: var(--danger);
+  background: rgba(220, 38, 38, 0.07);
+  border-left: 3px solid var(--danger);
+  border-radius: 0 6px 6px 0;
+}
+
+/* ===== 解鎖後的浮水印 ===== */
+
+.locked-watermark {
+  margin: 1.4rem 0;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  background: rgba(8, 145, 178, 0.06);
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.locked-watermark strong {
+  color: var(--frost);
+  font-family: ui-monospace, "Consolas", monospace;
+}
+
+.locked-watermark .gate-signout {
+  margin-left: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* 列印時浮水印更明顯，避免被裁掉 */
+@media print {
+  .locked-watermark {
+    color: #000;
+    border-color: #000;
+    background: none;
+  }
+  .locked-watermark .gate-signout { display: none; }
+  .navbar { display: none; }
+}
