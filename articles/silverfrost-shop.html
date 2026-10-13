@@ -76,6 +76,147 @@
     .tip-box strong { color: var(--frost); }
 
     td.num, th.num { text-align: right; }
+
+    /* ─── 分頁切換 ─── */
+    .tab-nav {
+      display: flex;
+      gap: 0.4rem;
+      margin: 0 0 1.5rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .tab-btn {
+      padding: 0.6rem 1.4rem;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--frost);
+      border-color: var(--border-color);
+      border-bottom: 2px solid var(--bg-card);
+    }
+    .tab-btn:hover:not(.active) { background: var(--bg-card-hover); color: var(--text-primary); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── 規劃器 UI ─── */
+    .plan-section-h2 {
+      font-size: 1.15rem;
+      color: var(--frost);
+      margin: 1.75rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .plan-section-h3 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin: 1.25rem 0 0.75rem;
+    }
+    .plan-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .plan-item-card {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .plan-item-card:hover { background: var(--bg-card-hover); }
+    .plan-item-card.checked { border-color: var(--accent); background: rgba(56,189,248,0.06); }
+    .plan-item-card.good.checked { border-color: var(--success); background: rgba(22,163,74,0.08); }
+    .plan-item-card.bad.checked { border-color: var(--danger); background: rgba(220,38,38,0.08); }
+    .plan-item-check { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+    .plan-item-body { flex: 1; min-width: 0; }
+    .plan-item-name { font-size: 0.92rem; color: var(--text-primary); font-weight: 500; line-height: 1.25; }
+    .plan-item-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .plan-item-tag { display: inline-block; font-size: 0.7rem; padding: 0.05rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; font-weight: 600; }
+    .plan-item-tag.good { background: var(--success); color: #fff; }
+    .plan-item-tag.bad { background: var(--danger); color: #fff; }
+    .plan-item-tag.outfit { background: #a855f7; color: #fff; }
+    .plan-item-qty { display: flex; align-items: center; gap: 0.3rem; }
+    .plan-item-qty input { width: 55px; padding: 0.3rem 0.4rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-primary); font-size: 0.88rem; text-align: center; }
+    .plan-item-qty input:disabled { opacity: 0.4; }
+    .plan-max-label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+    .plan-options {
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    .plan-options label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; }
+    .plan-options input[type="checkbox"] { accent-color: var(--accent); }
+
+    .plan-warning {
+      margin: 0.6rem 0;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border-left: 4px solid var(--danger);
+      background: rgba(220,38,38,0.07);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+    .plan-warning strong { color: var(--danger); }
+
+    .plan-results {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+    .plan-result-headline { font-size: 1.6rem; font-weight: 700; color: var(--frost); margin-bottom: 0.3rem; }
+    .plan-result-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .plan-pack-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .plan-pack-table th, .plan-pack-table td { border: 1px solid var(--border-color); padding: 0.45rem 0.7rem; }
+    .plan-pack-table th { background: var(--bg-secondary); color: var(--accent); font-weight: 600; }
+    .plan-pack-table .num { text-align: right; }
+    .plan-pack-table tr.total-row td { background: var(--bg-secondary); font-weight: 700; }
+    .plan-pack-table .blessing-row { background: rgba(168,85,247,0.08); }
+
+    .plan-daily-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.6rem; margin: 1rem 0; }
+    .plan-daily-card { padding: 0.7rem 0.85rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; }
+    .plan-daily-head { font-weight: 600; color: var(--frost); font-size: 0.88rem; margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
+    .plan-daily-cost { color: var(--warning); font-weight: 700; }
+    .plan-daily-card ul { list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--text-secondary); }
+    .plan-daily-card li { padding: 0.1rem 0; }
+    .plan-daily-card.empty .plan-daily-head { color: var(--text-muted); }
+
+    .plan-points-strip { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; padding: 0.75rem 1rem; background: rgba(217,119,6,0.07); border-radius: 6px; margin: 0.75rem 0; font-size: 0.88rem; }
+    .plan-points-strip .star { color: var(--warning); font-weight: 700; }
+    .plan-points-strip .tier { padding: 0.1rem 0.5rem; border-radius: 3px; background: #fff; border: 1px solid var(--border-color); font-size: 0.82rem; }
+    .plan-points-strip .tier.hit { background: var(--success); color: #fff; border-color: var(--success); }
+    .plan-points-strip .tier.miss { opacity: 0.5; }
+
+    .plan-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .plan-summary-card { padding: 0.85rem 1rem; background: var(--bg-secondary); border-radius: 6px; text-align: center; }
+    .plan-summary-card .label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .plan-summary-card .value { font-size: 1.3rem; font-weight: 700; color: var(--frost); }
+    .plan-summary-card .value .unit { font-size: 0.78rem; color: var(--text-secondary); font-weight: 400; margin-left: 0.1rem; }
+
+    .plan-footnote { font-size: 0.82rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.5; }
+    .plan-footnote strong { color: var(--text-secondary); }
+    .plan-infeasible { padding: 1rem 1.25rem; background: rgba(220,38,38,0.08); border-left: 4px solid var(--danger); border-radius: 0 6px 6px 0; color: var(--danger); font-weight: 500; }
+    .plan-preset-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .plan-preset-btn { padding: 0.4rem 0.9rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; }
+    .plan-preset-btn:hover { background: var(--accent-dim); color: var(--text-primary); }
+    .plan-reset-btn { padding: 0.4rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; }
+    .plan-reset-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
   </style>
 </head>
 <body>
@@ -113,8 +254,15 @@
         <span class="limited-label">限時活動</span>
         <p class="period">活動期間：2026 / 10 / 13 ～ 10 / 17（共 5 天）</p>
         <p><strong>本頁數據僅適用於當期活動</strong>，銀霜商鋪裡每樣道具的銀貝標價，官方每一期都會調整，下一期請不要直接沿用本頁的數字。<br>（上一期 2026/9 的數據已被覆蓋，本頁保留的是這一期 10/13 ～ 10/17 的分析。）</p>
-        <p style="margin-top:0.6rem;"><strong>🧮 想直接算要花多少錢？</strong>→ <a href="../calculators/silverfrost-planner.html">銀霜商鋪購物規劃器</a>：勾選要收的道具，自動算最省買法。</p>
+        <p style="margin-top:0.6rem;"><strong>🧮 想直接算要花多少錢？</strong>→ 切換到下方「<a href="#planner" data-tab-link="planner">購物規劃器</a>」分頁，勾選要收的道具，自動算最省買法。</p>
       </div>
+
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="guide">📖 攻略內文</button>
+        <button class="tab-btn" data-tab="planner">🧮 購物規劃器</button>
+      </nav>
+
+      <div class="tab-panel active" id="tab-guide">
 
       <div class="article-content">
 
@@ -967,6 +1115,46 @@
         <p style="margin-top:1.5rem; color:var(--text-muted);">活動只有五天，記得每天上線領一下！</p>
 
       </div>
+      </div><!-- /#tab-guide -->
+
+      <div class="tab-panel" id="tab-planner">
+        <div class="article-content">
+          <p>勾選要收的道具與數量，自動算出<strong>最省的課金方案</strong>：該買哪幾檔禮包、每天買什麼、順便拿到幾階晨星積分。本工具只試算銀貝需求與禮包組合，不包含收集所需的時間安排——每日限購的禮包每天只能買 1 包，所以要收齊得分五天買。</p>
+
+          <h2 class="plan-section-h2">一、選要收的道具</h2>
+
+          <div class="plan-preset-row">
+            <button class="plan-preset-btn" data-preset="goodDeals">只選本期好康</button>
+            <button class="plan-preset-btn" data-preset="allLimit">全部買到上限</button>
+            <button class="plan-reset-btn" id="btnReset">清空重選</button>
+          </div>
+
+          <h3 class="plan-section-h3">每日特價（每樣每天 1 次，整期上限 5 次）</h3>
+          <div id="dailyItems" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">整期商鋪（五天內隨時可買）</h3>
+          <div id="permanentItems" class="plan-items-grid"></div>
+
+          <div id="warnings"></div>
+
+          <h2 class="plan-section-h2">二、課金選項</h2>
+          <div class="plan-options">
+            <label>
+              <input type="checkbox" id="forceNoBlessing">
+              不想買霜色祝福 $5（通常建議買，一包多拿 100 顆銀貝）
+            </label>
+          </div>
+
+          <h2 class="plan-section-h2">三、最省買法</h2>
+          <div class="plan-results" id="results"></div>
+
+          <p class="plan-footnote">
+            <strong>算法說明：</strong>買小禮包效率最高（$1、$2 是 20 顆/美金），$20 以上只剩 10 顆/美金，所以從便宜的往貴的買。$1-$50 禮包每日限購 1 包、$100 禮包每日限購 3 包。
+            霜色祝福 $5 可讓每日任務獎勵翻倍，等效於 20 顆/美金（跟最便宜的禮包同級），且還會讓非銀貝獎勵也翻倍——所以預設推薦買。
+            每日任務的「儲值禮包」條件只要當天買任何付費禮包就算達成。
+          </p>
+        </div>
+      </div><!-- /#tab-planner -->
     </article>
   </div>
 
@@ -978,6 +1166,379 @@
        ｜ <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
     </p>
   </footer>
+
+  <script>
+  // ============================================================
+  // 分頁切換
+  // ============================================================
+  function activateTab(name) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 20, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.addEventListener('click', () => activateTab(b.dataset.tab));
+  });
+  document.querySelectorAll('[data-tab-link]').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); activateTab(a.dataset.tabLink); });
+  });
+  if (window.location.hash === '#planner') activateTab('planner');
+
+  // ============================================================
+  // 購物規劃器
+  // ============================================================
+  const CONFIG = {
+    activityDays: 5,
+    packs: {
+      blessing: { name: '霜色祝福', price: 5 },
+      tiers: [
+        { key: 'p1',   name: '普通銀貝禮包 1', price: 1,   silver: 20,   dailyLimit: 1 },
+        { key: 'p2',   name: '普通銀貝禮包 2', price: 2,   silver: 40,   dailyLimit: 1 },
+        { key: 'p5',   name: '普通銀貝禮包 3', price: 5,   silver: 80,   dailyLimit: 1 },
+        { key: 'p10',  name: '良好銀貝禮包',   price: 10,  silver: 120,  dailyLimit: 1 },
+        { key: 'p20',  name: '稀有銀貝禮包',   price: 20,  silver: 200,  dailyLimit: 1 },
+        { key: 'p50',  name: '史詩銀貝禮包',   price: 50,  silver: 500,  dailyLimit: 1 },
+        { key: 'p100', name: '傳說銀貝禮包',   price: 100, silver: 1000, dailyLimit: 3 },
+      ],
+    },
+    free: {
+      yingtuSilver: 25,
+      yingtuPoints: 50,
+      dailyFreeSilver: 15,
+      dailyGiftSilver: 5,
+      dailyPaidSilver: 5,
+      dailyPointsFree: 10,
+      blessingMultiplier: 2,
+    },
+    points: {
+      tiers: [
+        { threshold: 50,   reward: '鑽石 ×3,000' },
+        { threshold: 200,  reward: '傳說通用英雄碎片 ×10' },
+        { threshold: 400,  reward: '領主裝備材料寶箱 ×25' },
+        { threshold: 1000, reward: '傳說英雄裝備客製化箱子 ×1' },
+        { threshold: 2000, reward: '領主寶石材料隨機寶箱 ×50' },
+        { threshold: 5000, reward: '傳說英雄裝備客製化箱子 ×2' },
+      ],
+    },
+    dailyItems: [
+      { id: 'd_firecrystal', name: '火晶 ×70', silver: 30, limit: 5, tag: 'good', note: '本期好康：單價比常規款火晶再略低' },
+      { id: 'd_shard',       name: '傳說通用英雄碎片 ×1', silver: 70, limit: 5, note: '常規管道買不到，難以直接比價' },
+      { id: 'd_energy',      name: '專精能源石 ×75', silver: 120, limit: 5, tag: 'good', note: '本期好康：單價比常規款略低' },
+    ],
+    permanentItems: [
+      { id: 'speed_5min',   name: '5 分鐘通用加速 ×5', silver: 1, limit: 999,
+        tag: 'bad', warnTitle: '別買 5 分鐘加速',
+        warnBody: '效率只有 1 小時加速包的一半（25 分鐘/銀貝 vs 48-54 分鐘/銀貝）。要買加速去買 10 銀貝那三種（通用／研究／訓練）。' },
+      { id: 'blueprint',    name: '設計圖紙 ×20', silver: 10, limit: 100, note: '略划算（1.12x）' },
+      { id: 'polish',       name: '拋光液 ×100', silver: 10, limit: 100, note: '略划算（1.12x）' },
+      { id: 'alloy',        name: '強韌合金 ×10,000', silver: 10, limit: 100, note: '略划算（1.12x）' },
+      { id: 'steel',        name: '鋼材 ×20,000', silver: 10, limit: 200, note: '持平（S7 新基準）' },
+      { id: 'speed_1hu',    name: '1 小時通用加速 ×8', silver: 10, limit: 50, note: '持平' },
+      { id: 'speed_1hr_r',  name: '1 小時研究加速 ×9', silver: 10, limit: 50, note: '持平' },
+      { id: 'speed_1hr_t',  name: '1 小時訓練加速 ×9', silver: 10, limit: 50, note: '持平' },
+      { id: 'medal',        name: '神秘徽章 ×500', silver: 10, limit: 30, note: '持平到 2 倍划算（看採購量）' },
+      { id: 'pet_food',     name: '寵物口糧 ×3,000', silver: 10, limit: 50, note: '單價持平' },
+      { id: 'firecrystal',  name: '火晶 ×20', silver: 10, limit: 50, tag: 'good', note: '🔥 本期大好康（1.35x），上期還是地雷' },
+      { id: 'gem_grimoire', name: '寶石秘典 ×1', silver: 20, limit: 80, tag: 'good', note: '划算（1.06x）' },
+      { id: 'gem_design',   name: '寶石圖紙 ×32', silver: 20, limit: 80, note: '持平（上期 0.88x）' },
+      { id: 'gem_manual',   name: '寶石手冊 ×32', silver: 20, limit: 80, note: '持平（上期 0.88x）' },
+      { id: 'pet_break',    name: '寵物突破材料客製化箱子 ×4', silver: 20, limit: 50,
+        tag: 'bad', warnTitle: '別在銀霜買寵物突破材料',
+        warnBody: '0.56 倍，去「萌寵客製化禮包」買便宜快一倍。' },
+      { id: 'wild_senior',  name: '高級野性印記 ×1', silver: 20, limit: 50,
+        tag: 'bad', warnTitle: '別在銀霜買高級野性印記',
+        warnBody: '0.42 倍，去「萌寵客製化禮包」買便宜一倍半。' },
+      { id: 'mithril',      name: '秘銀 ×1', silver: 40, limit: 25, tag: 'good', note: '划算（1.25x）' },
+      { id: 'island_decor', name: '晨曦島裝飾自選：飛馳', silver: 40, limit: 30, tag: 'outfit', note: '外觀類，純看個人喜好' },
+      { id: 'hero_lucky',   name: '英雄裝備幸運寶箱 ×28', silver: 50, limit: 100, note: '微貴（0.93x）' },
+      { id: 'energy_small', name: '專精能源石 ×28', silver: 50, limit: 40, note: '持平' },
+      { id: 'decor_parts',  name: '傳說通用裝飾物零件 ×5', silver: 70, limit: 80, tag: 'outfit', note: '外觀類' },
+      { id: 'lightshadow',  name: '通用光影卡 ×1', silver: 120, limit: 3, tag: 'outfit', note: '外觀類' },
+      { id: 'hero_custom',  name: '傳說英雄裝備客製化箱子 ×1', silver: 250, limit: 2, note: '客製化戰備同道具單價 $13～25' },
+      { id: 'migration',    name: '遷城特效裝扮自選：霜雷', silver: 400, limit: 2, tag: 'outfit', note: '外觀類' },
+    ],
+  };
+
+  const state = { selections: {}, forceNoBlessing: false };
+
+  function findItem(id) {
+    return CONFIG.dailyItems.find(x => x.id === id) || CONFIG.permanentItems.find(x => x.id === id);
+  }
+
+  function renderItems() {
+    renderGroup('dailyItems', CONFIG.dailyItems);
+    renderGroup('permanentItems', CONFIG.permanentItems);
+  }
+
+  function renderGroup(containerId, items) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = items.map(item => {
+      const checked = (state.selections[item.id] || 0) > 0;
+      const qty = state.selections[item.id] || 0;
+      const limitText = `限購 ${item.limit}`;
+      const tagHtml = item.tag ? `<span class="plan-item-tag ${item.tag}">${item.tag === 'good' ? '✨ 好康' : item.tag === 'bad' ? '⚠ 別買' : '外觀'}</span>` : '';
+      const noteHtml = item.note ? `<div class="plan-item-meta">${item.note}</div>` : '';
+      return `
+        <div class="plan-item-card ${item.tag || ''} ${checked ? 'checked' : ''}">
+          <input type="checkbox" class="plan-item-check" data-id="${item.id}" ${checked ? 'checked' : ''}>
+          <div class="plan-item-body">
+            <div class="plan-item-name">${item.name} <span style="color:var(--text-muted); font-weight:400;">· ${item.silver} 銀貝</span>${tagHtml}</div>
+            <div class="plan-item-meta">${limitText}</div>
+            ${noteHtml}
+          </div>
+          <div class="plan-item-qty">
+            <input type="number" min="0" max="${item.limit}" value="${qty || item.limit}" data-id="${item.id}" ${checked ? '' : 'disabled'}>
+            <span class="plan-max-label">/ ${item.limit}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.classList.contains('plan-item-check')) {
+      const id = t.dataset.id;
+      if (t.checked) {
+        const item = findItem(id);
+        state.selections[id] = state.selections[id] || item.limit;
+      } else {
+        delete state.selections[id];
+      }
+      renderItems(); update();
+    } else if (t.tagName === 'INPUT' && t.type === 'number' && t.dataset.id) {
+      const id = t.dataset.id;
+      const item = findItem(id);
+      let v = parseInt(t.value) || 0;
+      if (v < 0) v = 0;
+      if (v > item.limit) v = item.limit;
+      t.value = v;
+      const wasSelected = state.selections[id] > 0;
+      const isSelected = v > 0;
+      if (v === 0) delete state.selections[id];
+      else state.selections[id] = v;
+      if (wasSelected !== isSelected) renderItems();
+      update();
+    } else if (t.id === 'forceNoBlessing') {
+      state.forceNoBlessing = t.checked;
+      update();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.id === 'btnReset') {
+      state.selections = {}; renderItems(); update();
+    } else if (e.target.classList.contains('plan-preset-btn')) {
+      applyPreset(e.target.dataset.preset);
+    }
+  });
+
+  function applyPreset(name) {
+    state.selections = {};
+    if (name === 'goodDeals') {
+      [...CONFIG.dailyItems, ...CONFIG.permanentItems]
+        .filter(it => it.tag === 'good')
+        .forEach(it => { state.selections[it.id] = it.limit; });
+    } else if (name === 'allLimit') {
+      [...CONFIG.dailyItems, ...CONFIG.permanentItems]
+        .filter(it => it.tag !== 'bad')
+        .forEach(it => { state.selections[it.id] = it.limit; });
+    }
+    renderItems(); update();
+  }
+
+  function solve(targetSilver) {
+    const zeroCostFree = CONFIG.free.yingtuSilver + (CONFIG.free.dailyFreeSilver + CONFIG.free.dailyGiftSilver) * CONFIG.activityDays;
+    if (targetSilver <= zeroCostFree) {
+      return {
+        cost: 0, silver: zeroCostFree,
+        points: CONFIG.free.yingtuPoints + CONFIG.free.dailyPointsFree * CONFIG.activityDays,
+        packs: { blessing: 0, p1: 0, p2: 0, p5: 0, p10: 0, p20: 0, p50: 0, p100: 0 },
+      };
+    }
+    let best = null;
+    const blessingOptions = state.forceNoBlessing ? [0] : [0, 1];
+    for (const b of blessingOptions) {
+      for (let p1 = 0; p1 <= 5; p1++) {
+        for (let p2 = 0; p2 <= 5; p2++) {
+          for (let p5 = 0; p5 <= 5; p5++) {
+            for (let p10 = 0; p10 <= 5; p10++) {
+              const partialCost = 5*b + p1 + 2*p2 + 5*p5 + 10*p10;
+              if (best && partialCost >= best.cost) continue;
+              for (let p20 = 0; p20 <= 5; p20++) {
+                for (let p50 = 0; p50 <= 5; p50++) {
+                  const subCost = partialCost + 20*p20 + 50*p50;
+                  if (best && subCost >= best.cost) continue;
+                  for (let p100 = 0; p100 <= 15; p100++) {
+                    const totalPackCount = b + p1 + p2 + p5 + p10 + p20 + p50 + p100;
+                    const daysWithPack = Math.min(CONFIG.activityDays, totalPackCount);
+                    const mult = b ? CONFIG.free.blessingMultiplier : 1;
+                    const dailyFree = CONFIG.free.dailyFreeSilver * mult * CONFIG.activityDays;
+                    const dailyGift = CONFIG.free.dailyGiftSilver * CONFIG.activityDays;
+                    const storage = CONFIG.free.dailyPaidSilver * mult * daysWithPack;
+                    const freeSilver = dailyFree + dailyGift + storage + CONFIG.free.yingtuSilver;
+                    const packSilver = 20*p1 + 40*p2 + 80*p5 + 120*p10 + 200*p20 + 500*p50 + 1000*p100;
+                    const silver = freeSilver + packSilver;
+                    if (silver < targetSilver) continue;
+                    const cost = subCost + 100*p100;
+                    if (!best || cost < best.cost || (cost === best.cost && silver < best.silver)) {
+                      const dailyPoints = CONFIG.free.dailyPointsFree * mult * CONFIG.activityDays;
+                      const points = CONFIG.free.yingtuPoints + dailyPoints + packSilver;
+                      best = { cost, silver, points, packs: { blessing: b, p1, p2, p5, p10, p20, p50, p100 } };
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return best;
+  }
+
+  function schedulePacks(packs) {
+    const days = Array.from({length: CONFIG.activityDays}, () => []);
+    if (packs.blessing) days[0].push({ name: '霜色祝福', price: 5 });
+    for (const tier of CONFIG.packs.tiers) {
+      if (tier.key === 'p100') continue;
+      const qty = packs[tier.key] || 0;
+      for (let i = 0; i < qty; i++) days[i].push({ name: tier.name, price: tier.price });
+    }
+    const p100 = packs.p100 || 0;
+    const p100Tier = CONFIG.packs.tiers.find(t => t.key === 'p100');
+    let remaining = p100, dayIdx = 0;
+    while (remaining > 0) {
+      const takeToday = Math.min(remaining, p100Tier.dailyLimit);
+      for (let i = 0; i < takeToday; i++) days[dayIdx].push({ name: p100Tier.name, price: p100Tier.price });
+      remaining -= takeToday;
+      dayIdx = (dayIdx + 1) % CONFIG.activityDays;
+      if (dayIdx === 0 && remaining > 0) break;
+    }
+    return days;
+  }
+
+  function update() { updateWarnings(); updateResults(); }
+
+  function updateWarnings() {
+    const container = document.getElementById('warnings');
+    const badItems = [];
+    for (const id of Object.keys(state.selections)) {
+      const item = findItem(id);
+      if (item && item.tag === 'bad') badItems.push(item);
+    }
+    container.innerHTML = badItems.map(item => `
+      <div class="plan-warning">
+        <strong>⚠ ${item.warnTitle || '不建議購買'}</strong><br>
+        ${item.warnBody || '這個品項性價比不好，建議從選單移除。'}
+      </div>
+    `).join('');
+  }
+
+  function updateResults() {
+    const container = document.getElementById('results');
+    const targetSilver = computeTargetSilver();
+    if (targetSilver === 0) {
+      container.innerHTML = `<div class="plan-result-sub">勾選你要收的道具，這裡會算出最省買法。</div>`;
+      return;
+    }
+    const sol = solve(targetSilver);
+    if (!sol) {
+      container.innerHTML = `<div class="plan-infeasible">就算把所有禮包都買到頂也湊不到這麼多銀貝（本期上限約 20,050 顆）。請減少要收的數量。</div>`;
+      return;
+    }
+    const leftover = sol.silver - targetSilver;
+    const activeTiers = CONFIG.points.tiers.filter(t => sol.points >= t.threshold);
+    const highestTier = activeTiers[activeTiers.length - 1];
+    const nextTier = CONFIG.points.tiers.find(t => sol.points < t.threshold);
+    const hasDaily = Object.keys(state.selections).some(id => CONFIG.dailyItems.find(x => x.id === id));
+
+    container.innerHTML = `
+      ${renderSelectedList()}
+      <div class="plan-result-headline">總花費：$${sol.cost}<span style="font-size:1rem; color:var(--text-muted); margin-left:0.5rem;">（約 NT$ ${estimateTWD(sol.cost)}）</span></div>
+      <div class="plan-result-sub">需 ${targetSilver.toLocaleString()} 顆銀貝，實際可取得 ${sol.silver.toLocaleString()} 顆，剩餘 ${leftover.toLocaleString()} 顆</div>
+      ${hasDaily ? `<div style="margin-top:0.5rem; padding:0.5rem 0.75rem; background:rgba(217,119,6,0.07); border-left:3px solid var(--warning); border-radius:0 4px 4px 0; font-size:0.85rem; color:var(--text-secondary);">⏰ 清單含每日特價，記得<strong>每天都要上線買</strong>（每樣每日限購 1 次），漏一天就少一次機會。</div>` : ''}
+      <div class="plan-summary-grid">
+        <div class="plan-summary-card"><div class="label">總花費</div><div class="value">$${sol.cost}</div></div>
+        <div class="plan-summary-card"><div class="label">取得銀貝</div><div class="value">${sol.silver.toLocaleString()}<span class="unit">顆</span></div></div>
+        <div class="plan-summary-card"><div class="label">剩餘銀貝</div><div class="value">${leftover.toLocaleString()}<span class="unit">顆</span></div></div>
+        <div class="plan-summary-card"><div class="label">晨星積分</div><div class="value">${sol.points.toLocaleString()}<span class="unit">分</span></div></div>
+      </div>
+      <h3 style="margin-top:1.25rem; font-size:1rem; color:var(--accent);">禮包清單</h3>
+      ${renderPackTable(sol)}
+      <h3 style="margin-top:1.25rem; font-size:1rem; color:var(--accent);">每日買法</h3>
+      ${renderDailyPlan(sol.packs)}
+      ${renderPointsStrip(sol.points)}
+      ${highestTier ? `<div style="margin-top:0.75rem; padding:0.75rem 1rem; background:rgba(22,163,74,0.08); border-left:4px solid var(--success); border-radius:0 6px 6px 0; font-size:0.9rem;"><strong style="color:var(--success);">晨星積分跨過 ${highestTier.threshold} 分</strong>：拿到「${highestTier.reward}」${nextTier ? `（距離 ${nextTier.threshold} 分還差 ${nextTier.threshold - sol.points} 分）` : ''}</div>` : ''}
+    `;
+  }
+
+  function renderSelectedList() {
+    const entries = Object.entries(state.selections);
+    if (entries.length === 0) return '';
+    const rows = entries.map(([id, qty]) => {
+      const item = findItem(id);
+      if (!item) return '';
+      const isDaily = CONFIG.dailyItems.some(x => x.id === id);
+      const perDay = isDaily ? '（每天 1 次 × ' + qty + ' 天）' : '';
+      return `<li>${item.name} ×${qty} ${perDay} <span style="color:var(--text-muted);">= ${(item.silver * qty).toLocaleString()} 銀貝</span></li>`;
+    });
+    return `<div style="margin-bottom:1rem; padding:0.75rem 1rem; background:var(--bg-secondary); border-radius:6px;"><div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.4rem;">你要收：</div><ul style="margin:0; padding-left:1.2rem; font-size:0.9rem; color:var(--text-primary); line-height:1.7;">${rows.join('')}</ul></div>`;
+  }
+
+  function renderPackTable(sol) {
+    const rows = [];
+    if (sol.packs.blessing) {
+      rows.push(`<tr class="blessing-row"><td>霜色祝福</td><td class="num">$5</td><td class="num">1</td><td class="num">$5</td><td style="font-size:0.85rem; color:var(--text-muted);">每日任務獎勵翻倍</td></tr>`);
+    }
+    for (const tier of CONFIG.packs.tiers) {
+      const qty = sol.packs[tier.key];
+      if (!qty) continue;
+      rows.push(`<tr><td>${tier.name}（+${tier.silver}）</td><td class="num">$${tier.price}</td><td class="num">${qty}</td><td class="num">$${tier.price * qty}</td><td style="font-size:0.85rem; color:var(--text-muted);">+${tier.silver * qty} 銀貝</td></tr>`);
+    }
+    rows.push(`<tr class="total-row"><td colspan="3">合計</td><td class="num">$${sol.cost}</td><td></td></tr>`);
+    return `<table class="plan-pack-table"><thead><tr><th style="text-align:left;">禮包</th><th class="num">單價</th><th class="num">買幾包</th><th class="num">小計</th><th style="text-align:left;">備註</th></tr></thead><tbody>${rows.join('')}</tbody></table>`;
+  }
+
+  function renderDailyPlan(packs) {
+    const days = schedulePacks(packs);
+    return `<div class="plan-daily-grid">${days.map((day, i) => {
+      const total = day.reduce((s, p) => s + p.price, 0);
+      const isEmpty = day.length === 0;
+      return `<div class="plan-daily-card ${isEmpty ? 'empty' : ''}"><div class="plan-daily-head"><span>Day ${i + 1}</span><span class="plan-daily-cost">${isEmpty ? '—' : '$' + total}</span></div>${isEmpty ? '<div style="font-size:0.82rem; color:var(--text-muted);">不用買</div>' : `<ul>${day.map(p => `<li>• ${p.name} <span style="color:var(--text-muted);">($${p.price})</span></li>`).join('')}</ul>`}</div>`;
+    }).join('')}</div>`;
+  }
+
+  function renderPointsStrip(points) {
+    return `<div class="plan-points-strip"><span class="star">★ 晨星積分 ${points.toLocaleString()} 分</span>${CONFIG.points.tiers.map(t => { const hit = points >= t.threshold; return `<span class="tier ${hit ? 'hit' : 'miss'}" title="${t.reward}">${t.threshold}</span>`; }).join('')}</div>`;
+  }
+
+  function computeTargetSilver() {
+    let total = 0;
+    for (const [id, qty] of Object.entries(state.selections)) {
+      const item = findItem(id);
+      if (item) total += item.silver * qty;
+    }
+    return total;
+  }
+
+  function estimateTWD(usd) {
+    const points = [[0,0],[1,33],[2,70],[5,170],[10,330],[20,670],[50,1690],[100,3290]];
+    if (usd <= 0) return 0;
+    if (usd >= 100) return Math.round(usd * 32.9);
+    for (let i = 0; i < points.length - 1; i++) {
+      const [u1, t1] = points[i], [u2, t2] = points[i+1];
+      if (usd >= u1 && usd <= u2) {
+        const ratio = (usd - u1) / (u2 - u1);
+        return Math.round(t1 + ratio * (t2 - t1));
+      }
+    }
+    return Math.round(usd * 32.9);
+  }
+
+  renderItems();
+  update();
+  </script>
 
 </body>
 </html>
