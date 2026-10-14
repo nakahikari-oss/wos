@@ -17,7 +17,7 @@
 | 峽谷會戰 | Canyon Clash | ⚠️ 中文曾誤用「峽谷衝突」 |
 | 釣魚錦標賽 | Fishing Tournament | 每月一次的三天活動 |
 | 逐光之旅 | Journey of Light | 不定期重複登場的 5 天課金活動。克菈莉絲遊戲內確認 ✅ |
-| 銀霜商鋪 | Silverfrost Shop | ⚠️ 多個英文攻略站一致使用此名，但官方 Wiki 只寫 "event shop" — 待克菈莉絲切英文介面確認 |
+| 銀霜商鋪 | Silverfrost Shop | 克菈莉絲遊戲內確認 ✅（2026-10-14）。官方 Wiki 只寫 "event shop"，但遊戲內確實是 Silverfrost Shop |
 | 漫遊劇場 | _（待確認）_ | 登台階類活動，用寒冰護符升層領獎 |
 | 奇異小舖 | _（待確認）_ | 漫遊劇場的兌換商店 |
 | 明月的盛典 | _（待確認）_ | 中秋節限時活動（2026/9/21–9/27），賓果玩法 |
@@ -80,13 +80,36 @@
 > 差別在前綴 Common / Premium / Exquisite / Dazzling，翻譯時不要自己換字。
 
 ### 銀霜商鋪相關 / Silverfrost Shop Terms
+> 除另註明者外，全部由克菈莉絲遊戲內確認 ✅（2026-10-14，S7 那一期）
+
 | 中文 | English | 備註 |
 |---|---|---|
 | 銀貝 | Silver Shell(s) | 活動代幣，用於銀霜商鋪兌換道具。官方 Wiki 確認 ✅ |
 | （活動類別總稱） | Silver Shell Events | 官方 Wiki 用此名統稱這一系列不定期活動 |
-| 盈途輕歌 | _（待確認）_ | 與銀霜商鋪同期的活動任務名稱。⚠️ 每一期名字可能不同（例：2026/02 那期叫 Petals of Desire），做英文版前需切英文介面確認 |
-| 晨星積分 | _（待確認）_ | 第二條回饋進度條的積分單位，門檻 50/200/400/1000/2000/5000 |
-| 霜色祝福 | _（待確認）_ | 售價 5 美金的活動通行證，效果為每日任務獎勵翻倍。官方 Wiki 稱這類東西為 event pass |
+| 盈途輕歌 | Jolly Journey | 與銀霜商鋪同期的活動任務名稱。⚠️ **每一期名字不同**（2026/02 那期叫 Petals of Desire，2026/10 這期叫 Jolly Journey）— 每做新一期都要重查 |
+| 晨星積分 | Star Points | 第二條回饋進度條的積分單位，門檻 50/200/400/1000/2000/5000。⚠️ 中文有「晨」字但英文**沒有** Morning / Dawn |
+| 霜色祝福 | Frosty Wish | 售價 5 美金的活動通行證，效果為每日任務獎勵翻倍。⚠️ 不是 Blessing |
+| 每日任務 | Daily Missions | ⚠️ 是 **Missions** 不是 Quests／Tasks |
+| 每日免費銀貝禮包 | Free Silver Shell Pack | 商店頂端的每日免費格 |
+| 儲值禮包（每日任務裡那一項） | Make any payment 1 time(s) | ⚠️ 這**不是道具名，是任務條目的敘述文字**。英文版請照遊戲原句寫，不要自己造一個道具名 |
+| 每日特價（商鋪區塊標題） | Daily Limit | ⚠️ 英文**沒有** Special／Deal 的意思，直譯是「每日限購」。中文的「特價」是意譯 |
+
+#### 七種銀貝禮包 / Silver Shell Pack tiers
+| 中文 | English | 價格 |
+|---|---|---|
+| 普通銀貝禮包 1 | Common Silver Shell Pack | $1 |
+| 普通銀貝禮包 2 | _（待確認）_ | $2 |
+| 普通銀貝禮包 3 | _（待確認）_ | $5 |
+| 良好銀貝禮包 | Uncommon Silver Shell Pack | $10 |
+| 稀有銀貝禮包 | Rare Silver Shell Pack | $20 |
+| 史詩銀貝禮包 | Epic Silver Shell Pack | $50 |
+| 傳說銀貝禮包 | Mythic Silver Shell Pack | $100 |
+
+> ⚠️ **稀有度階梯確認**：這一系列禮包的英文是 Common / Uncommon / Rare / Epic / **Mythic**，
+> **完全沒有 Legendary**。「傳說」在這裡跟「傳說通用英雄碎片」一樣都是 Mythic，不要翻成 Legendary。
+>
+> ⚠️ **$2 和 $5 兩包的英文名待確認** — 遊戲內三個 $1／$2／$5 都叫「普通」，
+> 英文可能是同名（靠價格區分）或帶數字後綴，下次進遊戲要補。
 
 > ⚠️ **重要**：官方 Wiki 明言商鋪內道具的銀貝標價**每一期都會變動**（"amount will vary per silver shell event"）。
 > 寫攻略時務必標註是哪一期的數據，過期後整篇要下架或更新。
@@ -227,6 +250,9 @@
 | 戰鬥加速 | Battle Speedup | 峽谷會戰專用、需鑽石的加速 |
 | 1 小時通用加速 | 1h General Speedup | 注意是 **1h** 不是 1 Hour；「通用」＝ General。克菈莉絲確認 ✅ |
 | 5 分鐘通用加速 | 5m General Speedup | 克菈莉絲確認 ✅ |
+| 1 小時研究加速 | 1h Research Speedup | 克菈莉絲確認 ✅（2026-10-14） |
+| 1 小時訓練加速 | 1h Training Speedup | 克菈莉絲確認 ✅（2026-10-14） |
+| 神秘徽章 | Mystery Badge | 克菈莉絲確認 ✅（2026-10-14） |
 
 ### 裝備 / 寶石材料 / Gear & Charm Materials
 > 全部由克菈莉絲遊戲內確認 ✅（2026-09-30）
@@ -242,6 +268,41 @@
 | 傳說通用英雄碎片 | Mythic General Hero Shard | ⚠️ 「傳說」＝ **Mythic**，不是 Legendary；「通用」＝ General |
 | 領主裝備材料寶箱 | Chief Gear Materials Chest | ⚠️ **Materials 複數** |
 | 領主寶石材料隨機寶箱 | Random Chief Charm Material Chest | ⚠️ 語序是 Random 在最前面，且此處 **Material 單數**（與上一列相反） |
+| 拋光液 | Polishing Solution | 領主裝備材料。克菈莉絲確認 ✅（2026-10-14） |
+| 強韌合金 | Hardened Alloy | 領主裝備材料。克菈莉絲確認 ✅（2026-10-14） |
+| 鋼材 | Steel | 克菈莉絲確認 ✅（2026-10-14） |
+| 寶石秘典 | Charm Secrets | ⚠️ **寶石三兄弟第三種**，與 Charm Design（寶石圖紙）、Charm Guide（寶石手冊）是不同道具，三個都別混。克菈莉絲確認 ✅（2026-10-14） |
+| 專精能源石 | Essence Stones | ⚠️ 中文沒有「精華」，但英文用 **Essence**；且是**複數 Stones**。克菈莉絲確認 ✅（2026-10-14） |
+| 傳說英雄裝備客製化箱子 | Custom Mythic Hero Gear Chest | ⚠️ 語序是 **Custom 在最前面**，與下面「寵物突破材料客製化箱子」相反。克菈莉絲確認 ✅（2026-10-14） |
+
+### 寵物道具 / Pet Items
+> 全部由克菈莉絲遊戲內確認 ✅（2026-10-14）
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 寵物口糧 | Pet Food | |
+| 寵物突破材料客製化箱子 | Pet Advancement Materials Custom Chest | ⚠️ 語序是 **Custom 在後面**（Materials Custom Chest），與「傳說英雄裝備客製化箱子」的 Custom 在前面剛好相反 — 這兩個最容易寫錯 |
+| 高級野性印記 | Advanced Wild Mark | ⚠️ 「高級」＝ **Advanced**，不是 Senior／Premium |
+
+### 外觀 / 裝飾 / Cosmetics
+> 全部由克菈莉絲遊戲內確認 ✅（2026-10-14）
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 傳說通用裝飾物零件 | Mythic General Decoration Component | 「傳說」＝ Mythic、「通用」＝ General、「零件」＝ **Component 單數** |
+| 通用光影卡 | General Master Fragment | ⚠️ **完全不是字面翻譯** — 中文「光影卡」英文是 Master Fragment，千萬不要翻成 Light/Shadow Card |
+| 晨曦島裝飾自選：飛馳 | Daybreak Island Decoration Choice: Flyaway | 「自選」＝ Choice；裝飾名「飛馳」＝ Flyaway |
+| 遷城特效裝扮自選：霜雷 | Custom Teleport Skin: Thundersnow | ⚠️ 語序與上一列不同（這裡 Custom 在最前面、用 Skin 不用 Decoration）；「霜雷」＝ **Thundersnow**（一個字） |
+
+## 常規管道禮包名 / Regular Cash-Shop Packs（比價基準用）
+> 分析活動商店划算度時用來對照的常規禮包。全部由克菈莉絲遊戲內確認 ✅（2026-10-14）
+
+| 中文 | English | 備註 |
+|---|---|---|
+| 工匠的寶庫 | Artisan's Trove | 設計圖紙／拋光液／強韌合金／寶石材料的比價基準 |
+| 客製化戰備 | Mix & Match | ⚠️ **完全不是字面翻譯**，不要翻成 Custom Loadout 之類 |
+| 萌寵客製化禮包 | Custom Pet Chest | 寵物口糧／突破材料／野性印記的比價基準 |
+| 火晶狂熱禮包 | _（待確認）_ | 火晶的比價基準 |
 
 ## 稱號 / Titles & Roles
 
