@@ -302,6 +302,7 @@
 | 工匠的寶庫 | Artisan's Trove | 設計圖紙／拋光液／強韌合金／寶石材料的比價基準 |
 | 客製化戰備 | Mix & Match | ⚠️ **完全不是字面翻譯**，不要翻成 Custom Loadout 之類 |
 | 萌寵客製化禮包 | Custom Pet Chest | 寵物口糧／突破材料／野性印記的比價基準 |
+| 客製化匠心 | Custom Artistry Chest | 寶石手冊／寶石圖紙的比價基準（2026-10-20 確認）|
 | 火晶狂熱禮包 | _（待確認）_ | 火晶的比價基準 |
 
 ## 稱號 / Titles & Roles
