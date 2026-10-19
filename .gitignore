@@ -5,3 +5,21 @@ CLAUDE.local.md
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# API 金鑰，絕不上傳
+.wosapikey
+
+# BlueStacks bot 執行紀錄
+bot/decisions.jsonl
+bot/shots/
+bot/inbox/
+bot/__pycache__/
+bot/setup_log.txt
+bot/test.png
+.anthropickey
+bot/*.log
+bot/STOP*
+bot/inbox/
+
+# 小幫手放在私人儲存庫 nakahikari-oss/wos_private（bot/ 自己是一個 git 儲存庫），公開網站不收
+bot/
