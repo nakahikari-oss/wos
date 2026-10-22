@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>禮包／代幣划算度計算機 — 克菈莉絲的WOS筆記</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .calc-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .calc-tab {
+      padding: 0.55rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: none;
+    }
+    .calc-tab.active { background: var(--bg-secondary); color: var(--frost); border-color: var(--accent-dim); font-weight: 600; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .intro {
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--accent);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1.4rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .intro code {
+      background: var(--bg-card); padding: 0.1rem 0.4rem; border-radius: 3px;
+      font-family: monospace; color: var(--accent);
+    }
+
+    .form-row {
+      display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;
+    }
+    .form-row label { font-size: 0.9rem; color: var(--text-secondary); min-width: 80px; }
+    .form-row select, .form-row input[type="number"], .form-row input[type="text"] {
+      padding: 0.4rem 0.7rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-family: inherit;
+    }
+    .form-row select { min-width: 180px; }
+    .form-row input[type="number"] { width: 100px; text-align: right; }
+    .form-row input[type="text"] { min-width: 140px; }
+    .form-row .price-cell { color: var(--text-muted); font-size: 0.85rem; min-width: 110px; }
+    .form-row .value-cell { color: var(--frost); font-size: 0.92rem; font-weight: 600; min-width: 90px; text-align: right; }
+    .form-row .remove-btn {
+      padding: 0.2rem 0.55rem; background: transparent; border: 1px solid var(--border-color);
+      border-radius: 4px; color: var(--text-muted); cursor: pointer; font-size: 0.85rem;
+    }
+    .form-row .remove-btn:hover { color: var(--danger); border-color: var(--danger); }
+
+    .add-row {
+      margin-top: 0.6rem; padding: 0.5rem 1rem;
+      background: var(--bg-secondary); border: 1px dashed var(--border-color);
+      border-radius: 5px; color: var(--accent); cursor: pointer; font-size: 0.9rem;
+      display: inline-block;
+    }
+    .add-row:hover { background: var(--accent-dim); }
+
+    .section-box {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1.1rem 1.3rem; margin-bottom: 1.3rem;
+    }
+    .section-box h3 {
+      font-size: 1.05rem; color: var(--frost); margin-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
+    }
+
+    .verdict-box {
+      padding: 1rem 1.3rem; border-radius: 8px; margin-top: 0.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem;
+    }
+    .verdict-box.good  { background: rgba(22,163,74,0.08);  border: 1px solid var(--success); }
+    .verdict-box.okay  { background: rgba(217,119,6,0.08);  border: 1px solid var(--warning); }
+    .verdict-box.bad   { background: rgba(220,38,38,0.08);  border: 1px solid var(--danger); }
+    .verdict-box .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .verdict-box .value { font-size: 1.5rem; font-weight: 700; color: var(--frost); }
+    .verdict-box.good  .value { color: var(--success); }
+    .verdict-box.okay  .value { color: var(--warning); }
+    .verdict-box.bad   .value { color: var(--danger); }
+    .verdict-box .sub   { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.15rem; }
+
+    .token-tier {
+      display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 0.6rem;
+      align-items: center; padding: 0.4rem 0; border-bottom: 1px dashed var(--border-color);
+    }
+    .token-tier:last-child { border-bottom: none; }
+    .token-tier .tier-cost { color: var(--text-muted); font-size: 0.85rem; }
+
+    .ratio-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.5rem; }
+    .ratio-table th, .ratio-table td { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; text-align: right; }
+    .ratio-table th { background: var(--bg-secondary); color: var(--accent); text-align: center; }
+    .ratio-table td:first-child { text-align: left; }
+    .ratio-table td.ratio-good { color: var(--success); font-weight: 700; }
+    .ratio-table td.ratio-okay { color: var(--warning); font-weight: 600; }
+    .ratio-table td.ratio-bad  { color: var(--danger); }
+
+    .note-flag {
+      display: inline-block; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.72rem;
+      margin-left: 0.3rem; vertical-align: middle;
+    }
+    .flag-s7 { background: rgba(22,163,74,0.15); color: var(--success); }
+    .flag-s6 { background: rgba(100,116,139,0.15); color: var(--text-muted); }
+    .flag-range { background: rgba(217,119,6,0.15); color: var(--warning); }
+
+    .pricing-link {
+      font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">克菈莉絲的WOS筆記 <span>Whiteout Survival</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">首頁</a></li>
+        <li><a href="../articles.html">攻略文章</a></li>
+        <li><a href="../calculators.html" class="active">計算工具</a></li>
+        <li><a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">官方Wiki ↗</a></li>
+        <li><a href="../en/calculators/pack-value.html" class="lang-switch">EN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">首頁</a> <span>›</span>
+      <a href="../calculators.html">計算工具</a> <span>›</span>
+      禮包／代幣划算度計算機
+    </div>
+
+    <h1 style="font-size:1.6rem; margin-bottom:0.8rem; color:var(--frost);">禮包／代幣划算度計算機</h1>
+    <p class="pricing-link">基準價來自
+      <a href="https://github.com/nakahikari-oss/wos/blob/main/PRICING.md" target="_blank" rel="noopener">PRICING.md</a>
+      ・快照：2026-10-20
+      ・<span class="note-flag flag-s7">S7 已校驗</span>
+      <span class="note-flag flag-s6">S6 快照</span>
+      <span class="note-flag flag-range">區間值</span>
+    </p>
+
+    <div class="calc-tabs">
+      <button class="calc-tab active" data-tab="pack">單禮包估值</button>
+      <button class="calc-tab"        data-tab="token">代幣兌換估值</button>
+    </div>
+
+    <!-- ═══════════════ 單禮包估值 ═══════════════ -->
+    <div class="tab-panel active" id="tab-pack">
+      <div class="intro">
+        輸入禮包售價 ＋ 包含的道具數量，自動加總每樣道具的基準價，算出 <code>總價值 ÷ 售價</code>。
+        <br>這個比值 <strong>&gt; 1 就划算</strong>（實際價值超過你付的錢）。
+        <br><strong>💎 鑽石建議當附加品，不要列進計算</strong>：曙光／常規系列 $5 包都會附 2,500 鑽（≈ $2.50），客製化系列則不附；但重點是看道具本身值不值得，鑽石算白撿。真的想算進去，就把「鑽石」當一項道具加進去。
+      </div>
+
+      <div class="section-box">
+        <h3>禮包內容</h3>
+        <div class="form-row">
+          <label>禮包名稱</label>
+          <input type="text" id="pack-name" placeholder="（可選填，例：$5 寶石禮包）">
+        </div>
+        <div class="form-row">
+          <label>售價（USD）</label>
+          <input type="number" id="pack-price" value="5" min="0" step="0.01">
+        </div>
+
+        <div id="pack-items" style="margin-top:1rem;"></div>
+        <button class="add-row" onclick="addPackItem()">＋ 加一樣道具</button>
+      </div>
+
+      <div class="section-box">
+        <h3>結果</h3>
+        <div id="pack-verdict" class="verdict-box okay">
+          <div><div class="label">總價值</div><div class="value" id="pack-total">$0.00</div></div>
+          <div><div class="label">售價</div><div class="value" id="pack-cost">$5.00</div></div>
+          <div><div class="label">CP 值（價值 ÷ 售價）</div><div class="value" id="pack-ratio">0.00×</div>
+            <div class="sub" id="pack-ratio-sub">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ 代幣兌換估值 ═══════════════ -->
+    <div class="tab-panel" id="tab-token">
+      <div class="intro">
+        活動商店用代幣（例：銀貝、星幣）買道具時用。<br>
+        步驟 ① 輸入代幣要花多少錢拿到（可以多檔，不同課金金額對應不同效率）
+        <br>步驟 ② 加入商店的兌換品項（M 代幣換 Y 個 Z 道具）<br>
+        自動算出每檔代幣下的划算倍率，<strong>&gt; 1 就划算</strong>。
+      </div>
+
+      <div class="section-box">
+        <h3>① 代幣成本</h3>
+        <div class="form-row">
+          <label>代幣名稱</label>
+          <input type="text" id="token-name" value="代幣" placeholder="例：銀貝、星幣">
+        </div>
+        <div id="token-tiers" style="margin-top:0.8rem;"></div>
+        <button class="add-row" onclick="addTokenTier()">＋ 加一檔</button>
+      </div>
+
+      <div class="section-box">
+        <h3>② 商店兌換</h3>
+        <div id="token-exchanges" style="margin-top:0.5rem;"></div>
+        <button class="add-row" onclick="addExchange()">＋ 加一項商品</button>
+      </div>
+
+      <div class="section-box">
+        <h3>結果：每項的划算倍率</h3>
+        <div id="token-result">
+          <p style="color:var(--text-muted); font-size:0.9rem;">加入代幣檔次和商品後，這裡會顯示每項在各檔代幣下的倍率（代幣價值 ÷ 代幣成本，&gt; 1 划算）。</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p>克菈莉絲的WOS筆記 — 本站為玩家自製攻略站，與官方無關</p>
+    <p>部分資料引用自其他來源，已於各頁面標註出處</p>
+  </footer>
+
+  <script src="../js/prices.js"></script>
+  <script>
+  // ─── 共用：下拉選單選項 ───
+  function priceOptions(selected) {
+    const groups = {};
+    WOS_PRICES.forEach(p => (groups[p.cat] ||= []).push(p));
+    let html = '<option value="">— 選道具 —</option>';
+    for (const cat of Object.keys(WOS_CATS)) {
+      if (!groups[cat]) continue;
+      html += `<optgroup label="${WOS_CATS[cat].zh}">`;
+      for (const p of groups[cat]) {
+        const sel = p.id === selected ? ' selected' : '';
+        html += `<option value="${p.id}"${sel}>${p.zh}</option>`;
+      }
+      html += '</optgroup>';
+    }
+    return html;
+  }
+  function priceFlag(p) {
+    const bits = [];
+    bits.push(`<span class="note-flag flag-${p.status}">${p.status === 's7' ? 'S7 ✅' : 'S6 ⏳'}</span>`);
+    if (p.range) bits.push('<span class="note-flag flag-range">區間</span>');
+    return bits.join('');
+  }
+  function fmt$(v) { return '$' + v.toFixed(v < 0.01 ? 5 : v < 1 ? 4 : 2); }
+
+  // ─── 分頁切換 ───
+  document.querySelectorAll('.calc-tab').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.calc-tab').forEach(b => b.classList.toggle('active', b === btn));
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  }));
+
+  // ═══════════════════════════════ 單禮包估值 ═══════════════════════════════
+  function addPackItem(itemId = '', count = 1) {
+    const container = document.getElementById('pack-items');
+    const row = document.createElement('div');
+    row.className = 'form-row';
+    row.innerHTML = `
+      <select onchange="recalcPack()">${priceOptions(itemId)}</select>
+      <input type="number" min="0" step="any" value="${count}" oninput="recalcPack()">
+      <span class="price-cell"></span>
+      <span class="value-cell"></span>
+      <button class="remove-btn" onclick="this.parentElement.remove(); recalcPack();">✕</button>
+    `;
+    container.appendChild(row);
+    recalcPack();
+  }
+
+  function recalcPack() {
+    let total = 0;
+    document.querySelectorAll('#pack-items .form-row').forEach(row => {
+      const id = row.querySelector('select').value;
+      const n  = parseFloat(row.querySelector('input').value) || 0;
+      const p  = WOS_PRICES.find(x => x.id === id);
+      const priceCell = row.querySelector('.price-cell');
+      const valCell   = row.querySelector('.value-cell');
+      if (!p) { priceCell.innerHTML = ''; valCell.textContent = ''; return; }
+      const sub = n * p.price;
+      total += sub;
+      priceCell.innerHTML = `${fmt$(p.price)}/個 ${priceFlag(p)}`;
+      valCell.textContent = fmt$(sub);
+    });
+    const cost = parseFloat(document.getElementById('pack-price').value) || 0;
+    document.getElementById('pack-total').textContent = fmt$(total);
+    document.getElementById('pack-cost').textContent  = fmt$(cost);
+    const ratio = cost > 0 ? total / cost : 0;
+    document.getElementById('pack-ratio').textContent = ratio.toFixed(2) + '×';
+    const box = document.getElementById('pack-verdict');
+    const sub = document.getElementById('pack-ratio-sub');
+    box.classList.remove('good', 'okay', 'bad');
+    if (ratio >= 1.5)      { box.classList.add('good'); sub.textContent = '很划算'; }
+    else if (ratio >= 1.0) { box.classList.add('good'); sub.textContent = '划算'; }
+    else if (ratio >= 0.8) { box.classList.add('okay'); sub.textContent = '勉強打平'; }
+    else                   { box.classList.add('bad');  sub.textContent = '不划算'; }
+  }
+
+  document.getElementById('pack-price').addEventListener('input', recalcPack);
+
+  // 預設示範：常規禮包 A 包的寶石道具部分（鑽石視為附加、不列入計算）
+  addPackItem('charm_guide', 7);
+  addPackItem('charm_design', 7);
+  addPackItem('charm_secrets', 2);
+  document.getElementById('pack-name').value = '範例：常規禮包 A 包（$5，不含附贈的 2500 鑽）';
+
+  // ═══════════════════════════════ 代幣兌換估值 ═══════════════════════════════
+  function addTokenTier(usd = 5, tokens = 100) {
+    const container = document.getElementById('token-tiers');
+    const row = document.createElement('div');
+    row.className = 'form-row';
+    row.innerHTML = `
+      <label>花 $</label>
+      <input type="number" min="0" step="0.01" value="${usd}" oninput="recalcTokens()">
+      <label>→ 拿到</label>
+      <input type="number" min="0" step="any" value="${tokens}" oninput="recalcTokens()">
+      <label>代幣</label>
+      <span class="price-cell tier-cost">—</span>
+      <button class="remove-btn" onclick="this.parentElement.remove(); recalcTokens();">✕</button>
+    `;
+    container.appendChild(row);
+    recalcTokens();
+  }
+
+  function addExchange(itemId = '', count = 1, tokens = 10) {
+    const container = document.getElementById('token-exchanges');
+    const row = document.createElement('div');
+    row.className = 'form-row';
+    row.innerHTML = `
+      <select onchange="recalcTokens()">${priceOptions(itemId)}</select>
+      <label>× </label>
+      <input type="number" min="0" step="any" value="${count}" oninput="recalcTokens()">
+      <label>要花</label>
+      <input type="number" min="0" step="any" value="${tokens}" oninput="recalcTokens()">
+      <label>代幣</label>
+      <button class="remove-btn" onclick="this.parentElement.remove(); recalcTokens();">✕</button>
+    `;
+    container.appendChild(row);
+    recalcTokens();
+  }
+
+  function recalcTokens() {
+    const tokenName = document.getElementById('token-name').value || '代幣';
+    // 代幣成本：每檔的 $/代幣
+    const tiers = [];
+    document.querySelectorAll('#token-tiers .form-row').forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const usd = parseFloat(inputs[0].value) || 0;
+      const tk  = parseFloat(inputs[1].value) || 0;
+      const perToken = tk > 0 ? usd / tk : 0;
+      row.querySelector('.tier-cost').textContent = perToken > 0 ? '＝ ' + fmt$(perToken) + '/代幣' : '—';
+      if (perToken > 0) tiers.push({ usd, tk, perToken });
+    });
+    // 商品：每項的代幣價值
+    const items = [];
+    document.querySelectorAll('#token-exchanges .form-row').forEach(row => {
+      const id = row.querySelector('select').value;
+      const inputs = row.querySelectorAll('input');
+      const count = parseFloat(inputs[0].value) || 0;
+      const tk    = parseFloat(inputs[1].value) || 0;
+      const p = WOS_PRICES.find(x => x.id === id);
+      if (!p || count <= 0 || tk <= 0) return;
+      items.push({ p, count, tk, perToken: (count * p.price) / tk });
+    });
+
+    const result = document.getElementById('token-result');
+    if (!items.length) {
+      result.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">加入代幣檔次和商品後，這裡會顯示每項在各檔代幣下的倍率（代幣價值 ÷ 代幣成本，&gt; 1 划算）。</p>`;
+      return;
+    }
+    if (!tiers.length) {
+      result.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">請在上方加入至少一檔代幣成本。</p>`;
+      return;
+    }
+
+    let html = '<table class="ratio-table"><thead><tr><th>商品</th><th>代幣價值<br>（$/代幣）</th>';
+    for (const t of tiers) html += `<th>$${t.usd} 檔<br>${t.tk} ${tokenName}</th>`;
+    html += '</tr></thead><tbody>';
+    for (const it of items) {
+      html += `<tr><td>${it.count} × ${it.p.zh} ${priceFlag(it.p)}<br>`;
+      html += `<span style="color:var(--text-muted);font-size:0.82rem;">${it.tk} ${tokenName} → 值 ${fmt$(it.count * it.p.price)}</span></td>`;
+      html += `<td>${fmt$(it.perToken)}</td>`;
+      for (const t of tiers) {
+        const r = it.perToken / t.perToken;
+        const cls = r >= 1.5 ? 'ratio-good' : r >= 1.0 ? 'ratio-okay' : 'ratio-bad';
+        html += `<td class="${cls}">${r.toFixed(2)}×</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    html += '<p style="margin-top:0.6rem; font-size:0.82rem; color:var(--text-muted);">倍率 ≥ 1.5 很划算、≥ 1.0 划算、&lt; 1 不划算。限購上限要自己留意（代幣再便宜，買不到幾個也是枉然）。</p>';
+    result.innerHTML = html;
+  }
+
+  document.getElementById('token-name').addEventListener('input', recalcTokens);
+
+  // 預設示範：銀霜商鋪的代幣檔與一兩個商品
+  addTokenTier(5, 100);
+  addTokenTier(100, 2500);
+  addExchange('fc', 70, 30);
+  addExchange('charm_guide', 10, 50);
+  document.getElementById('token-name').value = '銀貝';
+  recalcTokens();
+  </script>
+
+</body>
+</html>

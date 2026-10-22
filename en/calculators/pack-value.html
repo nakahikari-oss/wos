@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pack / Token Value Calculator — Clarice's WOS Notes</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .calc-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .calc-tab {
+      padding: 0.55rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: none;
+    }
+    .calc-tab.active { background: var(--bg-secondary); color: var(--frost); border-color: var(--accent-dim); font-weight: 600; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .intro {
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--accent);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1.4rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .intro code {
+      background: var(--bg-card); padding: 0.1rem 0.4rem; border-radius: 3px;
+      font-family: monospace; color: var(--accent);
+    }
+
+    .form-row {
+      display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;
+    }
+    .form-row label { font-size: 0.9rem; color: var(--text-secondary); min-width: 80px; }
+    .form-row select, .form-row input[type="number"], .form-row input[type="text"] {
+      padding: 0.4rem 0.7rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-family: inherit;
+    }
+    .form-row select { min-width: 200px; }
+    .form-row input[type="number"] { width: 100px; text-align: right; }
+    .form-row input[type="text"] { min-width: 160px; }
+    .form-row .price-cell { color: var(--text-muted); font-size: 0.85rem; min-width: 110px; }
+    .form-row .value-cell { color: var(--frost); font-size: 0.92rem; font-weight: 600; min-width: 90px; text-align: right; }
+    .form-row .remove-btn {
+      padding: 0.2rem 0.55rem; background: transparent; border: 1px solid var(--border-color);
+      border-radius: 4px; color: var(--text-muted); cursor: pointer; font-size: 0.85rem;
+    }
+    .form-row .remove-btn:hover { color: var(--danger); border-color: var(--danger); }
+
+    .add-row {
+      margin-top: 0.6rem; padding: 0.5rem 1rem;
+      background: var(--bg-secondary); border: 1px dashed var(--border-color);
+      border-radius: 5px; color: var(--accent); cursor: pointer; font-size: 0.9rem;
+      display: inline-block;
+    }
+    .add-row:hover { background: var(--accent-dim); }
+
+    .section-box {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1.1rem 1.3rem; margin-bottom: 1.3rem;
+    }
+    .section-box h3 {
+      font-size: 1.05rem; color: var(--frost); margin-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
+    }
+
+    .verdict-box {
+      padding: 1rem 1.3rem; border-radius: 8px; margin-top: 0.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem;
+    }
+    .verdict-box.good  { background: rgba(22,163,74,0.08);  border: 1px solid var(--success); }
+    .verdict-box.okay  { background: rgba(217,119,6,0.08);  border: 1px solid var(--warning); }
+    .verdict-box.bad   { background: rgba(220,38,38,0.08);  border: 1px solid var(--danger); }
+    .verdict-box .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .verdict-box .value { font-size: 1.5rem; font-weight: 700; color: var(--frost); }
+    .verdict-box.good  .value { color: var(--success); }
+    .verdict-box.okay  .value { color: var(--warning); }
+    .verdict-box.bad   .value { color: var(--danger); }
+    .verdict-box .sub   { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.15rem; }
+
+    .ratio-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.5rem; }
+    .ratio-table th, .ratio-table td { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; text-align: right; }
+    .ratio-table th { background: var(--bg-secondary); color: var(--accent); text-align: center; }
+    .ratio-table td:first-child { text-align: left; }
+    .ratio-table td.ratio-good { color: var(--success); font-weight: 700; }
+    .ratio-table td.ratio-okay { color: var(--warning); font-weight: 600; }
+    .ratio-table td.ratio-bad  { color: var(--danger); }
+
+    .note-flag {
+      display: inline-block; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.72rem;
+      margin-left: 0.3rem; vertical-align: middle;
+    }
+    .flag-s7 { background: rgba(22,163,74,0.15); color: var(--success); }
+    .flag-s6 { background: rgba(100,116,139,0.15); color: var(--text-muted); }
+    .flag-range { background: rgba(217,119,6,0.15); color: var(--warning); }
+
+    .pricing-link { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">Clarice's WOS Notes <span>Whiteout Survival</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../articles.html">Guides</a></li>
+        <li><a href="../calculators.html" class="active">Calculators</a></li>
+        <li><a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">Official Wiki ↗</a></li>
+        <li><a href="../../calculators/pack-value.html" class="lang-switch">中文</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a> <span>›</span>
+      <a href="../calculators.html">Calculators</a> <span>›</span>
+      Pack / Token Value
+    </div>
+
+    <h1 style="font-size:1.6rem; margin-bottom:0.8rem; color:var(--frost);">Pack / Token Value Calculator</h1>
+    <p class="pricing-link">Baseline prices from
+      <a href="https://github.com/nakahikari-oss/wos/blob/main/PRICING.md" target="_blank" rel="noopener">PRICING.md</a>
+      · Snapshot: 2026-10-20
+      · <span class="note-flag flag-s7">S7 verified</span>
+      <span class="note-flag flag-s6">S6 snapshot</span>
+      <span class="note-flag flag-range">range</span>
+    </p>
+
+    <div class="calc-tabs">
+      <button class="calc-tab active" data-tab="pack">Pack Value</button>
+      <button class="calc-tab"        data-tab="token">Token Exchange</button>
+    </div>
+
+    <!-- ═══════════════ Pack Value ═══════════════ -->
+    <div class="tab-panel active" id="tab-pack">
+      <div class="intro">
+        Enter the pack price and the items inside. The calculator sums each item's baseline value and computes <code>Total value ÷ Price</code>.
+        <br>Ratio <strong>&gt; 1 is a good deal</strong>.
+        <br><strong>💎 Treat gems as a freebie, don't count them</strong>: Dawn / regular $5 packs always include 2,500 gems (≈ $2.50 freebie), custom-series packs do not. What matters is whether the actual items are worth the price — gems are a bonus. If you really want them counted, add <strong>Gem</strong> as an item.
+      </div>
+
+      <div class="section-box">
+        <h3>Pack contents</h3>
+        <div class="form-row">
+          <label>Pack name</label>
+          <input type="text" id="pack-name" placeholder="(optional, e.g. $5 Charm Pack)">
+        </div>
+        <div class="form-row">
+          <label>Price (USD)</label>
+          <input type="number" id="pack-price" value="5" min="0" step="0.01">
+        </div>
+
+        <div id="pack-items" style="margin-top:1rem;"></div>
+        <button class="add-row" onclick="addPackItem()">＋ Add item</button>
+      </div>
+
+      <div class="section-box">
+        <h3>Result</h3>
+        <div id="pack-verdict" class="verdict-box okay">
+          <div><div class="label">Total value</div><div class="value" id="pack-total">$0.00</div></div>
+          <div><div class="label">Price</div><div class="value" id="pack-cost">$5.00</div></div>
+          <div><div class="label">Ratio (value ÷ price)</div><div class="value" id="pack-ratio">0.00×</div>
+            <div class="sub" id="pack-ratio-sub">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ Token Exchange ═══════════════ -->
+    <div class="tab-panel" id="tab-token">
+      <div class="intro">
+        For event shops that use tokens (e.g. Silverfrost tokens, star coins).<br>
+        ① Enter how much it costs to earn N tokens (add multiple tiers if different spend levels give different rates)
+        <br>② Add the shop offers (M tokens for Y of item Z)<br>
+        The table shows the ratio of token value to token cost at each tier. <strong>&gt; 1 is a good deal.</strong>
+      </div>
+
+      <div class="section-box">
+        <h3>① Token cost</h3>
+        <div class="form-row">
+          <label>Token name</label>
+          <input type="text" id="token-name" value="token" placeholder="e.g. silver shell, star coin">
+        </div>
+        <div id="token-tiers" style="margin-top:0.8rem;"></div>
+        <button class="add-row" onclick="addTokenTier()">＋ Add tier</button>
+      </div>
+
+      <div class="section-box">
+        <h3>② Shop offers</h3>
+        <div id="token-exchanges" style="margin-top:0.5rem;"></div>
+        <button class="add-row" onclick="addExchange()">＋ Add offer</button>
+      </div>
+
+      <div class="section-box">
+        <h3>Result: ratio per offer</h3>
+        <div id="token-result">
+          <p style="color:var(--text-muted); font-size:0.9rem;">Add token tiers and offers above to see the ratios (token value ÷ token cost; &gt; 1 is a good deal).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p>Clarice's WOS Notes — Fan-made guide site, not affiliated with the official game</p>
+    <p>Some data is referenced from other sources, credited on each page</p>
+  </footer>
+
+  <script src="../../js/prices.js"></script>
+  <script>
+  function priceOptions(selected) {
+    const groups = {};
+    WOS_PRICES.forEach(p => (groups[p.cat] ||= []).push(p));
+    let html = '<option value="">— pick item —</option>';
+    for (const cat of Object.keys(WOS_CATS)) {
+      if (!groups[cat]) continue;
+      html += `<optgroup label="${WOS_CATS[cat].en}">`;
+      for (const p of groups[cat]) {
+        const sel = p.id === selected ? ' selected' : '';
+        html += `<option value="${p.id}"${sel}>${p.en}</option>`;
+      }
+      html += '</optgroup>';
+    }
+    return html;
+  }
+  function priceFlag(p) {
+    const bits = [];
+    bits.push(`<span class="note-flag flag-${p.status}">${p.status === 's7' ? 'S7 ✅' : 'S6 ⏳'}</span>`);
+    if (p.range) bits.push('<span class="note-flag flag-range">range</span>');
+    return bits.join('');
+  }
+  function fmt$(v) { return '$' + v.toFixed(v < 0.01 ? 5 : v < 1 ? 4 : 2); }
+
+  document.querySelectorAll('.calc-tab').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.calc-tab').forEach(b => b.classList.toggle('active', b === btn));
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  }));
+
+  function addPackItem(itemId = '', count = 1) {
+    const container = document.getElementById('pack-items');
+    const row = document.createElement('div');
+    row.className = 'form-row';
+    row.innerHTML = `
+      <select onchange="recalcPack()">${priceOptions(itemId)}</select>
+      <input type="number" min="0" step="any" value="${count}" oninput="recalcPack()">
+      <span class="price-cell"></span>
+      <span class="value-cell"></span>
+      <button class="remove-btn" onclick="this.parentElement.remove(); recalcPack();">✕</button>
+    `;
+    container.appendChild(row);
+    recalcPack();
+  }
+
+  function recalcPack() {
+    let total = 0;
+    document.querySelectorAll('#pack-items .form-row').forEach(row => {
+      const id = row.querySelector('select').value;
+      const n  = parseFloat(row.querySelector('input').value) || 0;
+      const p  = WOS_PRICES.find(x => x.id === id);
+      const priceCell = row.querySelector('.price-cell');
+      const valCell   = row.querySelector('.value-cell');
+      if (!p) { priceCell.innerHTML = ''; valCell.textContent = ''; return; }
+      const sub = n * p.price;
+      total += sub;
+      priceCell.innerHTML = `${fmt$(p.price)}/ea ${priceFlag(p)}`;
+      valCell.textContent = fmt$(sub);
+    });
+    const cost = parseFloat(document.getElementById('pack-price').value) || 0;
+    document.getElementById('pack-total').textContent = fmt$(total);
+    document.getElementById('pack-cost').textContent  = fmt$(cost);
+    const ratio = cost > 0 ? total / cost : 0;
+    document.getElementById('pack-ratio').textContent = ratio.toFixed(2) + '×';
+    const box = document.getElementById('pack-verdict');
+    const sub = document.getElementById('pack-ratio-sub');
+    box.classList.remove('good', 'okay', 'bad');
+    if (ratio >= 1.5)      { box.classList.add('good'); sub.textContent = 'Great deal'; }
+    else if (ratio >= 1.0) { box.classList.add('good'); sub.textContent = 'Good deal'; }
+    else if (ratio >= 0.8) { box.classList.add('okay'); sub.textContent = 'Break-even'; }
+    else                   { box.classList.add('bad');  sub.textContent = 'Overpriced'; }
+  }
+
+  document.getElementById('pack-price').addEventListener('input', recalcPack);
+
+  // Default example: charm items from regular pack A (ignoring the 2,500 bundled gems)
+  addPackItem('charm_guide', 7);
+  addPackItem('charm_design', 7);
+  addPackItem('charm_secrets', 2);
+  document.getElementById('pack-name').value = 'Example: Regular pack A ($5, excl. 2,500 bundled gems)';
+
+  function addTokenTier(usd = 5, tokens = 100) {
+    const container = document.getElementById('token-tiers');
+    const row = document.createElement('div');
+    row.className = 'form-row';
+    row.innerHTML = `
+      <label>Spend $</label>
+      <input type="number" min="0" step="0.01" value="${usd}" oninput="recalcTokens()">
+      <label>→ get</label>
+      <input type="number" min="0" step="any" value="${tokens}" oninput="recalcTokens()">
+      <label>tokens</label>
+      <span class="price-cell tier-cost">—</span>
+      <button class="remove-btn" onclick="this.parentElement.remove(); recalcTokens();">✕</button>
+    `;
+    container.appendChild(row);
+    recalcTokens();
+  }
+
+  function addExchange(itemId = '', count = 1, tokens = 10) {
+    const container = document.getElementById('token-exchanges');
+    const row = document.createElement('div');
+    row.className = 'form-row';
+    row.innerHTML = `
+      <select onchange="recalcTokens()">${priceOptions(itemId)}</select>
+      <label>× </label>
+      <input type="number" min="0" step="any" value="${count}" oninput="recalcTokens()">
+      <label>for</label>
+      <input type="number" min="0" step="any" value="${tokens}" oninput="recalcTokens()">
+      <label>tokens</label>
+      <button class="remove-btn" onclick="this.parentElement.remove(); recalcTokens();">✕</button>
+    `;
+    container.appendChild(row);
+    recalcTokens();
+  }
+
+  function recalcTokens() {
+    const tokenName = document.getElementById('token-name').value || 'token';
+    const tiers = [];
+    document.querySelectorAll('#token-tiers .form-row').forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const usd = parseFloat(inputs[0].value) || 0;
+      const tk  = parseFloat(inputs[1].value) || 0;
+      const perToken = tk > 0 ? usd / tk : 0;
+      row.querySelector('.tier-cost').textContent = perToken > 0 ? '= ' + fmt$(perToken) + '/token' : '—';
+      if (perToken > 0) tiers.push({ usd, tk, perToken });
+    });
+    const items = [];
+    document.querySelectorAll('#token-exchanges .form-row').forEach(row => {
+      const id = row.querySelector('select').value;
+      const inputs = row.querySelectorAll('input');
+      const count = parseFloat(inputs[0].value) || 0;
+      const tk    = parseFloat(inputs[1].value) || 0;
+      const p = WOS_PRICES.find(x => x.id === id);
+      if (!p || count <= 0 || tk <= 0) return;
+      items.push({ p, count, tk, perToken: (count * p.price) / tk });
+    });
+
+    const result = document.getElementById('token-result');
+    if (!items.length) {
+      result.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Add token tiers and offers above to see the ratios (token value ÷ token cost; &gt; 1 is a good deal).</p>`;
+      return;
+    }
+    if (!tiers.length) {
+      result.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Add at least one token tier above.</p>`;
+      return;
+    }
+
+    let html = '<table class="ratio-table"><thead><tr><th>Offer</th><th>Value<br>($/token)</th>';
+    for (const t of tiers) html += `<th>$${t.usd} tier<br>${t.tk} ${tokenName}</th>`;
+    html += '</tr></thead><tbody>';
+    for (const it of items) {
+      html += `<tr><td>${it.count} × ${it.p.en} ${priceFlag(it.p)}<br>`;
+      html += `<span style="color:var(--text-muted);font-size:0.82rem;">${it.tk} ${tokenName} → worth ${fmt$(it.count * it.p.price)}</span></td>`;
+      html += `<td>${fmt$(it.perToken)}</td>`;
+      for (const t of tiers) {
+        const r = it.perToken / t.perToken;
+        const cls = r >= 1.5 ? 'ratio-good' : r >= 1.0 ? 'ratio-okay' : 'ratio-bad';
+        html += `<td class="${cls}">${r.toFixed(2)}×</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    html += '<p style="margin-top:0.6rem; font-size:0.82rem; color:var(--text-muted);">Ratio ≥ 1.5 = great deal, ≥ 1.0 = good, &lt; 1 = overpriced. Watch purchase limits — cheap tokens still buy nothing if the stock is capped.</p>';
+    result.innerHTML = html;
+  }
+
+  document.getElementById('token-name').addEventListener('input', recalcTokens);
+
+  addTokenTier(5, 100);
+  addTokenTier(100, 2500);
+  addExchange('fc', 70, 30);
+  addExchange('charm_guide', 10, 50);
+  document.getElementById('token-name').value = 'silver shell';
+  recalcTokens();
+  </script>
+
+</body>
+</html>
