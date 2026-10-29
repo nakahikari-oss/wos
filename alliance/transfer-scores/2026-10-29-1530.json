@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-29T16:49+08:00",
+  "captured_at": "2026-10-29T21:10+08:00",
   "snapshot_at": "2026-10-29T15:30+08:00",
   "snapshot_label": "快照 35m 前",
   "server": 3209,
@@ -41,11 +41,7 @@
       "player": "࿔Bee寶貝兒˖⸝⸝˖˚༊嗡嗡嗡",
       "alliance": "qax",
       "score": 3678137,
-      "note": "🔄 疑似改名：昨天為「₊Bee寶貝兒₊˖°₊嘀嘀嘀」（UID 491119680, 昨 #5 / 3,677,417）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "₊Bee寶貝兒₊˖°₊嘀嘀嘀",
-        "uid": "491119680"
-      }
+      "uid": "491119680"
     },
     {
       "rank": 6,
@@ -177,11 +173,7 @@
       "player": "릴리입니다",
       "alliance": "qax",
       "score": 1994749,
-      "note": "🔄 疑似改名：昨天為「Lyly」（UID 492380138, 昨 #24 / 1,990,667）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "Lyly",
-        "uid": "492380138"
-      }
+      "uid": "492380138"
     },
     {
       "rank": 24,
@@ -218,11 +210,7 @@
       "player": "人生無常，大腸包小腸",
       "alliance": "qax",
       "score": 1879089,
-      "note": "🔄 疑似改名：昨天為「在下小帥哥」（UID 493264266, 昨 #28 / 1,876,140）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "在下小帥哥",
-        "uid": "493264266"
-      }
+      "uid": "493264266"
     },
     {
       "rank": 29,
@@ -548,22 +536,14 @@
       "player": "聽說奇葩的名字比較容易中大獎",
       "alliance": "qax",
       "score": 1427112,
-      "note": "🔄 疑似改名：昨天為「院子裡的小草」（UID 490921389, 昨 #69 / 1,426,714）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "院子裡的小草",
-        "uid": "490921389"
-      }
+      "uid": "490921389"
     },
     {
       "rank": 73,
       "player": "焱◇夜火",
       "alliance": "qax",
       "score": 1417847,
-      "note": "🔄 疑似改名：昨天為「（夜火狂騎）~（騎著魔毯）」（UID 490986477, 昨 #73 / 1,415,917）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "（夜火狂騎）~（騎著魔毯）",
-        "uid": "490986477"
-      }
+      "uid": "490986477"
     },
     {
       "rank": 74,
@@ -584,11 +564,7 @@
       "player": "Mαɾιʝα ᥫ᭡",
       "alliance": "Qzx",
       "score": 1405085,
-      "note": "🔄 疑似改名：昨天為「Marijα ᴵᵒ」（UID 498966317, 昨 #75 / 1,404,359）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "Marijα ᴵᵒ",
-        "uid": "498966317"
-      }
+      "uid": "498966317"
     },
     {
       "rank": 77,
@@ -699,7 +675,7 @@
       "player": "x蜂窩性祖師爺x",
       "alliance": "qax",
       "score": 1336348,
-      "note": "⚠️ uid-map 查無此名，疑似新進或改名；請翻前一天截圖比對頭像"
+      "uid": "532487034"
     },
     {
       "rank": 92,

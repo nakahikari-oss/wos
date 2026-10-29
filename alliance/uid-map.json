@@ -7,9 +7,10 @@
       "alliance_leaderboard": "qax",
       "note": "表上寫「克菈莉絲 Clarice」(有空格)"
     },
-    "₊Bee寶貝兒₊˖°₊嘀嘀嘀": {
+    "࿔Bee寶貝兒˖⸝⸝˖˚༊嗡嗡嗡": {
       "uid": "491119680",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「₊Bee寶貝兒₊˖°₊嘀嘀嘀」"
     },
     "Jimmy 披星戴月XD": {
       "uid": "538035766",
@@ -40,9 +41,10 @@
       "uid": "491003744",
       "alliance_leaderboard": "qax"
     },
-    "Lyly": {
+    "릴리입니다": {
       "uid": "492380138",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「Lyly」（韓文「我是Lily」）"
     },
     "Ruby8": {
       "uid": "521187643",
@@ -54,10 +56,10 @@
       "alliance_leaderboard": "qax",
       "note": "表上無句號「昌哥」"
     },
-    "在下小帥哥": {
+    "人生無常，大腸包小腸": {
       "uid": "493264266",
       "alliance_leaderboard": "qax",
-      "note": "表上寫「在下小哥哥」(Qax) — 在下小X哥 架構相同、聯盟相同（可能是改名）"
+      "note": "10-29 改名自「在下小帥哥」；更早表上寫「在下小哥哥」"
     },
     "₊大寶貝兒₊˖°₊": {
       "uid": "476417990",
@@ -113,17 +115,19 @@
       "alliance_leaderboard": "qax",
       "note": "表上寫「pokok野人」(全小寫)"
     },
-    "院子裡的小草": {
+    "聽說奇葩的名字比較容易中大獎": {
       "uid": "490921389",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「院子裡的小草」"
     },
     "卡布挖賽": {
       "uid": "499383641",
       "alliance_leaderboard": "qax"
     },
-    "（夜火狂騎）~（騎著魔毯）": {
+    "焱◇夜火": {
       "uid": "490986477",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「（夜火狂騎）~（騎著魔毯）」"
     },
     "大威哥": {
       "uid": "553023935",
@@ -385,9 +389,10 @@
       "uid": "524928094",
       "alliance_leaderboard": "Qzx"
     },
-    "Marijα ᴵᵒ": {
+    "Mαɾιʝα ᥫ᭡": {
       "uid": "498966317",
-      "alliance_leaderboard": "Qzx"
+      "alliance_leaderboard": "Qzx",
+      "note": "10-29 改名自「Marijα ᴵᵒ」"
     },
     "BSHuang": {
       "uid": "462545948",
@@ -433,6 +438,11 @@
     "Slick Cat": {
       "uid": "497353728",
       "alliance_leaderboard": "SKS"
+    },
+    "x蜂窩性祖師爺x": {
+      "uid": "532487034",
+      "alliance_leaderboard": "qax",
+      "note": "10-29 新進榜"
     }
   }
 }

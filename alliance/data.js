@@ -1,9 +1,9 @@
 // 3209 轉州分數快照 — 內部用，絕不公開
 // 由 alliance/transfer-scores/*.json + uid-map.json 自動彙整
-// 最後更新：2026-10-29 16:49
+// 最後更新：2026-10-29 21:10
 window.SNAPSHOTS = [
 {
-  "captured_at": "2026-10-29T16:49+08:00",
+  "captured_at": "2026-10-29T21:10+08:00",
   "snapshot_at": "2026-10-29T15:30+08:00",
   "snapshot_label": "快照 35m 前",
   "server": 3209,
@@ -45,11 +45,7 @@ window.SNAPSHOTS = [
       "player": "࿔Bee寶貝兒˖⸝⸝˖˚༊嗡嗡嗡",
       "alliance": "qax",
       "score": 3678137,
-      "note": "🔄 疑似改名：昨天為「₊Bee寶貝兒₊˖°₊嘀嘀嘀」（UID 491119680, 昨 #5 / 3,677,417）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "₊Bee寶貝兒₊˖°₊嘀嘀嘀",
-        "uid": "491119680"
-      }
+      "uid": "491119680"
     },
     {
       "rank": 6,
@@ -181,11 +177,7 @@ window.SNAPSHOTS = [
       "player": "릴리입니다",
       "alliance": "qax",
       "score": 1994749,
-      "note": "🔄 疑似改名：昨天為「Lyly」（UID 492380138, 昨 #24 / 1,990,667）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "Lyly",
-        "uid": "492380138"
-      }
+      "uid": "492380138"
     },
     {
       "rank": 24,
@@ -222,11 +214,7 @@ window.SNAPSHOTS = [
       "player": "人生無常，大腸包小腸",
       "alliance": "qax",
       "score": 1879089,
-      "note": "🔄 疑似改名：昨天為「在下小帥哥」（UID 493264266, 昨 #28 / 1,876,140）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "在下小帥哥",
-        "uid": "493264266"
-      }
+      "uid": "493264266"
     },
     {
       "rank": 29,
@@ -552,22 +540,14 @@ window.SNAPSHOTS = [
       "player": "聽說奇葩的名字比較容易中大獎",
       "alliance": "qax",
       "score": 1427112,
-      "note": "🔄 疑似改名：昨天為「院子裡的小草」（UID 490921389, 昨 #69 / 1,426,714）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "院子裡的小草",
-        "uid": "490921389"
-      }
+      "uid": "490921389"
     },
     {
       "rank": 73,
       "player": "焱◇夜火",
       "alliance": "qax",
       "score": 1417847,
-      "note": "🔄 疑似改名：昨天為「（夜火狂騎）~（騎著魔毯）」（UID 490986477, 昨 #73 / 1,415,917）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "（夜火狂騎）~（騎著魔毯）",
-        "uid": "490986477"
-      }
+      "uid": "490986477"
     },
     {
       "rank": 74,
@@ -588,11 +568,7 @@ window.SNAPSHOTS = [
       "player": "Mαɾιʝα ᥫ᭡",
       "alliance": "Qzx",
       "score": 1405085,
-      "note": "🔄 疑似改名：昨天為「Marijα ᴵᵒ」（UID 498966317, 昨 #75 / 1,404,359）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "Marijα ᴵᵒ",
-        "uid": "498966317"
-      }
+      "uid": "498966317"
     },
     {
       "rank": 77,
@@ -703,7 +679,7 @@ window.SNAPSHOTS = [
       "player": "x蜂窩性祖師爺x",
       "alliance": "qax",
       "score": 1336348,
-      "note": "⚠️ uid-map 查無此名，疑似新進或改名；請翻前一天截圖比對頭像"
+      "uid": "532487034"
     },
     {
       "rank": 92,
@@ -1403,9 +1379,10 @@ window.UID_MAP = {
       "alliance_leaderboard": "qax",
       "note": "表上寫「克菈莉絲 Clarice」(有空格)"
     },
-    "₊Bee寶貝兒₊˖°₊嘀嘀嘀": {
+    "࿔Bee寶貝兒˖⸝⸝˖˚༊嗡嗡嗡": {
       "uid": "491119680",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「₊Bee寶貝兒₊˖°₊嘀嘀嘀」"
     },
     "Jimmy 披星戴月XD": {
       "uid": "538035766",
@@ -1436,9 +1413,10 @@ window.UID_MAP = {
       "uid": "491003744",
       "alliance_leaderboard": "qax"
     },
-    "Lyly": {
+    "릴리입니다": {
       "uid": "492380138",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「Lyly」（韓文「我是Lily」）"
     },
     "Ruby8": {
       "uid": "521187643",
@@ -1450,10 +1428,10 @@ window.UID_MAP = {
       "alliance_leaderboard": "qax",
       "note": "表上無句號「昌哥」"
     },
-    "在下小帥哥": {
+    "人生無常，大腸包小腸": {
       "uid": "493264266",
       "alliance_leaderboard": "qax",
-      "note": "表上寫「在下小哥哥」(Qax) — 在下小X哥 架構相同、聯盟相同（可能是改名）"
+      "note": "10-29 改名自「在下小帥哥」；更早表上寫「在下小哥哥」"
     },
     "₊大寶貝兒₊˖°₊": {
       "uid": "476417990",
@@ -1509,17 +1487,19 @@ window.UID_MAP = {
       "alliance_leaderboard": "qax",
       "note": "表上寫「pokok野人」(全小寫)"
     },
-    "院子裡的小草": {
+    "聽說奇葩的名字比較容易中大獎": {
       "uid": "490921389",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「院子裡的小草」"
     },
     "卡布挖賽": {
       "uid": "499383641",
       "alliance_leaderboard": "qax"
     },
-    "（夜火狂騎）~（騎著魔毯）": {
+    "焱◇夜火": {
       "uid": "490986477",
-      "alliance_leaderboard": "qax"
+      "alliance_leaderboard": "qax",
+      "note": "10-29 改名自「（夜火狂騎）~（騎著魔毯）」"
     },
     "大威哥": {
       "uid": "553023935",
@@ -1781,9 +1761,10 @@ window.UID_MAP = {
       "uid": "524928094",
       "alliance_leaderboard": "Qzx"
     },
-    "Marijα ᴵᵒ": {
+    "Mαɾιʝα ᥫ᭡": {
       "uid": "498966317",
-      "alliance_leaderboard": "Qzx"
+      "alliance_leaderboard": "Qzx",
+      "note": "10-29 改名自「Marijα ᴵᵒ」"
     },
     "BSHuang": {
       "uid": "462545948",
@@ -1829,6 +1810,11 @@ window.UID_MAP = {
     "Slick Cat": {
       "uid": "497353728",
       "alliance_leaderboard": "SKS"
+    },
+    "x蜂窩性祖師爺x": {
+      "uid": "532487034",
+      "alliance_leaderboard": "qax",
+      "note": "10-29 新進榜"
     }
   }
 };
