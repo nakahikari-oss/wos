@@ -1,9 +1,9 @@
 // 3209 轉州分數快照 — 內部用，絕不公開
 // 由 alliance/transfer-scores/*.json + uid-map.json 自動彙整
-// 最後更新：2026-10-29 21:10
+// 最後更新：2026-10-29 21:12
 window.SNAPSHOTS = [
 {
-  "captured_at": "2026-10-29T21:10+08:00",
+  "captured_at": "2026-10-29T21:12+08:00",
   "snapshot_at": "2026-10-29T15:30+08:00",
   "snapshot_label": "快照 35m 前",
   "server": 3209,
@@ -476,11 +476,7 @@ window.SNAPSHOTS = [
       "player": "222",
       "alliance": "CAN",
       "score": 1460465,
-      "note": "🔄 疑似改名：昨天為「zgzvng」（UID 545090172, 昨 #66 / 1,447,891）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "zgzvng",
-        "uid": "545090172"
-      }
+      "uid": "545090172"
     },
     {
       "rank": 65,
@@ -1671,9 +1667,10 @@ window.UID_MAP = {
       "uid": "480800400",
       "alliance_leaderboard": "CAN"
     },
-    "zgzvng": {
+    "222": {
       "uid": "545090172",
-      "alliance_leaderboard": "CAN"
+      "alliance_leaderboard": "CAN",
+      "note": "10-29 改名自「zgzvng」"
     },
     "Flower": {
       "uid": "502648035",

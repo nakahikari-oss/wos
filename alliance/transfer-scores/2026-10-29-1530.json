@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-29T21:10+08:00",
+  "captured_at": "2026-10-29T21:12+08:00",
   "snapshot_at": "2026-10-29T15:30+08:00",
   "snapshot_label": "快照 35m 前",
   "server": 3209,
@@ -472,11 +472,7 @@
       "player": "222",
       "alliance": "CAN",
       "score": 1460465,
-      "note": "🔄 疑似改名：昨天為「zgzvng」（UID 545090172, 昨 #66 / 1,447,891）；請用頭像核對後更新 uid-map",
-      "suspected_rename_from": {
-        "player": "zgzvng",
-        "uid": "545090172"
-      }
+      "uid": "545090172"
     },
     {
       "rank": 65,
