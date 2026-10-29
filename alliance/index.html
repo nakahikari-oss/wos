@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3209 轉州分數追蹤（內部用）</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --bg-row: #273449;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --accent: #38bdf8;
+      --good: #4ade80;
+      --bad: #f87171;
+      --warn: #fbbf24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Microsoft JhengHei", "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text);
+      padding: 1.5rem; line-height: 1.5;
+    }
+
+    .header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 0.5rem; gap: 1rem; flex-wrap: wrap;
+    }
+    h1 { font-size: 1.4rem; color: var(--accent); }
+
+    .lang-switch {
+      display: flex; gap: 0; background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+    }
+    .lang-switch button {
+      padding: 0.4rem 0.9rem; background: transparent; border: none;
+      color: var(--text-dim); cursor: pointer; font-size: 0.85rem;
+      font-family: inherit; border-right: 1px solid var(--border);
+    }
+    .lang-switch button:last-child { border-right: none; }
+    .lang-switch button:hover { background: var(--bg-row); color: var(--text); }
+    .lang-switch button.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+
+    .notice { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+    .notice.danger { color: var(--bad); font-weight: 600; }
+
+    .tabs { display: flex; gap: 0.3rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .tab {
+      padding: 0.5rem 1.1rem; background: transparent; border: none;
+      color: var(--text-dim); cursor: pointer; font-size: 0.95rem;
+      border-bottom: 2px solid transparent; font-family: inherit;
+    }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .controls {
+      display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;
+      background: var(--bg-card); padding: 0.8rem 1rem; border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+    .controls label { font-size: 0.9rem; color: var(--text-dim); }
+    .controls select {
+      background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.35rem 0.6rem; font-size: 0.9rem; font-family: inherit;
+      min-width: 220px;
+    }
+
+    .summary {
+      background: var(--bg-card); padding: 0.6rem 1rem; border-radius: 6px;
+      margin-bottom: 1rem; font-size: 0.88rem; color: var(--text-dim);
+    }
+    .summary strong { color: var(--text); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.5rem 0.7rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: var(--bg-card); color: var(--accent); position: sticky; top: 0; cursor: pointer; user-select: none; }
+    th:hover { color: var(--text); }
+    th.sort-asc::after  { content: " ▲"; font-size: 0.75em; }
+    th.sort-desc::after { content: " ▼"; font-size: 0.75em; }
+    tr:hover td { background: var(--bg-row); }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.good { color: var(--good); font-weight: 600; }
+    td.bad  { color: var(--bad);  font-weight: 600; }
+    td.flat { color: var(--text-dim); }
+    .rank-chg-up   { color: var(--good); font-size: 0.82em; }
+    .rank-chg-down { color: var(--bad);  font-size: 0.82em; }
+    .rank-chg-flat { color: var(--text-dim); font-size: 0.82em; }
+
+    .empty { padding: 2rem; text-align: center; color: var(--text-dim); background: var(--bg-card); border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1 id="page-title">🏔️ 3209 轉州分數追蹤</h1>
+    </div>
+    <div class="lang-switch">
+      <button data-lang="zh">中文</button>
+      <button data-lang="en">English</button>
+      <button data-lang="ru">Русский</button>
+    </div>
+  </div>
+  <div class="notice danger" id="page-notice"></div>
+
+  <div class="tabs">
+    <button class="tab active" data-panel="latest"    data-i18n="tab_latest"></button>
+    <button class="tab"        data-panel="growth"    data-i18n="tab_growth"></button>
+    <button class="tab"        data-panel="snapshots" data-i18n="tab_snapshots"></button>
+  </div>
+
+  <!-- ═══════════════ 最新榜單 Latest ═══════════════ -->
+  <div class="panel active" id="panel-latest">
+    <div class="summary" id="latest-summary"></div>
+    <div id="latest-table"></div>
+  </div>
+
+  <!-- ═══════════════ 成長幅度排行 Growth ═══════════════ -->
+  <div class="panel" id="panel-growth">
+    <div class="controls">
+      <label data-i18n="growth_from"></label>
+      <select id="growth-from"></select>
+      <label data-i18n="growth_to"></label>
+      <select id="growth-to"></select>
+    </div>
+    <div class="summary" id="growth-summary"></div>
+    <div id="growth-table"></div>
+  </div>
+
+  <!-- ═══════════════ 所有快照 Snapshots ═══════════════ -->
+  <div class="panel" id="panel-snapshots">
+    <div id="snap-list"></div>
+  </div>
+
+  <script>document.write('<script src="data.js?v=' + Date.now() + '"><\/script>');</script>
+  <script>
+  // ═══════════════ 翻譯字典 ═══════════════
+  const I18N = {
+    zh: {
+      _locale: 'zh-TW',
+      _html_lang: 'zh-TW',
+      page_title: '🏔️ 3209 轉州分數追蹤',
+      notice: '⚠️ 內部用，不要截圖或分享給聯盟外的人（含玩家本名、聯盟歸屬、戰力推估）',
+      tab_latest: '最新榜單',
+      tab_growth: '成長幅度排行',
+      tab_snapshots: '所有快照',
+      col_rank: '#',
+      col_player: '玩家',
+      col_alliance: '聯盟',
+      col_uid: 'UID',
+      col_score: '轉州分數',
+      col_delta_prev: '上次差',
+      col_rank_change: '名次變',
+      col_growth: '成長',
+      col_rate: '每日平均',
+      col_snap_time: '快照時間',
+      col_captured_at: '存檔時間',
+      col_players: '人數',
+      col_top_score: '最高分',
+      growth_from: '從',
+      growth_to: '到',
+      status_new: '新進',
+      status_left: '離開',
+      status_renamed: '🔄 疑似「{name}」改名',
+      summary_latest: '最新快照時間：<strong>{time}</strong> ・ 共 {n} 人（已有 UID：<strong>{with_uid}</strong>{missing_uid}）{since_prev}',
+      summary_missing_uid: '、缺 UID：<strong style="color:var(--warn)">{n}</strong>',
+      summary_since_prev: ' ・ 跟上一次（{time}）相隔 <strong>{days}</strong> 天',
+      summary_growth: '區間：<strong>{a}</strong> → <strong>{b}</strong> ・ 共 {days} 天 ・ 比對人數 {total}（新進 {new}、離開 {left}{renamed_part}）',
+      summary_renamed_part: '、🔄 疑似改名 {n}',
+      ratio_hint: '',
+      empty_no_data: '還沒有任何快照資料。',
+      empty_need_two: '需要至少兩天的資料才能比對成長。',
+      empty_no_snapshots: '尚無資料。',
+      empty_pick_two: '請選兩個不同的快照。',
+      empty_to_after_from: '「到」要晚於「從」。',
+    },
+    en: {
+      _locale: 'en-US',
+      _html_lang: 'en',
+      page_title: '🏔️ Server 3209 Transfer Score Tracker',
+      notice: '⚠️ Internal use only. Do not screenshot or share outside the alliance (contains player names, alliance affiliations, and power estimates).',
+      tab_latest: 'Latest Ranking',
+      tab_growth: 'Growth Rate',
+      tab_snapshots: 'All Snapshots',
+      col_rank: '#',
+      col_player: 'Player',
+      col_alliance: 'Alliance',
+      col_uid: 'UID',
+      col_score: 'Transfer Score',
+      col_delta_prev: 'Δ since last',
+      col_rank_change: 'Rank Δ',
+      col_growth: 'Growth',
+      col_rate: 'Per day avg.',
+      col_snap_time: 'Snapshot time',
+      col_captured_at: 'Captured at',
+      col_players: 'Players',
+      col_top_score: 'Top score',
+      growth_from: 'From',
+      growth_to: 'To',
+      status_new: 'new',
+      status_left: 'left',
+      status_renamed: '🔄 Likely renamed from "{name}"',
+      summary_latest: 'Latest snapshot: <strong>{time}</strong> · {n} players (with UID: <strong>{with_uid}</strong>{missing_uid}){since_prev}',
+      summary_missing_uid: ', missing UID: <strong style="color:var(--warn)">{n}</strong>',
+      summary_since_prev: ' · <strong>{days}</strong> days since previous ({time})',
+      summary_growth: 'Range: <strong>{a}</strong> → <strong>{b}</strong> · {days} days · {total} compared (new: {new}, left: {left}{renamed_part})',
+      summary_renamed_part: ', 🔄 renamed: {n}',
+      empty_no_data: 'No snapshot data yet.',
+      empty_need_two: 'Need at least 2 days of data to compare growth.',
+      empty_no_snapshots: 'No data yet.',
+      empty_pick_two: 'Please pick two different snapshots.',
+      empty_to_after_from: '"To" must be later than "From".',
+    },
+    ru: {
+      _locale: 'ru-RU',
+      _html_lang: 'ru',
+      page_title: '🏔️ Отслеживание очков переноса сервера 3209',
+      notice: '⚠️ Только для внутреннего использования. Не делайте скриншоты и не передавайте за пределы альянса (содержит имена игроков, принадлежность к альянсам, оценки силы).',
+      tab_latest: 'Текущий рейтинг',
+      tab_growth: 'Прирост очков',
+      tab_snapshots: 'Все снимки',
+      col_rank: '#',
+      col_player: 'Игрок',
+      col_alliance: 'Альянс',
+      col_uid: 'UID',
+      col_score: 'Очки переноса',
+      col_delta_prev: 'Δ с прошлого',
+      col_rank_change: 'Δ ранга',
+      col_growth: 'Прирост',
+      col_rate: 'В день (средн.)',
+      col_snap_time: 'Время снимка',
+      col_captured_at: 'Время сохранения',
+      col_players: 'Игроков',
+      col_top_score: 'Макс. счёт',
+      growth_from: 'От',
+      growth_to: 'До',
+      status_new: 'новый',
+      status_left: 'ушёл',
+      status_renamed: '🔄 Возможно переименован из «{name}»',
+      summary_latest: 'Последний снимок: <strong>{time}</strong> · игроков: {n} (с UID: <strong>{with_uid}</strong>{missing_uid}){since_prev}',
+      summary_missing_uid: ', без UID: <strong style="color:var(--warn)">{n}</strong>',
+      summary_since_prev: ' · прошло <strong>{days}</strong> дн. с прошлого ({time})',
+      summary_growth: 'Период: <strong>{a}</strong> → <strong>{b}</strong> · {days} дн. · сравнено {total} (новых: {new}, ушло: {left}{renamed_part})',
+      summary_renamed_part: ', 🔄 переименовано: {n}',
+      empty_no_data: 'Снимков пока нет.',
+      empty_need_two: 'Нужно минимум 2 дня данных для сравнения прироста.',
+      empty_no_snapshots: 'Данных пока нет.',
+      empty_pick_two: 'Выберите два разных снимка.',
+      empty_to_after_from: '«До» должно быть позже «От».',
+    },
+  };
+
+  // ═══════════════ 語言狀態 ═══════════════
+  let LANG = localStorage.getItem('alliance_lang') || 'zh';
+  if (!I18N[LANG]) LANG = 'zh';
+  function t(key, params = {}) {
+    let s = I18N[LANG][key] || I18N.zh[key] || key;
+    for (const [k, v] of Object.entries(params)) s = s.replaceAll(`{${k}}`, v);
+    return s;
+  }
+  function setLang(lang) {
+    if (!I18N[lang]) return;
+    LANG = lang;
+    localStorage.setItem('alliance_lang', lang);
+    document.documentElement.lang = I18N[lang]._html_lang;
+    document.title = (lang === 'zh' ? '3209 轉州分數追蹤（內部用）' : lang === 'en' ? '3209 Transfer Score Tracker (Internal)' : '3209: Отслеживание очков (внутренне)');
+    document.getElementById('page-title').textContent = t('page_title');
+    document.getElementById('page-notice').textContent = t('notice');
+    document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+    document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    render();
+  }
+  document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+  // ═══════════════ 資料 ═══════════════
+  const snaps = (window.SNAPSHOTS || []).slice().sort((a, b) => a.snapshot_at.localeCompare(b.snapshot_at));
+  const UID_PLAYERS = (window.UID_MAP && window.UID_MAP.players) || {};
+
+  // ═══════════════ 公用 ═══════════════
+  function fmtNum(n) { return n.toLocaleString(I18N[LANG]._locale); }
+  function fmtTime(iso) {
+    return new Date(iso).toLocaleString(I18N[LANG]._locale, { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  }
+  function daysBetween(a, b) { return (new Date(b) - new Date(a)) / 86400000; }
+
+  // 比對主鍵：entry.uid 優先（新快照直接帶），再 UID map 查，最後名字備援
+  function playerKey(e) {
+    if (e.uid) return 'uid:' + e.uid;
+    const rec = UID_PLAYERS[e.player];
+    return rec ? 'uid:' + rec.uid : 'name:' + e.player;
+  }
+  function playerUid(e) {
+    if (e.uid) return e.uid;
+    const rec = UID_PLAYERS[e.player];
+    return rec ? rec.uid : '';
+  }
+  // 聯盟 ＋ 分數相似備援：A 的某人消失、B 的某人新進，看能不能配對（±10%）
+  function matchRenames(aEntries, bEntries) {
+    const aKeys = new Set(aEntries.map(playerKey));
+    const bKeys = new Set(bEntries.map(playerKey));
+    const aOnly = aEntries.filter(e => !bKeys.has(playerKey(e)));
+    const bOnly = bEntries.filter(e => !aKeys.has(playerKey(e)));
+    const pairs = new Map();
+    for (const a of aOnly) {
+      let best = null;
+      for (const b of bOnly) {
+        if (a.alliance !== b.alliance) continue;
+        const ratio = Math.min(a.score, b.score) / Math.max(a.score, b.score);
+        if (ratio < 0.9) continue;
+        if (!best || Math.abs(b.score - a.score) < Math.abs(best.score - a.score)) best = b;
+      }
+      if (best) pairs.set(a.player, best);
+    }
+    return pairs;
+  }
+
+  // ═══════════════ 分頁切換 ═══════════════
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    const name = t.dataset.panel;
+    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.panel === name));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  }));
+
+  // ═══════════════ 可排序表格 ═══════════════
+  function makeTable(container, columns, rows, defaultSort) {
+    let sortKey = defaultSort.key, sortDir = defaultSort.dir;
+    function render() {
+      const sorted = rows.slice().sort((a, b) => {
+        const va = a[sortKey], vb = b[sortKey];
+        if (typeof va === 'number' && typeof vb === 'number') return sortDir === 'desc' ? vb - va : va - vb;
+        return sortDir === 'desc' ? String(vb).localeCompare(String(va)) : String(va).localeCompare(String(vb));
+      });
+      let html = '<table><thead><tr>';
+      for (const c of columns) {
+        const sortCls = c.key === sortKey ? (sortDir === 'desc' ? 'sort-desc' : 'sort-asc') : '';
+        // 數字欄的 header 跟著靠右，才會跟 td 對齊
+        const sampleRow = rows[0] || {};
+        const sampleCls = c.cls ? c.cls(sampleRow) : (typeof sampleRow[c.key] === 'number' ? 'num' : '');
+        const numCls = sampleCls.includes('num') ? 'num' : '';
+        const cls = [sortCls, numCls].filter(Boolean).join(' ');
+        html += `<th class="${cls}" data-key="${c.key}">${c.label}</th>`;
+      }
+      html += '</tr></thead><tbody>';
+      for (const r of sorted) {
+        html += '<tr>';
+        for (const c of columns) {
+          const v = c.render ? c.render(r) : r[c.key];
+          const cls = c.cls ? c.cls(r) : (typeof r[c.key] === 'number' ? 'num' : '');
+          html += `<td class="${cls}">${v == null ? '' : v}</td>`;
+        }
+        html += '</tr>';
+      }
+      html += '</tbody></table>';
+      container.innerHTML = html;
+      container.querySelectorAll('th').forEach(th => th.addEventListener('click', () => {
+        const k = th.dataset.key;
+        if (k === sortKey) sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+        else { sortKey = k; sortDir = 'desc'; }
+        render();
+      }));
+    }
+    render();
+  }
+
+  // ═══════════════ 畫面渲染（切語言時整個重跑）═══════════════
+  function render() {
+    if (!snaps.length) {
+      document.getElementById('latest-table').innerHTML = `<div class="empty">${t('empty_no_data')}</div>`;
+      document.getElementById('growth-table').innerHTML = `<div class="empty">${t('empty_need_two')}</div>`;
+      document.getElementById('snap-list').innerHTML   = `<div class="empty">${t('empty_no_snapshots')}</div>`;
+      document.getElementById('latest-summary').innerHTML = '';
+      document.getElementById('growth-summary').innerHTML = '';
+      return;
+    }
+
+    // ─── 最新榜單 ───
+    const latest = snaps[snaps.length - 1];
+    const prev = snaps.length >= 2 ? snaps[snaps.length - 2] : null;
+    const prevByKey = prev ? new Map(prev.entries.map(e => [playerKey(e), e])) : null;
+    const latestRows = latest.entries.map(e => {
+      const p = prevByKey && prevByKey.get(playerKey(e));
+      const delta = p ? e.score - p.score : null;
+      const rankChg = p ? p.rank - e.rank : null;
+      return { ...e, uid: playerUid(e), delta, rankChg };
+    });
+    const noUidCount = latest.entries.filter(e => !playerUid(e)).length;
+    document.getElementById('latest-summary').innerHTML = t('summary_latest', {
+      time: fmtTime(latest.snapshot_at),
+      n: latest.entries.length,
+      with_uid: latest.entries.length - noUidCount,
+      missing_uid: noUidCount ? t('summary_missing_uid', { n: noUidCount }) : '',
+      since_prev: prev ? t('summary_since_prev', { time: fmtTime(prev.snapshot_at), days: daysBetween(prev.snapshot_at, latest.snapshot_at).toFixed(1) }) : '',
+    });
+    makeTable(document.getElementById('latest-table'), [
+      { key: 'rank',     label: t('col_rank'),         cls: () => 'num' },
+      { key: 'player',   label: t('col_player') },
+      { key: 'alliance', label: t('col_alliance') },
+      { key: 'uid',      label: t('col_uid'),          render: r => r.uid || '<span class="rank-chg-flat">—</span>', cls: () => 'num' },
+      { key: 'score',    label: t('col_score'),        render: r => fmtNum(r.score), cls: () => 'num' },
+      { key: 'delta',    label: t('col_delta_prev'),   render: r => r.delta == null ? '—' : (r.delta > 0 ? '+' : '') + fmtNum(r.delta),
+                         cls: r => 'num ' + (r.delta == null ? 'flat' : r.delta > 0 ? 'good' : r.delta < 0 ? 'bad' : 'flat') },
+      { key: 'rankChg',  label: t('col_rank_change'),  render: r => {
+          if (r.rankChg == null) return t('status_new');
+          if (r.rankChg === 0) return '<span class="rank-chg-flat">—</span>';
+          const cls = r.rankChg > 0 ? 'rank-chg-up' : 'rank-chg-down';
+          return `<span class="${cls}">${r.rankChg > 0 ? '↑' : '↓'}${Math.abs(r.rankChg)}</span>`;
+        }, cls: () => 'num' },
+    ], latestRows, { key: 'rank', dir: 'asc' });
+
+    // ─── 成長幅度排行：下拉選單 ───
+    const fromSel = document.getElementById('growth-from');
+    const toSel = document.getElementById('growth-to');
+    const prevFrom = fromSel.value, prevTo = toSel.value;
+    fromSel.innerHTML = '';
+    toSel.innerHTML = '';
+    snaps.forEach((s, i) => {
+      const label = fmtTime(s.snapshot_at);
+      fromSel.innerHTML += `<option value="${i}">${label}</option>`;
+      toSel.innerHTML   += `<option value="${i}">${label}</option>`;
+    });
+    fromSel.value = prevFrom || 0;
+    toSel.value   = prevTo   || (snaps.length - 1);
+    renderGrowth();
+
+    // ─── 所有快照 ───
+    let listHtml = `<table><thead><tr><th>${t('col_rank')}</th><th>${t('col_snap_time')}</th><th>${t('col_captured_at')}</th><th>${t('col_players')}</th><th>${t('col_top_score')}</th></tr></thead><tbody>`;
+    snaps.slice().reverse().forEach((s, i) => {
+      const top = s.entries.reduce((a, b) => a.score > b.score ? a : b);
+      listHtml += `<tr><td class="num">${snaps.length - i}</td><td>${fmtTime(s.snapshot_at)}</td><td>${fmtTime(s.captured_at)}</td><td class="num">${s.entries.length}</td><td class="num">${fmtNum(top.score)} (${top.player})</td></tr>`;
+    });
+    listHtml += '</tbody></table>';
+    document.getElementById('snap-list').innerHTML = listHtml;
+  }
+
+  function renderGrowth() {
+    const fromSel = document.getElementById('growth-from');
+    const toSel = document.getElementById('growth-to');
+    const a = snaps[parseInt(fromSel.value)];
+    const b = snaps[parseInt(toSel.value)];
+    if (!a || !b || a === b) {
+      document.getElementById('growth-table').innerHTML = `<div class="empty">${t('empty_pick_two')}</div>`;
+      document.getElementById('growth-summary').innerHTML = '';
+      return;
+    }
+    if (new Date(b.snapshot_at) <= new Date(a.snapshot_at)) {
+      document.getElementById('growth-table').innerHTML = `<div class="empty">${t('empty_to_after_from')}</div>`;
+      document.getElementById('growth-summary').innerHTML = '';
+      return;
+    }
+    const days = daysBetween(a.snapshot_at, b.snapshot_at);
+    const aByKey = new Map(a.entries.map(e => [playerKey(e), e]));
+    const renames = matchRenames(a.entries, b.entries);
+    const renameFromB = new Map();
+    for (const [aName, bEnt] of renames) renameFromB.set(bEnt.player, aName);
+    const rows = b.entries.map(be => {
+      const ae = aByKey.get(playerKey(be));
+      const renamedFrom = renameFromB.get(be.player);
+      const matched = ae || (renamedFrom && a.entries.find(x => x.player === renamedFrom));
+      const delta = matched ? be.score - matched.score : null;
+      const rate = delta != null && days > 0 ? delta / days : null;
+      let statusType = '', renamedFromName = '';
+      if (!ae && renamedFrom) { statusType = 'renamed'; renamedFromName = renamedFrom; }
+      else if (!ae) statusType = 'new';
+      return {
+        player: be.player, alliance: be.alliance, uid: playerUid(be),
+        score_a: matched ? matched.score : null,
+        score_b: be.score,
+        delta, rate, days, statusType, renamedFromName,
+      };
+    });
+    const bPlayers = new Set(b.entries.map(e => playerKey(e)));
+    for (const ae of a.entries) {
+      if (!bPlayers.has(playerKey(ae)) && !renames.has(ae.player)) {
+        rows.push({ player: ae.player, alliance: ae.alliance, uid: playerUid(ae), score_a: ae.score, score_b: null, delta: null, rate: null, days, statusType: 'left', renamedFromName: '' });
+      }
+    }
+    const nRenamed = [...renames].length;
+    const nNew = rows.filter(r => r.statusType === 'new').length;
+    const nLeft = rows.filter(r => r.statusType === 'left').length;
+    document.getElementById('growth-summary').innerHTML = t('summary_growth', {
+      a: fmtTime(a.snapshot_at),
+      b: fmtTime(b.snapshot_at),
+      days: days.toFixed(1),
+      total: rows.length,
+      new: nNew,
+      left: nLeft,
+      renamed_part: nRenamed ? t('summary_renamed_part', { n: nRenamed }) : '',
+    });
+    makeTable(document.getElementById('growth-table'), [
+      { key: 'player',    label: t('col_player'),
+                          render: r => r.statusType === 'renamed' ? `${r.player} <span class="rank-chg-flat">(${t('status_renamed', { name: r.renamedFromName })})</span>` : r.player },
+      { key: 'alliance',  label: t('col_alliance') },
+      { key: 'uid',       label: t('col_uid'),             render: r => r.uid || '<span class="rank-chg-flat">—</span>', cls: () => 'num' },
+      { key: 'score_a',   label: fmtTime(a.snapshot_at),   render: r => r.score_a == null ? '—' : fmtNum(r.score_a), cls: () => 'num' },
+      { key: 'score_b',   label: fmtTime(b.snapshot_at),   render: r => r.score_b == null ? '—' : fmtNum(r.score_b), cls: () => 'num' },
+      { key: 'delta',     label: t('col_growth'),
+                          render: r => r.delta == null
+                            ? (r.statusType === 'new' ? t('status_new') : r.statusType === 'left' ? t('status_left') : '—')
+                            : (r.delta > 0 ? '+' : '') + fmtNum(r.delta),
+                          cls: r => 'num ' + (r.delta == null ? 'flat' : r.delta > 0 ? 'good' : r.delta < 0 ? 'bad' : 'flat') },
+      { key: 'rate',      label: t('col_rate'),            render: r => r.rate == null ? '—' : (r.rate > 0 ? '+' : '') + fmtNum(Math.round(r.rate)),
+                          cls: r => 'num ' + (r.rate == null ? 'flat' : r.rate > 0 ? 'good' : r.rate < 0 ? 'bad' : 'flat') },
+    ], rows, { key: 'delta', dir: 'desc' });
+  }
+  document.getElementById('growth-from').addEventListener('change', renderGrowth);
+  document.getElementById('growth-to').addEventListener('change', renderGrowth);
+
+  // ═══════════════ 啟動 ═══════════════
+  setLang(LANG);
+  </script>
+
+</body>
+</html>
