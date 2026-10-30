@@ -6,6 +6,9 @@ CLAUDE.local.md
 Thumbs.db
 desktop.ini
 
+# Obsidian 的個人設定（版面、外掛、開過哪些檔）— 每台電腦不一樣，不用同步
+.obsidian/
+
 # API 金鑰，絕不上傳
 .wosapikey
 
