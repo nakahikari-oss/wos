@@ -24,5 +24,8 @@ bot/inbox/
 # 小幫手放在私人儲存庫 nakahikari-oss/wos_private（bot/ 自己是一個 git 儲存庫），公開網站不收
 bot/
 
+# 聯盟內部資料 — 另有專屬儲存庫，公開攻略站不收（詳細規則見 CLAUDE.local.md）
+alliance/
+
 # Python 快取
 alliance/__pycache__/
