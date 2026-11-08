@@ -25,7 +25,9 @@
 - 新增攻略時：在 `articles/` 加檔案 → 在 `articles.html` 加卡片連結 → 英文版同步更新
 - 修改任何內容後，主動提醒使用者要 `commit` + `push`，否則另一台電腦拿不到
 - 每次新對話開始時，先建議使用者執行 `git pull`
-- `alliance/` 已被 `.gitignore` 排除，**不要**想辦法把它加回這個儲存庫（處理規則見 `Codex.local.md`）
+- 📁 **2026-11-08：`alliance/` 已整個搬到這個資料夾之外**，不再是本專案的子資料夾（新路徑見 `Codex.local.md`）。
+  它有自己的儲存庫與自己的專案說明，**不要**在這裡重建、也**不要**想辦法把它加回這個儲存庫。
+  這台電腦若還看得到 `alliance/`，表示還沒搬，搬法見那個資料夾裡的 `CLAUDE.md`。
 - ⚠️ **`git pull` 後第一件事：執行 `git ls-files alliance`**。若數字不是 0，代表舊歷史被 merge 帶回來了，
   立刻 `git rm -r --cached alliance` → commit → push，**不要**保留、**不要**當成正常檔案一起 commit。
   （`.gitignore` 只擋「新加入」，擋不住 merge 把已追蹤的舊版本帶回來 — 2026-11-02 真的發生過一次）
