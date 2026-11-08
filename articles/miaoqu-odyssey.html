@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>妙趣奇旅完全攻略：課金分級、奇旅商隊掃貨順序、海島收集 — 克菈莉絲的WOS筆記</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .limited-banner {
+      margin: 0 0 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(217,119,6,0.07);
+      border: 1px solid var(--warning);
+      border-left: 4px solid var(--warning);
+      border-radius: 0 8px 8px 0;
+    }
+    .limited-banner .limited-label {
+      display: inline-block;
+      background: var(--warning);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .limited-banner p {
+      margin: 0.35rem 0 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .stat-highlight {
+      margin: 1.25rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-highlight .stat-number {
+      display: block;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--frost);
+      line-height: 1.2;
+    }
+    .stat-highlight .stat-caption {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .tip-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(56,189,248,0.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .tip-box strong { color: var(--frost); }
+    .warn-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(217,119,6,0.06);
+      border-left: 3px solid var(--warning);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .warn-box strong { color: var(--warning); }
+    td.num, th.num { text-align: right; }
+    .tier1 { color: var(--success); font-weight: 600; }
+    .tier2 { color: var(--accent); font-weight: 600; }
+    .tier3 { color: var(--text-secondary); }
+    .tier4 { color: var(--danger); font-weight: 600; }
+    table tr.divider td { border-top: 2px solid var(--accent-dim); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">克菈莉絲的WOS筆記 <span>Whiteout Survival</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">首頁</a></li>
+        <li><a href="../articles.html" class="active">攻略文章</a></li>
+        <li><a href="../calculators.html">計算工具</a></li>
+        <li><a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">官方Wiki ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">首頁</a> <span>›</span>
+      <a href="../articles.html">攻略文章</a> <span>›</span>
+      妙趣奇旅完全攻略
+    </div>
+
+    <article>
+      <div class="article-header">
+        <h1>妙趣奇旅完全攻略：課金分級、奇旅商隊掃貨順序、海島收集</h1>
+        <div class="article-meta">
+          <span>撰文：克菈莉絲</span>
+          <span>分類：<span class="tag">活動攻略</span></span>
+        </div>
+      </div>
+
+      <div class="article-content">
+
+        <div class="limited-banner">
+          <span class="limited-label" style="background:#6b7280;">已結束</span>
+          <p class="period">本期：2026-11-06 ～ 11-09（3 天）</p>
+          <p><strong>妙趣奇旅是重複登場的活動</strong>（跟釣魚、夢境尋憶同性質），下次開放時數字可能微調，但這篇的課金分級邏輯、商店 CP 排行、海島收集策略都仍然適用。<strong>奇旅金幣與奇旅能量特飲都可以跨期保存</strong>，所以上一期沒搶到的玩家，看完這篇再決定下一期的策略也不遲。</p>
+        </div>
+
+        <p>妙趣奇旅是「消耗奇旅能量生成棋子 → 相同棋子合成升級 → 高階棋子解鎖獎勵」的合成類活動（像 2048 的玩法）。它有兩條收益線：<strong>奇旅金幣</strong>（花在奇旅商隊）和<strong>奇旅圖冊</strong>（跨期收集圖鑑）。這篇只處理第一條，因為第二條本質上是長線收藏，單期算不出划算度。</p>
+
+        <p>這篇要回答三件事：<strong>該不該課金、課到哪一檔最 CP、奇旅商隊裡的東西該按什麼順序買</strong>。</p>
+
+        <p>結論寫在前面：<strong>$50 是甜蜜點</strong>（全圖鑑 + 多拿 6 個海島 + 商店掃到接近飽和）；<strong>$100 檔的「奇旅援助禮包 6」確定不要買</strong>（多 $50 只多拿 $8 等效）；<strong>商店掃貨固定順序</strong>是通用專家印記 → 征服之帆 →（海島如要）→ 寶石類 → 加速 → 寵物類。以下是完整推導，全部根據克菈莉絲多個帳號本期實測。</p>
+
+        <h2>一、能量預算（這是所有分析的基礎）</h2>
+
+        <p>棋子來自奇旅能量，所以先搞清楚「這期總共能拿多少能量」。能量規則是：</p>
+
+        <ul>
+          <li><strong>初始 10 點</strong>（活動開啟時直接給）</li>
+          <li><strong>每 8 小時自動恢復 15 點</strong></li>
+          <li><strong>活動結束前 8 小時停止恢復</strong></li>
+          <li><strong>活動結束後清空未使用能量</strong>（但<strong>奇旅能量特飲瓶子不會回收</strong>，可以囤到下一期）</li>
+        </ul>
+
+        <p>以 3 天活動（72 小時）換算，各種來源可拿到的能量：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>來源</th>
+              <th class="num">能量</th>
+              <th>備註</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>初始</td><td class="num">10</td><td>——</td></tr>
+            <tr><td>自然恢復（活動期間，結束前 8h 停）</td><td class="num">120</td><td>8 次 × 15</td></tr>
+            <tr><td>免費援助禮包 1</td><td class="num">10</td><td>無課也可領</td></tr>
+            <tr><td>其他無課獎勵</td><td class="num">~20</td><td>日常任務／成就等累積</td></tr>
+            <tr class="divider"><td><strong>免費總和</strong></td><td class="num tier1"><strong>160</strong></td><td>——</td></tr>
+            <tr><td>豐收狂想曲 — 麥浪飄香 $5</td><td class="num">+35</td><td>進度條禮包 1</td></tr>
+            <tr><td>豐收狂想曲 — 金濤覆壟 $10</td><td class="num">+70</td><td>進度條禮包 2</td></tr>
+            <tr><td>奇旅援助禮包 2 $5</td><td class="num">+20</td><td>以特飲瓶形式給</td></tr>
+            <tr><td>奇旅援助禮包 3 $10</td><td class="num">+35</td><td>特飲瓶</td></tr>
+            <tr><td>奇旅援助禮包 4 $20</td><td class="num">+60</td><td>特飲瓶</td></tr>
+            <tr><td>奇旅援助禮包 5 $50</td><td class="num">+135</td><td>特飲瓶</td></tr>
+            <tr><td>奇旅援助禮包 6 $100</td><td class="num">+250</td><td>特飲瓶</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>奇旅能量特飲的策略意義：</strong>援助禮包 2 以上的能量都是以「特飲瓶」形式給（一瓶 = 5 能量）。瓶子不會被清，但喝下去變成能量就會被清。所以<strong>別一次喝光</strong>，先補完當期目標，剩下的瓶子留到下期活動，相當於跨期加速收圖鑑。
+        </div>
+
+        <h2>二、禮包 CP 值分析</h2>
+
+        <p>妙趣奇旅的課金禮包分兩種：<strong>進度條禮包</strong>（「豐收狂想曲」系列）跟<strong>援助禮包</strong>（奇旅援助禮包 1-6）。這兩種的 CP 值差很多，不要混為一談。</p>
+
+        <h3>1. 進度條禮包（CP 高，優先買）</h3>
+
+        <p>用 <a href="../PRICING.md">PRICING.md</a> 的常規管道基準價估算（<strong>橘碎與能量瓶都當 $0 保守算</strong>，實際更划算）：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>禮包</th>
+              <th class="num">售價</th>
+              <th>核心內容</th>
+              <th class="num">已知價值</th>
+              <th class="num">倍率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tier1">
+              <td><strong>麥浪飄香</strong></td>
+              <td class="num">$5</td>
+              <td>60 火晶 + 2,000 鑽 + 4 英雄裝備幸運寶箱 + 2 專精能源石 + 4 橘碎 + 35 能量</td>
+              <td class="num">$7.30</td>
+              <td class="num">1.46×</td>
+            </tr>
+            <tr class="tier1">
+              <td><strong>金濤覆壟</strong></td>
+              <td class="num">$10</td>
+              <td>90 火晶 + 4,000 鑽 + 12 英雄裝備幸運寶箱 + 15 專精能源石 + 7×3h 通用加速 + 24×100 點強化經驗零件 + 4 橘碎 + 70 能量</td>
+              <td class="num">$17.78</td>
+              <td class="num">1.78×</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>金濤覆壟是全場最划算的一筆錢</strong>。即使完全不管橘碎和能量，$10 就拿到接近 $18 的常規管道等效價值。</p>
+
+        <h3>2. 援助禮包（CP 中等，看預算）</h3>
+
+        <p>援助禮包 2-6 是等比例放大的「鑽石+寶石手冊+寶石圖紙」包，CP 完全一致：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>禮包</th>
+              <th class="num">售價</th>
+              <th class="num">鑽石</th>
+              <th class="num">寶石手冊</th>
+              <th class="num">寶石圖紙</th>
+              <th class="num">能量</th>
+              <th class="num">已知價值</th>
+              <th class="num">倍率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>援助 1</td><td class="num">免費</td><td class="num">500</td><td class="num">—</td><td class="num">—</td><td class="num">10</td><td class="num">—</td><td class="num tier1">無課必領</td></tr>
+            <tr><td>援助 2</td><td class="num">$5</td><td class="num">2,500</td><td class="num">38</td><td class="num">38</td><td class="num">20</td><td class="num">$6.46</td><td class="num">1.29×</td></tr>
+            <tr><td>援助 3</td><td class="num">$10</td><td class="num">5,000</td><td class="num">76</td><td class="num">76</td><td class="num">35</td><td class="num">$12.92</td><td class="num">1.29×</td></tr>
+            <tr><td>援助 4</td><td class="num">$20</td><td class="num">10,000</td><td class="num">152</td><td class="num">152</td><td class="num">60</td><td class="num">$25.84</td><td class="num">1.29×</td></tr>
+            <tr><td>援助 5</td><td class="num">$50</td><td class="num">25,000</td><td class="num">380</td><td class="num">380</td><td class="num">135</td><td class="num">$64.60</td><td class="num">1.29×</td></tr>
+            <tr class="tier4"><td><strong>援助 6</strong></td><td class="num">$100</td><td class="num">50,000</td><td class="num">760</td><td class="num">760</td><td class="num">250</td><td class="num">$129.20</td><td class="num">1.29×</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warn-box">
+          <strong>援助禮包是「越大越不划算」的反例。</strong>一般遊戲禮包通常是大包單價更便宜，但這系列每一檔都剛好 1.29×，大包沒有任何加分。而且能量和 VIP 經驗在大包裡被刻意壓縮（援助 2 給 500 VIP exp/$，援助 6 只給 200 VIP exp/$），遊戲設計上就是不想讓大課玩家拿太多能量。
+        </div>
+
+        <h2>三、奇旅商隊 CP 排行</h2>
+
+        <p>活動商店叫「奇旅商隊」，貨幣是奇旅金幣。本期商品清單，以每金幣能換到的美金等效價值排序：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>順位</th>
+              <th>商品</th>
+              <th class="num">金幣／個</th>
+              <th class="num">限購</th>
+              <th class="num">道具值</th>
+              <th class="num">$／金幣</th>
+              <th>備註</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tier1">
+              <td>⭐ 1</td>
+              <td><strong>通用專家印記</strong></td>
+              <td class="num">330</td>
+              <td class="num">15</td>
+              <td class="num">$0.44</td>
+              <td class="num">$0.00133</td>
+              <td>1.33× 基準</td>
+            </tr>
+            <tr class="tier1">
+              <td>⭐ 2</td>
+              <td><strong>征服之帆</strong>（1,000 好感度）</td>
+              <td class="num">330</td>
+              <td class="num">15</td>
+              <td class="num">$0.38</td>
+              <td class="num">$0.00115</td>
+              <td>1.15× 基準</td>
+            </tr>
+            <tr class="tier2">
+              <td>3</td>
+              <td>寶石手冊</td>
+              <td class="num">52</td>
+              <td class="num">60</td>
+              <td class="num">$0.0521</td>
+              <td class="num">$0.00100</td>
+              <td>基準</td>
+            </tr>
+            <tr class="tier2">
+              <td>3</td>
+              <td>寶石圖紙</td>
+              <td class="num">52</td>
+              <td class="num">60</td>
+              <td class="num">$0.0521</td>
+              <td class="num">$0.00100</td>
+              <td>基準</td>
+            </tr>
+            <tr class="tier2">
+              <td>3</td>
+              <td>1 小時通用加速</td>
+              <td class="num">72</td>
+              <td class="num">25</td>
+              <td class="num">$0.072</td>
+              <td class="num">$0.00100</td>
+              <td>基準</td>
+            </tr>
+            <tr class="tier3">
+              <td>6</td>
+              <td>高級野性印記</td>
+              <td class="num">835</td>
+              <td class="num">8</td>
+              <td class="num">$0.833</td>
+              <td class="num">$0.000998</td>
+              <td>幾乎基準</td>
+            </tr>
+            <tr class="tier3">
+              <td>7</td>
+              <td>寵物口糧 ×1,000</td>
+              <td class="num">335</td>
+              <td class="num">20</td>
+              <td class="num">$0.333</td>
+              <td class="num">$0.000994</td>
+              <td>幾乎基準</td>
+            </tr>
+            <tr class="tier3">
+              <td>8</td>
+              <td>寵物突破材料箱</td>
+              <td class="num">280</td>
+              <td class="num">20</td>
+              <td class="num">$0.278</td>
+              <td class="num">$0.000993</td>
+              <td>幾乎基準</td>
+            </tr>
+            <tr class="divider">
+              <td>🎯</td>
+              <td><strong>旅行露營車 Lv.1</strong>（海島，+1% 攻擊）</td>
+              <td class="num">10,000</td>
+              <td class="num">1</td>
+              <td class="num">—</td>
+              <td class="num">—</td>
+              <td><strong>收集向必買，詳見第五章</strong></td>
+            </tr>
+            <tr class="tier4">
+              <td>❌</td>
+              <td>傳說探險技能書 ×100</td>
+              <td class="num">380</td>
+              <td class="num">15</td>
+              <td class="num">$0</td>
+              <td class="num">$0</td>
+              <td>零價值，不要買</td>
+            </tr>
+            <tr class="tier4">
+              <td>❌</td>
+              <td>2 級安全資源客製化箱子</td>
+              <td class="num">50</td>
+              <td class="num">9,999</td>
+              <td class="num">$0</td>
+              <td class="num">$0</td>
+              <td>零價值，不要買</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="stat-highlight">
+          <span class="stat-number">1 奇旅金幣 ≈ $0.001</span>
+          <span class="stat-caption">全商店 11 項裡 8 項幾乎完全吻合這個基準，表示遊戲是刻意把兌換率校在「金幣面值 ≈ 隱含美金價值」上。只有通用專家印記（1.33×）和征服之帆（1.15×）超過基準，是全場最該優先掃的兩樣。</span>
+        </div>
+
+        <h2>四、各課金分級能拿到多少金幣</h2>
+
+        <p>以下是克菈莉絲多個帳號本期實測的奇旅金幣總量：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>課金分級</th>
+              <th class="num">奇旅金幣</th>
+              <th>備註</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>無課</td><td class="num">8,560</td><td>差一點點買不起海島</td></tr>
+            <tr><td>進度條 $15（麥浪＋金濤）</td><td class="num">12,400</td><td>剛好買得起海島</td></tr>
+            <tr><td>$50（進度條 + 援助 2~5）</td><td class="num">22,950</td><td>圖鑑剛好開滿；剩 19 瓶能量特飲存下期</td></tr>
+            <tr><td>$100（進度條 + 援助 2~6）</td><td class="num">30,525</td><td>圖鑑同樣開滿；僅多拿一堆金幣</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>圖鑑開滿的額外獎勵：</strong>圖鑑開滿會額外送 <strong>6 個 Lv.1 海島</strong>（＋奇旅商隊可買的 1 個 = 總共 7 個）。$50 檔和 $100 檔都能開滿圖鑑，所以兩檔對海島收集來說完全一樣。$15 進度條玩家圖鑑開不滿，只能從商店買到 1 個海島。
+        </div>
+
+        <h2>五、課金分級與掃貨策略</h2>
+
+        <p>每一檔的最佳購買組合，是按 CP 排行一路掃到金幣用完。以下四個分級，每格裡附上「總等效價值」。</p>
+
+        <h3>📍 無課：8,560 金幣</h3>
+
+        <table>
+          <thead>
+            <tr><th>商品</th><th class="num">數量</th><th class="num">總金幣</th><th class="num">等效 $</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>通用專家印記</td><td class="num">15</td><td class="num">4,950</td><td class="num">$6.60</td></tr>
+            <tr><td>征服之帆</td><td class="num">10</td><td class="num">3,300</td><td class="num">$3.80</td></tr>
+            <tr><td>寶石手冊</td><td class="num">5</td><td class="num">260</td><td class="num">$0.26</td></tr>
+            <tr class="divider"><td><strong>合計</strong></td><td class="num"></td><td class="num">8,510（剩 50）</td><td class="num tier1"><strong>$10.66</strong></td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>海島這期買不到</strong>（差 1,440 金幣），但<strong>金幣可以存到下期</strong>。無課玩家建議這期先掃完有價值的，剩的金幣累積，下一期加上下期的 8,000 多金幣就能買到海島。</p>
+
+        <h3>📍 進度條 $15：12,400 金幣</h3>
+
+        <p>這一檔有兩條路線，看你對海島的看法：</p>
+
+        <table>
+          <thead>
+            <tr><th>路線</th><th>組合</th><th class="num">等效 $</th><th>海島</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A（不買海島）</td><td>專家 15 + 征服 15 + 寶石手冊 48</td><td class="num tier1">$14.80</td><td>0 個</td></tr>
+            <tr><td>B（買海島）</td><td>海島 + 專家 7</td><td class="num">$3.08</td><td>1 個</td></tr>
+          </tbody>
+        </table>
+
+        <p>路線 A 的等效價值高一截，但路線 B 多拿海島。<strong>海島對你值不值 $11.72</strong>（兩路線價值差）？如果你是海島收集向、或戰力還在成長期，路線 B 的海島划算；如果你 % 加成已經堆得很滿、海島只為了那 +1% 攻擊，路線 A 更實在。</p>
+
+        <h3>📍 $50 甜蜜點：22,950 金幣（＋ 19 瓶能量存下期）</h3>
+
+        <p>此檔金幣充足，能買海島 + 大部分有價值商品。<strong>圖鑑已開滿，額外送 6 個 Lv.1 海島</strong>，所以買這個商店的海島 = 總共 7 個 Lv.1，差距明顯。</p>
+
+        <table>
+          <thead>
+            <tr><th>商品</th><th class="num">數量</th><th class="num">總金幣</th><th class="num">等效 $</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>旅行露營車（海島）</strong></td><td class="num">1</td><td class="num">10,000</td><td class="num">（收集價值）</td></tr>
+            <tr><td>通用專家印記</td><td class="num">15</td><td class="num">4,950</td><td class="num">$6.60</td></tr>
+            <tr><td>征服之帆</td><td class="num">15</td><td class="num">4,950</td><td class="num">$5.70</td></tr>
+            <tr><td>寶石手冊</td><td class="num">58</td><td class="num">3,016</td><td class="num">$3.02</td></tr>
+            <tr class="divider"><td><strong>合計</strong></td><td class="num"></td><td class="num">22,916（剩 34）</td><td class="num tier1"><strong>海島 + $15.32</strong></td></tr>
+          </tbody>
+        </table>
+
+        <p>這一檔的額外價值：<strong>圖鑑海島 6 個 + 商店海島 1 個 = 總共 7 個 Lv.1</strong>，相對 $15 檔多 6 個，對升階是質變。剩餘 19 瓶能量特飲可存到下一期，等於下期少買一包 $50 援助禮包。</p>
+
+        <h3>📍 $100 全套：30,525 金幣（<span class="tier4">不推薦</span>）</h3>
+
+        <table>
+          <thead>
+            <tr><th>商品</th><th class="num">數量</th><th class="num">總金幣</th><th class="num">等效 $</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>旅行露營車（海島）</strong></td><td class="num">1</td><td class="num">10,000</td><td class="num">（收集價值）</td></tr>
+            <tr><td>通用專家印記</td><td class="num">15</td><td class="num">4,950</td><td class="num">$6.60</td></tr>
+            <tr><td>征服之帆</td><td class="num">15</td><td class="num">4,950</td><td class="num">$5.70</td></tr>
+            <tr><td>寶石手冊</td><td class="num">60</td><td class="num">3,120</td><td class="num">$3.13</td></tr>
+            <tr><td>寶石圖紙</td><td class="num">60</td><td class="num">3,120</td><td class="num">$3.13</td></tr>
+            <tr><td>1 小時通用加速</td><td class="num">25</td><td class="num">1,800</td><td class="num">$1.80</td></tr>
+            <tr><td>高級野性印記</td><td class="num">3</td><td class="num">2,505</td><td class="num">$2.50</td></tr>
+            <tr class="divider"><td><strong>合計</strong></td><td class="num"></td><td class="num">30,445（剩 80）</td><td class="num"><strong>海島 + $22.86</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="warn-box">
+          <strong>為什麼 $100 不推薦？</strong>比 $50 檔多花 $50，只多拿到 $7.54 的等效價值（$22.86 − $15.32），而且<strong>海島數量完全一樣</strong>（都是 7 個，因為海島來自圖鑑獎勵 + 商店 1 個，兩檔都開滿圖鑑）。奇旅援助禮包 6 的 $100 純粹是加碼，沒有收集價值、也沒有單位折扣，直接跳過。
+        </div>
+
+        <h2>六、海島收集策略（跨期）</h2>
+
+        <p>旅行露營車這個海島有兩個特點，是這篇攻略要重點強調的：</p>
+
+        <ul>
+          <li><strong>只能從妙趣奇旅取得</strong>——其他地方買不到、換不到、合不出來</li>
+          <li><strong>不能用海島建築碎片升級</strong>——其他海島建築可以用碎片升階，但旅行露營車不行，只能靠反覆開這個活動蒐集多個 Lv.1 來合成</li>
+        </ul>
+
+        <p>這兩個特點加起來的意思是：<strong>想要高階的旅行露營車海島，必須每期妙趣奇旅都參加</strong>。單期內：</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>課金分級</th>
+              <th class="num">圖鑑海島</th>
+              <th class="num">商店海島</th>
+              <th class="num">單期 Lv.1 總數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>無課</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td>$15 進度條</td><td class="num">0</td><td class="num">1</td><td class="num">1</td></tr>
+            <tr class="tier1"><td>$50 全圖鑑</td><td class="num">6</td><td class="num">1</td><td class="num"><strong>7</strong></td></tr>
+            <tr><td>$100 全套</td><td class="num">6</td><td class="num">1</td><td class="num">7</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>海島收集向玩家的首期建議：$50（援助 5）就停。</strong>一次性 $100 可以一輪拿到 $15 進度條 + 援助 2+3+4+5 = 全圖鑑 7 個海島。第二期起，因為第一期剩下的能量瓶可以繼續用，可以省掉援助 5，變成 $50 一輪就能衝全圖鑑，長期成本大幅下降。
+        </div>
+
+        <h2>七、奇旅圖冊（跨期收集，單期不列入價值）</h2>
+
+        <p>奇旅圖冊是蒐集活動內棋子的圖鑑（最高 415 積分），性質跟釣魚圖鑑一樣是<strong>跨期收集</strong>。這篇不把它列入單期划算度，因為：</p>
+
+        <ul>
+          <li>圖鑑獎勵（除了 6 個海島）是跨期長線拿的，短期估不出單位價值</li>
+          <li>玩家課多課少主要看海島和商店品項，圖鑑是附加收益</li>
+        </ul>
+
+        <p>簡單講：圖鑑想集就集，不集也不影響課金判斷。但<strong>圖鑑開滿的 6 個海島是這篇裡最硬的理由</strong>要課到 $50。</p>
+
+        <h2>八、避坑清單</h2>
+
+        <ul>
+          <li>❌ <strong>不要買奇旅援助禮包 6（$100）</strong>——比 $50 檔只多 $8 等效、海島數量一樣</li>
+          <li>❌ <strong>不要在商店買傳說探險技能書</strong>——零價值，380 金幣一次扔進水裡</li>
+          <li>❌ <strong>不要囤 2 級資源箱</strong>——同樣零價值，50 金幣也是金幣</li>
+          <li>❌ <strong>不要只顧課援助禮包、跳過進度條</strong>——麥浪 $5（1.46×）、金濤 $10（1.78×）比援助系列（1.29×）划算一截</li>
+          <li>⚠️ <strong>不要一次喝光奇旅能量特飲</strong>——瓶子可以跨期，先補完當期目標，剩下的留到下期</li>
+          <li>⚠️ <strong>不要在活動結束前 8 小時還留著能量沒用</strong>——結束前 8h 停止恢復，但結束當下手上的能量會被清空，要花掉（能量會自動恢復不用手動領，也沒看到有上限，不用擔心溢出）</li>
+        </ul>
+
+        <h2>懶人包</h2>
+
+        <div class="tip-box">
+          <p><strong>三十秒決策：</strong></p>
+          <ol style="margin-top:0.5rem;">
+            <li><strong>首期想衝全圖鑑的玩家</strong>：$100 = $15 進度條 + 援助 2+3+4+5，一次到位拿 7 個海島</li>
+            <li><strong>第二期起</strong>：可省援助 5，$50 就能衝全圖鑑（靠上期存下的能量瓶補足）</li>
+            <li><strong>輕課玩家</strong>：至少買金濤覆壟 $10（全場最划算，1.78×）；預算到 $15 補麥浪 $5</li>
+            <li><strong>無課玩家</strong>：掃專家印記 15 + 征服之帆 10 + 寶石手冊 5，金幣累積到下期買海島</li>
+            <li><strong>奇旅商隊掃貨順序永遠是</strong>：通用專家印記 → 征服之帆 →（海島如要）→ 寶石手冊／圖紙／加速 → 高級野性印記 → 寵物口糧 → 寵物突破箱</li>
+            <li><strong>絕對跳過</strong>：援助禮包 6、傳說探險技能書、2 級資源箱</li>
+          </ol>
+        </div>
+
+        <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.9rem;">本頁數據來自克菈莉絲本期（2026-11-06～11-09）多個帳號實測。下次重開如有變動，請以當期為準。</p>
+
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <p>克菈莉絲的WOS筆記 — 本站為玩家自製攻略站，與官方無關</p>
+    <p>部分資料引用自其他來源，已於各頁面標註出處</p>
+    <p style="margin-top:0.5rem;">
+      官方Wiki：<a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">中文版</a>
+       ｜ <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
+    </p>
+  </footer>
+
+</body>
+</html>
