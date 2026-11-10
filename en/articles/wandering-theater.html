@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wander Theater Complete Guide: Expected Value, Spending Tiers & Bizarre Bazaar Shopping Order — Clarice's WOS Notes</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .limited-banner {
+      margin: 0 0 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(217,119,6,0.07);
+      border: 1px solid var(--warning);
+      border-left: 4px solid var(--warning);
+      border-radius: 0 8px 8px 0;
+    }
+    .limited-banner .limited-label {
+      display: inline-block;
+      background: var(--warning);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .limited-banner p {
+      margin: 0.35rem 0 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .stat-highlight {
+      margin: 1.25rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-highlight .stat-number {
+      display: block;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--frost);
+      line-height: 1.2;
+    }
+    .stat-highlight .stat-unit {
+      font-size: 1.1rem;
+      color: var(--frost);
+    }
+    .stat-highlight .stat-caption {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .tip-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(56,189,248,0.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .tip-box strong { color: var(--frost); }
+    .warn-box {
+      margin-top: 1.25rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(217,119,6,0.06);
+      border-left: 3px solid var(--warning);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .warn-box strong { color: var(--warning); }
+    .flow-box {
+      margin: 1rem 0;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      overflow-x: auto;
+    }
+    .flow-box strong { color: var(--frost); }
+    td.num, th.num { text-align: right; }
+    .tier1 { color: var(--success); font-weight: 600; }
+    .tier2 { color: var(--accent); font-weight: 600; }
+    .tier3 { color: var(--text-secondary); }
+    .tier4 { color: var(--danger); font-weight: 600; }
+    table tr.divider td { border-top: 2px solid var(--accent-dim); }
+    .item-icon {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="site-logo">Clarice's WOS Notes <span>Whiteout Survival</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../articles.html" class="active">Guides</a></li>
+        <li><a href="../calculators.html">Calculators</a></li>
+        <li><a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">Official Wiki ↗</a></li>
+        <li><a href="../../articles/wandering-theater.html" class="lang-switch">中文</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a> <span>›</span>
+      <a href="../articles.html">Guides</a> <span>›</span>
+      Wander Theater Complete Guide
+    </div>
+
+    <article>
+      <div class="article-header">
+        <h1>Wander Theater Complete Guide: Expected Value, Spending Tiers & Bizarre Bazaar Shopping Order</h1>
+        <div class="article-meta">
+          <span>By Clarice</span>
+          <span>Category: <span class="tag">Event Guide</span></span>
+        </div>
+      </div>
+
+      <div class="article-content">
+
+        <div class="limited-banner">
+          <span class="limited-label">LIVE</span>
+          <p class="period">Event window: 7 days from 2026-11-11 (6 days of climbing + 1 day of shop-only)</p>
+          <p><strong>This page's shop prices and daily pack contents have been updated for the current run (opened 2026-11-11).</strong> The event has two phases: the first 6 days you can climb the tower and earn coins; on day 7 you can only exchange in the Bizarre Bazaar, no more climbing. <strong>Any Wonderstar Coins you don't spend by the end convert to just 1 Diamond</strong>, so spend everything on the final day.</p>
+        </div>
+
+        <p>Wander Theater is a 6-day limited event where you spend <strong>Talismans of Ice</strong> to climb floors and claim rewards, accumulating the event currency <strong>Wonderstar Coins</strong> to exchange for items at the <strong>Bizarre Bazaar</strong>. This guide answers three questions: <strong>what's the most efficient way to use your talismans, how much can you expect to get at each spending tier, and in what order should you buy items from the Bazaar</strong>.</p>
+
+        <p>Bottom line first: whether you're F2P or whale, the best play is to <strong>only gamble at L2, don't push L8</strong>. The Bazaar's best items are <strong>Fire Crystals > Custom Mythic Hero Gear Chest > Chief Gear Materials Chest</strong>. Never buy 1-hour speedups here (6–20× more expensive than regular channels — <em>previous run only; this run they've been massively reduced, see §5</em>). Full breakdown below.</p>
+
+        <h2>1. Event Basics</h2>
+
+        <h3>1.1 Climbing Floors and the Five Outcomes</h3>
+
+        <p>The event has you "climb from floor 1 to floor 7 using Talismans of Ice (and in rare cases, reach floor 8)." Starting from floor 2, each exploration draws one of five outcomes: <strong>-2, -1, +1, +2, +3</strong> — determining how many floors you move up or down.</p>
+
+        <p>There are two exploration modes, your choice:</p>
+
+        <ul>
+          <li><strong>Regular Exploration</strong>: <strong>Costs no talismans</strong>, but if you draw -2 or -1 you drop floors and the round ends</li>
+          <li><strong>Protected Exploration</strong>: <strong>Costs talismans</strong> (varies by current floor); negative draws don't drop you and you can keep trying; after 3 consecutive failures, the 4th is a guaranteed floor-up (pity timer)</li>
+        </ul>
+
+        <p>Every time you reach a new floor, you can choose "cash out" to claim that floor's reward and end the round; the next round starts over at floor 1.</p>
+
+        <h3>1.2 Talisman Cost per Floor (Protected Exploration)</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Floor Up</th>
+              <th class="num">Protected Talismans</th>
+              <th class="num">Regular Talismans</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L1 → L2 (always succeeds)</td><td class="num">5</td><td class="num">—</td></tr>
+            <tr><td>L2 → L3</td><td class="num">7</td><td class="num">0</td></tr>
+            <tr><td>L3 → L4</td><td class="num">20</td><td class="num">0</td></tr>
+            <tr><td>L4 → L5</td><td class="num">30</td><td class="num">0</td></tr>
+            <tr><td>L5 → L6</td><td class="num">50</td><td class="num">0</td></tr>
+            <tr><td>L6 → L7</td><td class="num">90</td><td class="num">0</td></tr>
+            <tr><td>L7 → L8</td><td class="num">120</td><td class="num">0</td></tr>
+          </tbody>
+        </table>
+
+        <h3>1.3 Draw Probabilities</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Outcome</th>
+              <th class="num">L1→L2</th>
+              <th class="num">L2+ Regular</th>
+              <th class="num">L2+ Protected</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>-2</td><td class="num">—</td><td class="num">10%</td><td class="num">10% (no drop)</td></tr>
+            <tr><td>-1</td><td class="num">—</td><td class="num">70%</td><td class="num">60% (no drop)</td></tr>
+            <tr><td>+1</td><td class="num">80%</td><td class="num">19.4%</td><td class="num">24%</td></tr>
+            <tr><td>+2</td><td class="num">19.5%</td><td class="num">0.59%</td><td class="num">5.9%</td></tr>
+            <tr><td>+3</td><td class="num">0.5%</td><td class="num">0.01%</td><td class="num">0.1%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warn-box">
+          <strong>Note: Regular Exploration only has a 20% chance of a positive result.</strong> In other words, at L2 or above, every Regular draw has an 80% chance of knocking you down and ending the round. This is the core insight behind all strategy analysis: Regular mode looks "free" but costs you massive floor progress.
+        </div>
+
+        <h3>1.4 L8 Star Mechanic</h3>
+
+        <p>L8 is normally locked. To open it, you must meet a special condition: each time you reach L7 you randomly earn 1–5 Wonderland Stars (probabilities: 1 star 72%, 2 stars 14%, 3 stars 8%, 4 stars 4%, 5 stars 2%). After accumulating 5 stars, the <em>next</em> round opens L8.</p>
+
+        <p><strong>Average number of L7 visits needed to accumulate 5 stars? Answer: 3.69 visits</strong> (derived by probability calculation).</p>
+
+        <h3>1.5 Protected Exploration Rewards (Milestone Bonus)</h3>
+
+        <p>This mechanic was missed in the previous run's guide: <strong>any time you spend talismans (regardless of success/failure, regardless of which floor), the amount accumulates on a progress bar; crossing thresholds grants Wonderstar Coin chests</strong>. The "X/100" shown in the top-right corner of the event screen is this progress bar, counting your cumulative talisman spend.</p>
+
+        <p>Full thresholds and rewards:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Cumulative Talismans Spent</th>
+              <th class="num">Coins Awarded</th>
+              <th class="num">Effective Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>100</td><td class="num">1,000</td><td class="num">10/talisman</td></tr>
+            <tr><td>200</td><td class="num">2,000</td><td class="num">20/talisman</td></tr>
+            <tr><td>500</td><td class="num">3,000</td><td class="num">10/talisman</td></tr>
+            <tr><td>800</td><td class="num">9,000</td><td class="num tier1">30/talisman</td></tr>
+            <tr><td>1,100 → 5,900 (every +300 after that)</td><td class="num">9,000 each</td><td class="num tier1">30/talisman</td></tr>
+            <tr class="divider"><td><strong>Full clear (5,900 talismans)</strong></td><td class="num"><strong>168,000</strong></td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>Why does this matter?</strong> It's essentially a "rebate for talismans you spent climbing," and after 800 talismans the rate stabilizes at <strong>+30 coins per talisman</strong>. With this bonus added:
+          <ul style="margin-top:0.5rem;">
+            <li>T=2 + L2 gamble: from 200 coins/talisman → <strong>about 230 coins/talisman</strong> (+15%)</li>
+            <li>T=3 pure protected: from 192 → about 222 coins/talisman</li>
+          </ul>
+          <p style="margin-top:0.5rem;">It doesn't change the "T=2 + L2 gamble is best" conclusion, but <strong>every budget's total coin estimate needs this added in</strong>. The §7 shopping lists already include milestone bonus.</p>
+        </div>
+
+        <div class="warn-box">
+          <strong>⚠️ One rule clarification: this progress bar only counts "Protected Exploration" talisman spend; Regular Exploration doesn't count</strong> (Regular doesn't cost talismans anyway). This means every Protected draw gives you double returns — the floor's coins/items <em>and</em> progress bar accumulation.
+        </div>
+
+        <h3>1.6 Floor Rewards</h3>
+
+        <p>At each floor claim you get multiple choice slots: <strong>1 fixed coin slot</strong> + several "item slots independently rolled from the floor's item pool." You pick coins OR an item, not both. <strong>⚠️ One important change this run: L3 only has 1 item slot (2-choose-1); L4 and above have 2 item slots (3-choose-1).</strong></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Floor</th>
+              <th class="num">Coin Slot</th>
+              <th>Item Pool (each item's roll probability)</th>
+              <th>Slots</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L1</td><td class="num">50</td><td>—</td><td>1</td></tr>
+            <tr><td>L2</td><td class="num">500</td><td>—</td><td>1</td></tr>
+            <tr><td>L3</td><td class="num">2,500</td><td>Polishing Solution ×130 (20.83%) / Expert Sigil ×4 (16.67%) / Design Plans ×25 (20.83%) / Charm Guide ×25 (20.83%) / Charm Design ×25 (20.83%)</td><td>1 coin + 1 item</td></tr>
+            <tr><td>L4</td><td class="num">9,500</td><td>Expert Sigil ×15 (32.20%) / Chief Gear Materials Chest ×36 (33.90%) / Random Chief Charm Material Chest ×32 (33.90%)</td><td>1 coin + 2 items</td></tr>
+            <tr><td>L5</td><td class="num">20,000</td><td>Expert Sigil ×32 / Chief Gear Chest ×75 / Random Chief Charm Chest ×65 (each 33.33%)</td><td>1 coin + 2 items</td></tr>
+            <tr><td>L6</td><td class="num">28,000</td><td>Expert Sigil ×62 / Chief Gear Chest ×150 / Random Chief Charm Chest ×130 (each 33.33%)</td><td>1 coin + 2 items</td></tr>
+            <tr><td>L7</td><td class="num">56,000</td><td>Expert Sigil ×123 / Chief Gear Chest ×300 / Random Chief Charm Chest ×260 (each 33.33%)</td><td>1 coin + 2 items</td></tr>
+            <tr><td>L8</td><td class="num">120,000</td><td>Expert Sigil ×265 / Chief Gear Chest ×645 / Random Chief Charm Chest ×560 (each 33.33%)</td><td>1 coin + 2 items</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>Coins or item? Short answer: L3–L5 always take coins; L6+ take the item if it's an Expert Sigil.</strong> Detailed comparison in §6. The quick reasoning: Fire Crystal prices dropped this run, so the advantage of "trade coins for Fire Crystals" shrank, and Expert Sigil items at L6+ now slightly beat coins.
+        </div>
+
+        <h2>2. Expected Value Analysis (Key Findings)</h2>
+
+        <h3>2.1 Talisman Efficiency by Target Floor</h3>
+
+        <p>Assuming every round uses Protected Exploration to reach target floor T and then cashes out, each floor's coin efficiency (including the overshoot bonus from +2 and +3 draws):</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Target Floor T</th>
+              <th class="num">Avg. Talismans</th>
+              <th class="num">Expected Coins/Round</th>
+              <th class="num">Coins/Talisman</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L2 (no Protected, just lucky L1→L2 jumps)</td><td class="num">5</td><td class="num">935</td><td class="num">187</td></tr>
+            <tr><td>L3</td><td class="num">19</td><td class="num">3,683</td><td class="num tier2">192</td></tr>
+            <tr><td>L4</td><td class="num">61</td><td class="num">11,305</td><td class="num">184</td></tr>
+            <tr><td>L5</td><td class="num">124</td><td class="num">21,500</td><td class="num">173</td></tr>
+            <tr><td>L6</td><td class="num">230</td><td class="num">32,760</td><td class="num tier4">143</td></tr>
+            <tr><td>L7</td><td class="num">419</td><td class="num">56,000</td><td class="num">134</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Two things to remember:</strong></p>
+        <ul>
+          <li><strong>T=3 is the most efficient stop under pure Protected mode</strong> (192 coins/talisman)</li>
+          <li><strong>L6 is the worst place to stop</strong> — L5→L6 costs big (127 talismans) for a small reward bump (8,000 coins). Once you're at L5, either cash out or push all the way to L7; don't stop at L6</li>
+        </ul>
+
+        <h3>2.2 Should You Gamble a Regular at Floor X?</h3>
+
+        <p>Intuition says "higher floors pay more, gambling to jump up should be worth it." The math disagrees. Only <strong>L2 is a special case</strong> worth gambling.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Current Floor</th>
+              <th class="num">Cash out now</th>
+              <th class="num">Gamble Regular EV</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L2</td><td class="num">500</td><td class="num tier1">583</td><td class="tier1">✓ Gamble!</td></tr>
+            <tr><td>L3</td><td class="num">2,500</td><td class="num">2,319</td><td>× Cash out</td></tr>
+            <tr><td>L4</td><td class="num">9,500</td><td class="num">5,851</td><td>× Cash out</td></tr>
+            <tr><td>L5</td><td class="num">20,000</td><td class="num">12,668</td><td>× Cash out</td></tr>
+            <tr><td>L6</td><td class="num">28,000</td><td class="num">26,150</td><td>× Cash out</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>Why is L2 the only exception?</strong> Because L2's downside is tiny (L1 only pays 50 coins, just 450 less than L2's 500), while the upside is massive (jump to L3 for +2,000, L4 for +9,000). L2 is the only floor with "limited downside, crazy upside" — which makes it the only gamble worth taking.
+        </div>
+
+        <h2>3. Best Strategy: T=2 + L2 Gamble</h2>
+
+        <p>Combine the two findings above and you get the universal best play for every budget:</p>
+
+        <div class="flow-box">
+Spend 5 talismans for L1→L2
+├── 80% land on L2 → <strong>gamble one Regular</strong>
+│   ├── 10%  draw -2 → back to L1 (claim 50 coins)
+│   ├── 70%  draw -1 → back to L1 (claim 50 coins)
+│   ├── 19.4% +1 → L3 (<strong>claim 2,500 coins</strong>)
+│   ├── 0.59% +2 → L4 (<strong>claim 9,500 coins</strong>)
+│   └── 0.01% +3 → L5 (<strong>claim 20,000 coins</strong>)
+├── 19.5% land on L3 → claim directly (<strong>2,500 coins</strong>)
+└── 0.5%  land on L4 → claim directly (<strong>9,500 coins</strong>)
+        </div>
+
+        <div class="stat-highlight">
+          <span class="stat-number">1,001</span><span class="stat-unit"> coins</span>
+          <span class="stat-caption">T=2 + L2 gamble strategy, expected coins per round (only 5 talismans per round)</span>
+        </div>
+
+        <p>5 talismans → 1,001 coins, equivalent to <strong>200 coins/talisman</strong> — the highest efficiency of any strategy, even slightly better than pure Protected T=3 (192).</p>
+
+        <p>Steps:</p>
+        <ol>
+          <li>Spend 5 talismans for L1→L2</li>
+          <li>Check where you land: L3 or L4 → claim directly, round ends</li>
+          <li>If L2, pick "Regular Exploration" once</li>
+          <li>Claim regardless of result, round ends</li>
+          <li>Back to step 1 for the next round</li>
+        </ol>
+
+        <div class="warn-box">
+          <strong>Important: Do not do Regular Exploration above L3.</strong> No matter how much you want to gamble, the math proves that Regular from L3 and above is a loss. The downside (-1,750 to -17,500 coins) vastly outweighs the upside EV of jumping.
+        </div>
+
+        <h2>4. Spending Tiers: How Many Talismans Can You Get?</h2>
+
+        <p>Talismans come from three sources: free daily tasks, a second set of daily tasks unlocked by any purchase, and daily packs.</p>
+
+        <h3>4.1 Talisman Sources</h3>
+
+        <ul>
+          <li><strong>Free tasks (daily)</strong>: 20 talismans</li>
+          <li><strong>Paid tasks (daily)</strong>: +20 talismans (unlocked by any purchase that day)</li>
+          <li><strong>Packs (daily limit, 1 of each tier)</strong>: see table below</li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Pack</th>
+              <th class="num">Talismans</th>
+              <th class="num">Talismans per USD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>$5</td><td class="num">80</td><td class="num tier1">16.0 ⭐</td></tr>
+            <tr><td>$10</td><td class="num">140</td><td class="num">14.0</td></tr>
+            <tr><td>$20</td><td class="num">240</td><td class="num">12.0</td></tr>
+            <tr><td>$50</td><td class="num">580</td><td class="num">11.6</td></tr>
+            <tr><td>$100</td><td class="num">1,000</td><td class="num tier4">10.0</td></tr>
+          </tbody>
+        </table>
+
+        <p>Standard pattern: <strong>smaller packs are more efficient, bigger ones are worse</strong>. Talisman counts are identical to last run.</p>
+
+        <div class="tip-box" style="font-size:0.85rem;">
+          <strong>Why USD, not local currency?</strong> All item base prices in our reference table (<code>PRICING.md</code>) are USD-anchored, and the in-game "$5 / $10 / $20 / $50 / $100" pack labels are <em>actually</em> USD, not currency conversions. Evidence: the <strong>Frostar</strong> system (an in-game points purchase channel) sells $5 = 499 Frostars, $10 = 999 Frostars (roughly 100 Frostars/USD), and the Frostar page lists packs at their USD prices directly. Pay with whatever channel you use and convert back to your local currency on your own.
+        </div>
+
+        <h3>4.2 6-Day Totals and USD Efficiency</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Daily purchase combo</th>
+              <th class="num">Talismans/day</th>
+              <th class="num">6-day total</th>
+              <th class="num">Total cost</th>
+              <th class="num">USD/talisman</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Free tasks only</td><td class="num">20</td><td class="num">120</td><td class="num">$0</td><td class="num">—</td></tr>
+            <tr><td>$5 pack (unlocks +20 task)</td><td class="num">120</td><td class="num">720</td><td class="num">$30</td><td class="num tier1">$0.042 ⭐</td></tr>
+            <tr><td>$5 + $10</td><td class="num">260</td><td class="num">1,560</td><td class="num">$90</td><td class="num">$0.058</td></tr>
+            <tr><td>$5 + $10 + $20</td><td class="num">500</td><td class="num">3,000</td><td class="num">$210</td><td class="num">$0.070</td></tr>
+            <tr><td>$5 + $10 + $20 + $50</td><td class="num">1,080</td><td class="num">6,480</td><td class="num">$510</td><td class="num">$0.079</td></tr>
+            <tr><td>Buy all ($185/day)</td><td class="num">2,080</td><td class="num">12,480</td><td class="num">$1,110</td><td class="num tier4">$0.089</td></tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box">
+          <strong>Sweet spot: $5/day.</strong> Unlocks the extra 20-talisman daily task and has the lowest per-talisman cost ($0.042). If you want "max value for minimum spend," it's $5/day.
+        </div>
+
+        <h2>5. Bizarre Bazaar CP Ranking</h2>
+
+        <p>We compare vs. <strong>regular packs, Custom Combat Gear, Mix & Match (Custom Novelties), Dawn Light packs</strong> and other everyday channels. From these we back out "how many USD is 1 Wonderstar Coin worth" at the Bazaar — higher "coin value" = better deal.</p>
+
+        <p><strong>Big changes this run</strong> (vs. last run):</p>
+        <ul>
+          <li>🔥 <strong>Fire Crystal quantity unchanged but unit price down 24%</strong> (105 → 80 coins): F2P can now max-buy</li>
+          <li>🔥 <strong>1-hour Speedup goes from trap to midtier</strong>: last run 1 for 800 coins (never buy) → this run 5 for 700 coins (unit price 140, 5.7× cheaper)</li>
+          <li>🔥 <strong>Book of Knowledge / Sail of Conquest / Enhancement XP now have base prices</strong>, no longer "unknown value"</li>
+          <li>Most items down 10–20% (Chief Gear Chest 210→180, Mythic Hero Gear Chest 19,200→16,000, Lucky Chest 340→280, etc.)</li>
+          <li>New: Lv.2 Custom Secured Resource Chest, 100 coins / unlimited (resource contents, worthless for mid-late players)</li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Icon</th>
+              <th>Item</th>
+              <th class="num">Coins</th>
+              <th class="num">Limit</th>
+              <th class="num">USD per coin</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tier1">
+              <td>🥇 1</td>
+              <td><img src="../../images/items/fire-crystal.png" class="item-icon" alt="Fire Crystal"></td>
+              <td><strong>Fire Crystal ×1</strong></td>
+              <td class="num">80</td>
+              <td class="num">300</td>
+              <td class="num">$0.00093</td>
+              <td>Must-buy (skip if you're swimming in Fire Crystals)</td>
+            </tr>
+            <tr class="tier1">
+              <td>🥈 2</td>
+              <td><img src="../../images/items/mythic-hero-gear-chest.png" class="item-icon" alt="Custom Mythic Hero Gear Chest"></td>
+              <td><strong>Custom Mythic Hero Gear Chest</strong></td>
+              <td class="num">16,000</td>
+              <td class="num">2</td>
+              <td class="num">$0.00084–0.00156</td>
+              <td>Second-best; must-buy if you need hero gear</td>
+            </tr>
+            <tr class="tier1">
+              <td>🥉 3</td>
+              <td><img src="../../images/items/expert-sigil.png" class="item-icon" alt="Common Expert Sigil"></td>
+              <td><strong>Common Expert Sigil ×1</strong></td>
+              <td class="num">640</td>
+              <td class="num">500</td>
+              <td class="num">$0.00069–0.00098</td>
+              <td>Depends on Dawn Light pack timing (see note below)</td>
+            </tr>
+            <tr class="tier1">
+              <td>🥉 4</td>
+              <td><img src="../../images/items/chief-gear-chest.png" class="item-icon" alt="Chief Gear Materials Chest"></td>
+              <td><strong>Chief Gear Materials Chest</strong> (daily 5)</td>
+              <td class="num">180</td>
+              <td class="num">30</td>
+              <td class="num">$0.00043–0.00082</td>
+              <td>Don't forget to buy daily cap</td>
+            </tr>
+            <tr class="tier2 divider">
+              <td>5</td>
+              <td><img src="../../images/items/book-of-knowledge.png" class="item-icon" alt="Book of Knowledge"></td>
+              <td>Book of Knowledge ×100</td>
+              <td class="num">740</td>
+              <td class="num">500</td>
+              <td class="num">$0.00066–0.00076</td>
+              <td>Must-buy if you're into the Expert system</td>
+            </tr>
+            <tr class="tier2">
+              <td>6</td>
+              <td><img src="../../images/items/charm-secrets.png" class="item-icon" alt="Charm Secrets"></td>
+              <td>Charm Secrets ×1</td>
+              <td class="num">3,200</td>
+              <td class="num">80</td>
+              <td class="num">$0.00063</td>
+              <td>Slightly better than regular channels</td>
+            </tr>
+            <tr class="tier2">
+              <td>7</td>
+              <td><img src="../../images/items/sail-of-conquest.png" class="item-icon" alt="Sail of Conquest"></td>
+              <td>Sail of Conquest ×1</td>
+              <td class="num">640</td>
+              <td class="num">500</td>
+              <td class="num">$0.00059</td>
+              <td>Only if you're into the Expert system</td>
+            </tr>
+            <tr class="tier2">
+              <td>8</td>
+              <td><img src="../../images/items/design-plans.png" class="item-icon" alt="Design Plans"></td>
+              <td>Design Plans ×5</td>
+              <td class="num">500</td>
+              <td class="num">200</td>
+              <td class="num">$0.00056</td>
+              <td>Common resource, worth stocking</td>
+            </tr>
+            <tr class="tier2">
+              <td>9</td>
+              <td><img src="../../images/items/polishing-solution.png" class="item-icon" alt="Polishing Solution"></td>
+              <td>Polishing Solution ×25</td>
+              <td class="num">500</td>
+              <td class="num">200</td>
+              <td class="num">$0.00056</td>
+              <td>Common resource, worth stocking</td>
+            </tr>
+            <tr class="tier2">
+              <td>10</td>
+              <td><img src="../../images/items/hardened-alloy.png" class="item-icon" alt="Hardened Alloy"></td>
+              <td>Hardened Alloy ×2,500</td>
+              <td class="num">500</td>
+              <td class="num">200</td>
+              <td class="num">$0.00056</td>
+              <td>Common resource, worth stocking</td>
+            </tr>
+            <tr class="tier2">
+              <td>11</td>
+              <td><img src="../../images/items/mythic-hero-shard.png" class="item-icon" alt="Mythic General Hero Shard"></td>
+              <td>Mythic General Hero Shard ×1</td>
+              <td class="num">850</td>
+              <td class="num tier4">50</td>
+              <td class="num">$0.00054</td>
+              <td>⚠️Limit cut to 50 this run; only buy if you need gold shards</td>
+            </tr>
+            <tr class="tier2">
+              <td>12</td>
+              <td><img src="../../images/items/charm-guide.png" class="item-icon" alt="Charm Guide"></td>
+              <td>Charm Guide ×5</td>
+              <td class="num">500</td>
+              <td class="num">200</td>
+              <td class="num">$0.00052</td>
+              <td>Common resource, worth stocking</td>
+            </tr>
+            <tr class="tier2">
+              <td>13</td>
+              <td><img src="../../images/items/charm-design.png" class="item-icon" alt="Charm Design"></td>
+              <td>Charm Design ×5</td>
+              <td class="num">500</td>
+              <td class="num">200</td>
+              <td class="num">$0.00052</td>
+              <td>Common resource, worth stocking</td>
+            </tr>
+            <tr class="tier2">
+              <td>14 ⚡</td>
+              <td><img src="../../images/items/speedup-1h.png" class="item-icon" alt="1h General Speedup"></td>
+              <td><strong>1h General Speedup ×5</strong></td>
+              <td class="num">700</td>
+              <td class="num">400</td>
+              <td class="num">$0.00051–0.00091</td>
+              <td><strong>Huge flip: last run ❌ never-buy, this run it's a decent pick</strong></td>
+            </tr>
+            <tr class="tier3 divider">
+              <td>15</td>
+              <td><img src="../../images/items/lucky-hero-gear-chest.png" class="item-icon" alt="Lucky Hero Gear Chest"></td>
+              <td>Lucky Hero Gear Chest ×1</td>
+              <td class="num">280</td>
+              <td class="num">1,000</td>
+              <td class="num">$0.00050</td>
+              <td>Break-even; buy if you need it</td>
+            </tr>
+            <tr class="tier3">
+              <td>16</td>
+              <td><img src="../../images/items/essence-stones.png" class="item-icon" alt="Essence Stones"></td>
+              <td>Essence Stones ×1</td>
+              <td class="num">280</td>
+              <td class="num">500</td>
+              <td class="num">$0.00050</td>
+              <td>Break-even; buy if you need it</td>
+            </tr>
+            <tr class="tier3">
+              <td>17</td>
+              <td><img src="../../images/items/enhancement-xp-100.png" class="item-icon" alt="Enhancement XP Component (100)"></td>
+              <td>Enhancement XP Component (100) ×1</td>
+              <td class="num">170</td>
+              <td class="num">200</td>
+              <td class="num">$0.00045</td>
+              <td>Mediocre CP; buy if you need it</td>
+            </tr>
+            <tr class="tier4 divider">
+              <td>⚠️</td>
+              <td><img src="../../images/items/secured-resource-chest-lv2.png" class="item-icon" alt="Lv.2 Custom Secured Resource Chest"></td>
+              <td><strong>Lv.2 Custom Secured Resource Chest ×1 🆕</strong><br><small style="color:var(--text-muted);">Contents: 100K Meat / 100K Wood / 20K Coal / 5K Iron (pick one)</small></td>
+              <td class="num">100</td>
+              <td class="num">99,999</td>
+              <td class="num">—</td>
+              <td><strong>Worthless for mid-late players; only grab with leftover coins</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Note on Common Expert Sigil</h4>
+
+        <p>Expert Sigils at the Bazaar cost 640 coins each, which compared to the regular "$5 for 8" pack is a good deal — but most players will wait for Dawn Light pack windows (much cheaper per sigil). If Dawn Light recently came around, the Bazaar Sigil isn't worth it; if it hasn't appeared in a while, stock up here.</p>
+
+        <h2>6. Floor Rewards: Coins or Items?</h2>
+
+        <p>Every floor claim is "pick one slot." <strong>L3 is 2 slots (1 coin + 1 item), 2-choose-1; L4 and above are 3 slots (1 coin + 2 items, independently rolled), 3-choose-1.</strong> This section solves "which slot do I pick each time."</p>
+
+        <p>Method: convert item slot value to USD, convert coin slot value to USD (as if spent on the best thing in the shop), compare directly. This run Fire Crystal dropped to 80 coins each, so 1 coin spent on Fire Crystal = <strong>$0.000930</strong>; spent on the second-best (Expert Sigil) = $0.000688.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Floor</th>
+              <th class="num">Coin slot</th>
+              <th class="num">Item slot<br>(best option)</th>
+              <th class="num">Coins → <strong>Fire Crystal</strong></th>
+              <th class="num">Coins → next-best</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L3</td><td class="num">2,500</td><td class="num">~$1.76 (Sigil×4)</td><td class="num tier1">$2.33</td><td class="num">$1.72</td><td class="tier1">Take coins</td></tr>
+            <tr><td>L4</td><td class="num">9,500</td><td class="num">~$6.60 (Sigil×15)</td><td class="num tier1">$8.84</td><td class="num">$6.54</td><td class="tier1">Take coins</td></tr>
+            <tr><td>L5</td><td class="num">20,000</td><td class="num">~$14.08 (Sigil×32)</td><td class="num tier1">$18.60</td><td class="num">$13.76</td><td class="tier1">Take coins</td></tr>
+            <tr><td>L6</td><td class="num">28,000</td><td class="num">~$27.28 (Sigil×62)</td><td class="num">$26.04</td><td class="num">$19.26</td><td class="tier1">Items slightly win (Sigil)</td></tr>
+            <tr><td>L7</td><td class="num">56,000</td><td class="num">~$54.12 (Sigil×123)</td><td class="num">$52.08</td><td class="num">$38.53</td><td class="tier1">Items slightly win (Sigil)</td></tr>
+            <tr><td>L8</td><td class="num">120,000</td><td class="num">~$116.60 (Sigil×265)</td><td class="num">$111.60</td><td class="num">$82.56</td><td class="tier1">Items slightly win (Sigil)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="warn-box">
+          <strong>⚠️ Fire Crystal's unit price dropped this run ($0.0015 → $0.000930), so the "coins → Fire Crystal" advantage shrank.</strong> At L6/L7/L8 when the item slot rolls Expert Sigil (33.3% chance), items slightly beat coins — but only by 2–5%. If you want simplicity, <strong>"always take coins" still won't hurt</strong>; if you want to squeeze every drop, take Sigil items at L6+.
+        </div>
+
+        <p>Note that the "item slot (best option)" column assumes you rolled the best item (Sigil). In reality, at L4+ each slot has a 2/3 chance to roll Chief Gear or Charm Chests, which are cheaper than Sigils. The expected value (averaging the three) is usually slightly lower than coins, so in practice:</p>
+        <ul>
+          <li><strong>L4, L5: just take coins, it's simpler</strong></li>
+          <li><strong>L6, L7, L8: take items if you see Sigils; take coins if you see chests</strong></li>
+        </ul>
+
+        <p>In short: <strong>coins are universal currency and buy you the best thing (Fire Crystal); item slots are locked resources, you only get what's in that floor's pool</strong>. Big flexibility gap.</p>
+
+        <h3>When should you pick items?</h3>
+
+        <p><strong>When Fire Crystal is worthless to you</strong> (300 cap hit, or you already have plenty), then consider items across the board. Your coins can then only go to second-best stuff (Mythic Hero Gear Chest, Sigil, Charm Secrets, etc.), dropping purchasing power from $0.000930 to $0.00059–$0.00069 per coin.</p>
+
+        <p>Without Fire Crystal demand, floor comparisons (calculated at coins → Sigil $0.000688):</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Floor</th>
+              <th class="num">Coins (no Fire Crystal)</th>
+              <th class="num">Item (Sigil)</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>L3</td><td class="num">$1.72</td><td class="num tier1">$1.76</td><td class="tier1">Items slightly win</td></tr>
+            <tr><td>L4</td><td class="num">$6.54</td><td class="num tier1">$6.60</td><td class="tier1">Items slightly win</td></tr>
+            <tr><td>L5</td><td class="num">$13.76</td><td class="num tier1">$14.08</td><td class="tier1">Items slightly win</td></tr>
+            <tr><td>L6</td><td class="num">$19.26</td><td class="num tier1">$27.28</td><td class="tier1">Items clearly win</td></tr>
+            <tr><td>L7</td><td class="num">$38.53</td><td class="num tier1">$54.12</td><td class="tier1">Items clearly win</td></tr>
+            <tr><td>L8</td><td class="num">$82.56</td><td class="num tier1">$116.60</td><td class="tier1">Items clearly win</td></tr>
+          </tbody>
+        </table>
+
+        <p>Gaps are small (within 10%), but if you happen to need something in that floor's pool (e.g., Sigils, hero gear parts), picking the item is more targeted.</p>
+
+        <div class="tip-box">
+          <strong>Quick decision (this run update):</strong>
+          <ul style="margin-top:0.5rem;">
+            <li><strong>Players who need Fire Crystals (most people)</strong>: take coins at L3/L4/L5; at L6/L7/L8 take items if you see Sigils, take coins if you see chests</li>
+            <li><strong>Players who have plenty of Fire Crystals</strong>: prefer items across the board; if the item is a Sigil, definitely take it</li>
+          </ul>
+        </div>
+
+        <h2>7. Shopping Lists by Budget</h2>
+
+        <p>Each budget below estimates exploration coins using <strong>T=2 + L2 gamble (200 coins/talisman)</strong>, adds <strong>Protected Exploration milestone bonus</strong>, and gives a recommended shopping order based on the CP ranking. This run Fire Crystal max-buy only costs 24,000 coins (down 24%) — even F2P can afford it.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Budget</th>
+              <th class="num">6-day talismans</th>
+              <th class="num">Exploration coins</th>
+              <th class="num">Milestone coins</th>
+              <th class="num">Total coins</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>F2P</td><td class="num">120</td><td class="num">24,000</td><td class="num">1,000</td><td class="num">25,000</td></tr>
+            <tr><td>Light $30</td><td class="num">720</td><td class="num">144,000</td><td class="num">6,000</td><td class="num">150,000</td></tr>
+            <tr><td>Medium $90</td><td class="num">1,560</td><td class="num">312,000</td><td class="num">33,000</td><td class="num">345,000</td></tr>
+            <tr><td>Heavy $210</td><td class="num">3,000</td><td class="num">600,000</td><td class="num">78,000</td><td class="num">678,000</td></tr>
+            <tr><td>Semi-whale $510</td><td class="num">6,480</td><td class="num">1,296,000</td><td class="num">168,000</td><td class="num">1,464,000</td></tr>
+            <tr><td>Whale $1,110</td><td class="num">12,480</td><td class="num">2,496,000</td><td class="num">168,000</td><td class="num">2,664,000</td></tr>
+          </tbody>
+        </table>
+
+        <h3>🐟 F2P ($0, 25,000 coins)</h3>
+
+        <p>This run Fire Crystal is 80 coins each, so you <strong>can max-buy 300 Fire Crystals for 24,000 coins</strong>, with 1,000 leftover for a few Chief Gear Chests or misc.</p>
+        <ul>
+          <li>Fire Crystal ×300 cap (24,000)</li>
+          <li>Chief Gear Materials Chest ×5 (900)</li>
+          <li>Remaining 100 → Lv.2 Resource Chest ×1 or just leave it</li>
+        </ul>
+        <p>Total value ≈ <strong>$23–47 of Fire Crystals + small resources</strong> (better than last run F2P because this run you don't waste coins stuck below the Fire Crystal cap).</p>
+
+        <h3>🐟 Light $30 (150,000 coins)</h3>
+
+        <ol>
+          <li>Fire Crystal ×300 cap (24,000)</li>
+          <li>Custom Mythic Hero Gear Chest ×2 cap (32,000)</li>
+          <li>Chief Gear Materials Chest ×30 cap (5,400)</li>
+          <li>Remaining 88,600 coins → pick per need:
+            <ul>
+              <li>Dawn Light window active → stock Book of Knowledge (740/pack, ~120 packs) or Charm Secrets ×27 (86,400)</li>
+              <li>No Dawn Light → stock Common Expert Sigil ×138 (88,320)</li>
+            </ul>
+          </li>
+        </ol>
+        <p>Total value ≈ <strong>$90–$150</strong>. <strong>$5/day unlocks the +20 talisman task and is the all-around sweet spot</strong> ($0.042/talisman).</p>
+
+        <h3>🐬 Medium $90 (345,000 coins)</h3>
+
+        <ol>
+          <li>Fire Crystal ×300 (24,000)</li>
+          <li>Custom Mythic Hero Gear Chest ×2 (32,000)</li>
+          <li>Chief Gear Materials Chest ×30 (5,400)</li>
+          <li>Remaining 283,600 coins → pick main resource:
+            <ul>
+              <li>Common Expert Sigil ×443 (283,520, tiny leftover)</li>
+              <li>Or Book of Knowledge 100-packs ×383 (283,420)</li>
+              <li>Or Charm Secrets ×80 cap (256,000) + fill rest with others</li>
+            </ul>
+          </li>
+        </ol>
+        <p>Total value ≈ <strong>$200–$380</strong>. Tier 1 can be fully capped; biggest remaining chunk goes to one Tier 2 main item.</p>
+
+        <h3>🐳 Heavy $210 (678,000 coins)</h3>
+
+        <ol>
+          <li>Fire Crystal 300 + Mythic Hero Gear 2 + Chief Gear 30 + Mythic Hero Shard ×50 = 123,900</li>
+          <li>Common Expert Sigil ×500 cap (320,000) → running total 443,900</li>
+          <li>Charm Secrets ×73 (233,600) → running total 677,500</li>
+          <li>~500 leftover</li>
+        </ol>
+        <p>Total value ≈ <strong>$400–$750</strong>. This tier can scoop up most Tier 1 + Tier 2 good stuff.</p>
+
+        <h3>🐳 Semi-whale $510 (1,464,000 coins)</h3>
+
+        <p>You hit the <strong>Protected Exploration milestone cap (168,000 coins, every milestone in the event)</strong>, and can almost buy out all of Tier 1.</p>
+        <ol>
+          <li>Tier 1 cap (Fire Crystal 24K + Mythic Hero Gear 32K + Expert Sigil 320K + Chief Gear 5.4K + Mythic Hero Shard 42.5K) = 423,900</li>
+          <li>Tier 2 mains — pick two of three (all three would be 946K, over budget):
+            <ul>
+              <li>Expert system players: Book of Knowledge 500 (370K) + Sail of Conquest 500 (320K) = 690K</li>
+              <li>Non-Expert players: Charm Secrets 80 (256K) + Book of Knowledge 500 (370K) = 626K</li>
+            </ul>
+          </li>
+          <li>Remaining (~350–410K) goes to Tier 2 common resources (Design Plans / Polishing Solution / Hardened Alloy / Charm Guide / Charm Design, each 200 cap = 100K, buy 3–4 types)</li>
+        </ol>
+        <p>Total value ≈ <strong>$900–$1,800</strong>.</p>
+
+        <h3>🐋 Whale $1,110 (2,664,000 coins)</h3>
+
+        <p><strong>You can almost buy out the whole shop</strong> — Tier 1 + Tier 2 + Tier 3 capped only costs ~2,604K, 60K under budget.</p>
+        <ul>
+          <li>Tier 1 cap (Fire Crystal, Mythic Hero Gear, Expert Sigil, Chief Gear, Mythic Hero Shard): 423,900</li>
+          <li>Tier 2 cap (Book of Knowledge, Charm Secrets, Sail of Conquest, Design Plans / Polishing / Alloy / Charm Guide / Charm Design, 1h Speedup; shards already in Tier 1): 1,726,000</li>
+          <li>Tier 3 cap (Lucky Chest, Essence Stones, Enhancement XP): 454,000</li>
+          <li>Total ≈ 2,604K, ~60K leftover for whatever or Resource Chests</li>
+        </ul>
+
+        <div class="tip-box" style="margin-top:1rem;">
+          <strong>Variation: what if you already have more than you can use of some item?</strong> Don't force the buy; reallocate that budget to what you need. Common cases:
+          <ul style="margin-top:0.5rem;">
+            <li>Fire Crystal maxed → skip those 24,000 coins, buy other Tier 1/2 instead</li>
+            <li>Mythic General Hero Shard (gold shards) maxed → skip those 42,500 coins</li>
+            <li>Waiting for Dawn Light Sigils → skip those 320,000 coins</li>
+            <li>Expert system not unlocked → skip Book of Knowledge (370K) and Sail of Conquest (320K)</li>
+          </ul>
+          <p style="margin-top:0.5rem;">Also, if skipping Fire Crystal removes your high-CP outlet, <strong>take item slots at L6/L7/L8 instead of coins</strong> for slightly better value (see §6).</p>
+        </div>
+
+        <p>Total value ≈ <strong>$1,500–$3,800</strong> (Fire Crystal is most of the value; skipping Fire Crystal drops this to ~$1,000–$1,500). <strong>1.4–3.4× ROI</strong>.</p>
+
+        <h2>8. Should You Push L8?</h2>
+
+        <p>L8 looks mighty (120,000 coins + a big reward pool), but the math says otherwise: <strong>L8 is bad for coin efficiency</strong>.</p>
+
+        <h3>L8 Full Run Cost</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th class="num">Talismans</th>
+              <th class="num">Coins gained</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Accumulate 5 stars (3.69 trips to L7)</td><td class="num">~1,546</td><td class="num">~207,000 (L7 rewards along the way)</td></tr>
+            <tr><td>Final L7 climb</td><td class="num">~419</td><td class="num">—</td></tr>
+            <tr><td>L7 → L8 (Protected ×2.53 draws avg)</td><td class="num">~303</td><td class="num">120,000</td></tr>
+            <tr><td><strong>Total</strong></td><td class="num"><strong>~2,268</strong></td><td class="num"><strong>~327,000</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Same 2,268 talismans on T=2 gamble:</h3>
+
+        <ul>
+          <li>2,268 ÷ 5 = 453 rounds × 1,001 coins = <strong>~453,000 coins</strong> (not counting milestones)</li>
+          <li>Add Protected Exploration bonus (2,268 talismans crosses 2,000 threshold: 15K + 6×9K = <strong>69,000 coins</strong>) → total <strong>~522,000 coins</strong></li>
+        </ul>
+
+        <p>Since both strategies use the same 2,268 talismans, milestone bonus is identical on both sides and doesn't change the conclusion — <strong>T=2 gamble still beats L8 push by ~40%</strong>.</p>
+
+        <div class="stat-highlight">
+          <span class="stat-number">+126,000</span><span class="stat-unit"> coins</span>
+          <span class="stat-caption">Same talisman count, T=2 gamble nets this many more coins than L8 push (~40% more)</span>
+        </div>
+
+        <h3>When should you push L8?</h3>
+
+        <p>L8's only advantage is "a concentrated big reward pool" (this run: 645 Chief Gear Chests, 560 Random Chief Charm Chests, 265 Sigils). If you specifically need a large stockpile of these, one L8 push is worthwhile. Otherwise <strong>plain old T=2 farming always wins on coin efficiency</strong>.</p>
+
+        <h2>9. Common Pitfalls</h2>
+
+        <ul>
+          <li>❌ <strong>Don't do Regular Exploration above L3</strong> — math says any gamble above L2 is a loss</li>
+          <li>❌ <strong>Don't stop at L6</strong> — L5→L6 costs a lot for a tiny reward bump; it's the worst stopping point</li>
+          <li>❌ <strong>Don't push L8</strong> (unless you specifically need the L8 reward pool items)</li>
+          <li>❌ <strong>Don't skip the daily talisman tasks</strong> — 20/day × 6 days = 120 talismans = roughly 75 Fire Crystals</li>
+          <li>❌ <strong>Don't do one big lump-sum purchase</strong> — split across 6 days with small packs each day, same money, more talismans</li>
+          <li>⚠️ <strong>Chief Gear Chest daily cap is 5</strong> — log in every day to max</li>
+          <li>⚠️ <strong>Mythic General Hero Shard limit cut to 50 this run</strong> (previously much higher) — grab them first if you need gold shards</li>
+          <li>⚡ <strong>1-hour Speedup is actually buyable this run</strong> (was a total trap last run; this run price per unit dropped 5.7×) — buy if you need speedups</li>
+          <li>💡 <strong>Spending talismans accumulates "Protected Exploration Rewards"</strong> — don't let talismans sit in inventory overnight; use them daily for both exploration coins and milestone bonus (9K coins every 300 talismans after 800)</li>
+        </ul>
+
+        <h2>TL;DR</h2>
+
+        <div class="tip-box">
+          <p><strong>30-second decision guide:</strong></p>
+          <ol style="margin-top:0.5rem;">
+            <li>Do daily tasks for 20 free talismans</li>
+            <li>If spending, buy the $5 daily pack — unlocks the +20 talisman task → 120 talismans/day (sweet spot)</li>
+            <li>Play: spend 5 talismans for L1→L2; if you land on L2 gamble one Regular; if L3+ cash out</li>
+            <li>At claim time, pick 1 slot — <strong>always take the coin slot</strong> (L3 is 2-choose-1, L4+ is 3-choose-1); only take items if you've already capped 300 Fire Crystals AND you're at L6/L7</li>
+            <li>Spend coins on Fire Crystal 300, Mythic Hero Gear Chest 2, Expert Sigil 500, Chief Gear 30 (these four are Tier 1), then stock Book of Knowledge, Charm Secrets, or Sail of Conquest based on need</li>
+            <li>1-hour Speedup is buyable this run (was a trap last run, now 5.7× cheaper, ranked Tier 2)</li>
+            <li>Spend all your coins on the final day — leftover coins only convert to 1 Diamond</li>
+          </ol>
+        </div>
+
+        <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.9rem;">May your Fire Crystals overflow and your coins pile high. May every L2 gamble jump you to L4.</p>
+
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <p>Clarice's WOS Notes — This is a player-made guide site, not affiliated with the official team</p>
+    <p>Some data is cited from other sources; sources are noted on each page</p>
+    <p style="margin-top:0.5rem;">
+      Official Wiki: <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
+       ｜ <a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">中文</a>
+    </p>
+  </footer>
+
+</body>
+</html>
