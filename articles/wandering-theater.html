@@ -102,6 +102,89 @@
       margin: 0 auto;
       border-radius: 4px;
     }
+
+    /* ─── 分頁切換 ─── */
+    .tab-nav {
+      display: flex;
+      gap: 0.4rem;
+      margin: 0 0 1.5rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .tab-btn {
+      padding: 0.6rem 1.4rem;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--frost);
+      border-color: var(--border-color);
+      border-bottom: 2px solid var(--bg-card);
+    }
+    .tab-btn:hover:not(.active) { background: var(--bg-card-hover); color: var(--text-primary); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── 規劃器 UI ─── */
+    .plan-section-h2 { font-size: 1.15rem; color: var(--frost); margin: 1.75rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--border-color); }
+    .plan-section-h3 { font-size: 1rem; color: var(--accent); margin: 1.25rem 0 0.75rem; }
+    .plan-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; margin-bottom: 1rem; }
+    .plan-item-card { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; transition: border-color 0.15s, background 0.15s; }
+    .plan-item-card:hover { background: var(--bg-card-hover); }
+    .plan-item-card.checked { border-color: var(--accent); background: rgba(56,189,248,0.06); }
+    .plan-item-card.good.checked { border-color: var(--success); background: rgba(22,163,74,0.08); }
+    .plan-item-card.bad.checked { border-color: var(--danger); background: rgba(220,38,38,0.08); }
+    .plan-item-check { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+    .plan-item-icon { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; border-radius: 4px; }
+    .plan-item-body { flex: 1; min-width: 0; }
+    .plan-item-name { font-size: 0.92rem; color: var(--text-primary); font-weight: 500; line-height: 1.25; }
+    .plan-item-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .plan-item-tag { display: inline-block; font-size: 0.7rem; padding: 0.05rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; font-weight: 600; }
+    .plan-item-tag.good { background: var(--success); color: #fff; }
+    .plan-item-tag.bad { background: var(--danger); color: #fff; }
+    .plan-item-qty { display: flex; align-items: center; gap: 0.3rem; }
+    .plan-item-qty input { width: 60px; padding: 0.3rem 0.4rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-primary); font-size: 0.88rem; text-align: center; }
+    .plan-item-qty input:disabled { opacity: 0.4; }
+    .plan-max-label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+    .plan-results { padding: 1.25rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; }
+    .plan-result-headline { font-size: 1.6rem; font-weight: 700; color: var(--frost); margin-bottom: 0.3rem; }
+    .plan-result-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .plan-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .plan-summary-card { padding: 0.85rem 1rem; background: var(--bg-secondary); border-radius: 6px; text-align: center; }
+    .plan-summary-card .label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .plan-summary-card .value { font-size: 1.3rem; font-weight: 700; color: var(--frost); }
+    .plan-summary-card .value .unit { font-size: 0.78rem; color: var(--text-secondary); font-weight: 400; margin-left: 0.1rem; }
+
+    .plan-pack-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .plan-pack-table th, .plan-pack-table td { border: 1px solid var(--border-color); padding: 0.45rem 0.7rem; }
+    .plan-pack-table th { background: var(--bg-secondary); color: var(--accent); font-weight: 600; }
+    .plan-pack-table .num { text-align: right; }
+    .plan-pack-table tr.total-row td { background: var(--bg-secondary); font-weight: 700; }
+
+    .plan-daily-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.6rem; margin: 1rem 0; }
+    .plan-daily-card { padding: 0.7rem 0.85rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; }
+    .plan-daily-head { font-weight: 600; color: var(--frost); font-size: 0.88rem; margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
+    .plan-daily-cost { color: var(--warning); font-weight: 700; }
+    .plan-daily-card ul { list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--text-secondary); }
+    .plan-daily-card li { padding: 0.1rem 0; }
+    .plan-daily-card.empty .plan-daily-head { color: var(--text-muted); }
+
+    .plan-preset-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .plan-preset-btn, .plan-reset-btn { padding: 0.4rem 0.9rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; }
+    .plan-preset-btn:hover { background: var(--accent-dim); color: var(--text-primary); }
+    .plan-reset-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+
+    .plan-infeasible { padding: 1rem 1.25rem; background: rgba(220,38,38,0.08); border-left: 4px solid var(--danger); border-radius: 0 6px 6px 0; color: var(--danger); font-weight: 500; }
+    .plan-footnote { font-size: 0.82rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6; }
+    .plan-footnote strong { color: var(--text-secondary); }
   </style>
 </head>
 <body>
@@ -142,7 +225,15 @@
           <span class="limited-label">進行中</span>
           <p class="period">活動期間：2026-11-11 起共 7 天（爬塔 6 天 ＋ 兌換 1 天）</p>
           <p><strong>本頁的商鋪標價、每日禮包內容已更新為本期（2026-11-11 開啟）數據</strong>。活動分兩段：前 6 天可以爬塔累積星幣，第 7 天只能在奇異小舖兌換、不能再爬，<strong>星幣沒花完結算時會變成 1 顆鑽石</strong>，所以最後一天記得花光。</p>
+          <p style="margin-top:0.6rem;"><strong>🧮 想直接算要花多少錢？</strong>→ 切換到下方「<a href="#planner" data-tab-link="planner">購物規劃器</a>」分頁，勾選要收的道具，自動算最省買法。</p>
         </div>
+
+        <nav class="tab-nav">
+          <button class="tab-btn active" data-tab="guide">📖 攻略內文</button>
+          <button class="tab-btn" data-tab="planner">🧮 購物規劃器</button>
+        </nav>
+
+        <div class="tab-panel active" id="tab-guide">
 
         <p>漫遊劇場是六天限時的登台階活動，用「寒冰護符」升層領獎，累積活動代幣「奇境星幣」到「奇異小舖」兌換道具。這篇要回答三件事：<strong>怎麼打護符效率最高、每個消費檔位大概能拿到多少東西、奇異小舖裡的道具該按什麼順序買</strong>。</p>
 
@@ -886,7 +977,41 @@
 
         <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.9rem;">祝大家火晶爆買、星幣滿滿。願妳的每一次 L2 賭都跳到 L4。</p>
 
-      </div>
+        </div><!-- /tab-guide -->
+
+        <div class="tab-panel" id="tab-planner">
+          <p>勾選要收的道具與數量，自動算出<strong>最省的課金方案</strong>：該買哪幾檔禮包、每天買什麼、總共拿多少星幣與護符。工具已考量「T=2+L2 賭」策略的探索收入（200 星幣/護符）與保護探索里程碑獎勵，所以實際算法比「勾單品算星幣」更準確。</p>
+
+          <h2 class="plan-section-h2">一、選要收的道具</h2>
+
+          <div class="plan-preset-row">
+            <button class="plan-preset-btn" data-preset="tier1">只選 Tier 1</button>
+            <button class="plan-preset-btn" data-preset="tier12">Tier 1 + Tier 2 核心</button>
+            <button class="plan-preset-btn" data-preset="all">全部買光</button>
+            <button class="plan-reset-btn" id="btnReset">清空重選</button>
+          </div>
+
+          <h3 class="plan-section-h3">Tier 1（最划算）</h3>
+          <div id="tier1Items" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">Tier 2（中段班）</h3>
+          <div id="tier2Items" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">Tier 3（持平）</h3>
+          <div id="tier3Items" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">其他（通常不買）</h3>
+          <div id="tier4Items" class="plan-items-grid"></div>
+
+          <h2 class="plan-section-h2">二、最省買法</h2>
+          <div class="plan-results" id="results"></div>
+
+          <p class="plan-footnote">
+            <strong>算法說明：</strong>目標星幣 = 你勾選的道具 × 單價加總。護符來源分三塊：免費任務（每天 20）＋ 課金任務（當天有買任何禮包即解鎖 +20）＋ 禮包護符。每個護符用 T=2+L2 賭策略打探索可得 <strong>200 星幣</strong>，加上「保護探索獎勵」里程碑（100 → 1K / 200 → 2K / 500 → 3K / 800 → 9K，之後每 300 護符 +9K，到 5,900 護符封頂拿 168K）。工具會枚舉所有禮包組合，找出星幣達標的最低課金。
+          </p>
+        </div><!-- /tab-planner -->
+
+      </div><!-- /article-content -->
     </article>
   </div>
 
@@ -898,6 +1023,286 @@
        ｜ <a href="https://www.whiteoutsurvival.wiki/" target="_blank" rel="noopener">English</a>
     </p>
   </footer>
+
+  <script>
+  // ============================================================
+  // 分頁切換
+  // ============================================================
+  function activateTab(name) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+    const nav = document.querySelector('.tab-nav');
+    if (nav) window.scrollTo({ top: nav.offsetTop - 20, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.addEventListener('click', () => activateTab(b.dataset.tab));
+  });
+  document.querySelectorAll('[data-tab-link]').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); activateTab(a.dataset.tabLink); });
+  });
+  if (window.location.hash === '#planner') activateTab('planner');
+
+  // ============================================================
+  // 購物規劃器
+  // ============================================================
+  const CONFIG = {
+    activityDays: 6,
+    expCoinsPerTalisman: 200,
+    freeDailyTasks: 20,
+    paidDailyTasks: 20,
+    milestones: (() => {
+      // 累積護符門檻 → 累積獎勵星幣
+      const arr = [[100,1000],[200,3000],[500,6000],[800,15000]];
+      let cum = 15000;
+      for (let t = 1100; t <= 5900; t += 300) { cum += 9000; arr.push([t, cum]); }
+      return arr;
+    })(),
+    packs: [
+      { key: 'p5',   name: '$5 普通禮包',   price: 5,   talismans: 80   },
+      { key: 'p10',  name: '$10 良好禮包',  price: 10,  talismans: 140  },
+      { key: 'p20',  name: '$20 稀有禮包',  price: 20,  talismans: 240  },
+      { key: 'p50',  name: '$50 史詩禮包',  price: 50,  talismans: 580  },
+      { key: 'p100', name: '$100 傳說禮包', price: 100, talismans: 1000 },
+    ],
+    tier1: [
+      { id: 'fire_crystal',       icon: 'fire-crystal.png',         name: '火晶',                    unit: 1,    coins: 80,     limit: 300, tag: 'good' },
+      { id: 'mythic_gear',        icon: 'mythic-hero-gear-chest.png', name: '傳說英雄裝備客製化箱子', unit: 1,    coins: 16000,  limit: 2,   tag: 'good' },
+      { id: 'expert_sigil',       icon: 'expert-sigil.png',         name: '通用專家印記',            unit: 1,    coins: 640,    limit: 500, tag: 'good' },
+      { id: 'chief_gear',         icon: 'chief-gear-chest.png',     name: '領主裝備材料寶箱',        unit: 1,    coins: 180,    limit: 30,  tag: 'good', note: '每日限 5，6 天共 30' },
+    ],
+    tier2: [
+      { id: 'book_knowledge',     icon: 'book-of-knowledge.png',    name: '學識之書',                unit: 100,  coins: 740,    limit: 500 },
+      { id: 'charm_secrets',      icon: 'charm-secrets.png',        name: '寶石秘典',                unit: 1,    coins: 3200,   limit: 80  },
+      { id: 'sail_conquest',      icon: 'sail-of-conquest.png',     name: '征服之帆',                unit: 1,    coins: 640,    limit: 500 },
+      { id: 'design_plans',       icon: 'design-plans.png',         name: '設計圖紙',                unit: 5,    coins: 500,    limit: 200 },
+      { id: 'polishing_solution', icon: 'polishing-solution.png',   name: '拋光液',                  unit: 25,   coins: 500,    limit: 200 },
+      { id: 'hardened_alloy',     icon: 'hardened-alloy.png',       name: '強韌合金',                unit: 2500, coins: 500,    limit: 200 },
+      { id: 'mythic_shard',       icon: 'mythic-hero-shard.png',    name: '傳說通用英雄碎片',        unit: 1,    coins: 850,    limit: 50, note: '本期限購砍到 50' },
+      { id: 'charm_guide',        icon: 'charm-guide.png',          name: '寶石手冊',                unit: 5,    coins: 500,    limit: 200 },
+      { id: 'charm_design',       icon: 'charm-design.png',         name: '寶石圖紙',                unit: 5,    coins: 500,    limit: 200 },
+      { id: 'speedup_1h',         icon: 'speedup-1h.png',           name: '1 小時通用加速',          unit: 5,    coins: 700,    limit: 400 },
+    ],
+    tier3: [
+      { id: 'lucky_chest',        icon: 'lucky-hero-gear-chest.png', name: '英雄裝備幸運寶箱',       unit: 1,    coins: 280,    limit: 1000 },
+      { id: 'essence_stones',     icon: 'essence-stones.png',       name: '專精能源石',              unit: 1,    coins: 280,    limit: 500 },
+      { id: 'enhancement_xp',     icon: 'enhancement-xp-100.png',   name: '100 點強化經驗零件',      unit: 1,    coins: 170,    limit: 200 },
+    ],
+    tier4: [
+      { id: 'secured_resource',   icon: 'secured-resource-chest-lv2.png', name: '2 級安全資源客製化箱子', unit: 1, coins: 100, limit: 50, tag: 'bad', note: '內容為後期零價值的資源' },
+    ],
+  };
+  CONFIG.allItems = [...CONFIG.tier1, ...CONFIG.tier2, ...CONFIG.tier3, ...CONFIG.tier4];
+
+  const state = { selections: {} };
+
+  function findItem(id) { return CONFIG.allItems.find(x => x.id === id); }
+
+  function computeMilestone(talismans) {
+    let best = 0;
+    for (const [threshold, reward] of CONFIG.milestones) {
+      if (talismans >= threshold) best = reward;
+    }
+    return best;
+  }
+
+  function renderItems() {
+    renderGroup('tier1Items', CONFIG.tier1);
+    renderGroup('tier2Items', CONFIG.tier2);
+    renderGroup('tier3Items', CONFIG.tier3);
+    renderGroup('tier4Items', CONFIG.tier4);
+  }
+
+  function renderGroup(containerId, items) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = items.map(item => {
+      const checked = (state.selections[item.id] || 0) > 0;
+      const qty = state.selections[item.id] || 0;
+      const unitText = item.unit > 1 ? `×${item.unit}/包` : '';
+      const tagHtml = item.tag === 'good' ? '<span class="plan-item-tag good">✨</span>' : item.tag === 'bad' ? '<span class="plan-item-tag bad">⚠</span>' : '';
+      const noteHtml = item.note ? `<div class="plan-item-meta">${item.note}</div>` : '';
+      return `
+        <div class="plan-item-card ${item.tag || ''} ${checked ? 'checked' : ''}">
+          <input type="checkbox" class="plan-item-check" data-id="${item.id}" ${checked ? 'checked' : ''}>
+          <img src="../images/items/${item.icon}" class="plan-item-icon" alt="${item.name}">
+          <div class="plan-item-body">
+            <div class="plan-item-name">${item.name} ${unitText}${tagHtml}</div>
+            <div class="plan-item-meta">${item.coins} 星幣／包 · 限購 ${item.limit}</div>
+            ${noteHtml}
+          </div>
+          <div class="plan-item-qty">
+            <input type="number" min="0" max="${item.limit}" value="${qty || item.limit}" data-id="${item.id}" ${checked ? '' : 'disabled'}>
+            <span class="plan-max-label">/ ${item.limit}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.classList.contains('plan-item-check')) {
+      const id = t.dataset.id;
+      if (t.checked) {
+        const item = findItem(id);
+        state.selections[id] = state.selections[id] || item.limit;
+      } else {
+        delete state.selections[id];
+      }
+      renderItems(); update();
+    } else if (t.tagName === 'INPUT' && t.type === 'number' && t.dataset.id) {
+      const id = t.dataset.id;
+      const item = findItem(id);
+      let v = parseInt(t.value) || 0;
+      if (v < 0) v = 0;
+      if (v > item.limit) v = item.limit;
+      t.value = v;
+      const wasSelected = (state.selections[id] || 0) > 0;
+      if (v === 0) delete state.selections[id];
+      else state.selections[id] = v;
+      const isSelected = v > 0;
+      if (wasSelected !== isSelected) renderItems();
+      update();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.id === 'btnReset') {
+      state.selections = {}; renderItems(); update();
+    } else if (e.target.classList.contains('plan-preset-btn')) {
+      applyPreset(e.target.dataset.preset);
+    }
+  });
+
+  function applyPreset(name) {
+    state.selections = {};
+    if (name === 'tier1') {
+      CONFIG.tier1.forEach(it => state.selections[it.id] = it.limit);
+    } else if (name === 'tier12') {
+      [...CONFIG.tier1, ...CONFIG.tier2].forEach(it => state.selections[it.id] = it.limit);
+    } else if (name === 'all') {
+      [...CONFIG.tier1, ...CONFIG.tier2, ...CONFIG.tier3].forEach(it => state.selections[it.id] = it.limit);
+    }
+    renderItems(); update();
+  }
+
+  function computeTargetCoins() {
+    let total = 0;
+    for (const [id, qty] of Object.entries(state.selections)) {
+      const item = findItem(id);
+      if (item) total += item.coins * qty;
+    }
+    return total;
+  }
+
+  function solve(targetCoins) {
+    const DAYS = CONFIG.activityDays;
+    const baseFree = CONFIG.freeDailyTasks * DAYS;  // 120
+    if (targetCoins === 0) {
+      return { cost: 0, coins: CONFIG.expCoinsPerTalisman * baseFree + computeMilestone(baseFree), talismans: baseFree, packs: { p5:0, p10:0, p20:0, p50:0, p100:0 } };
+    }
+    let best = null;
+    for (let p5 = 0; p5 <= DAYS; p5++) {
+      for (let p10 = 0; p10 <= DAYS; p10++) {
+        for (let p20 = 0; p20 <= DAYS; p20++) {
+          const partialCost = 5*p5 + 10*p10 + 20*p20;
+          if (best && partialCost >= best.cost) continue;
+          for (let p50 = 0; p50 <= DAYS; p50++) {
+            const subCost = partialCost + 50*p50;
+            if (best && subCost >= best.cost) continue;
+            for (let p100 = 0; p100 <= DAYS; p100++) {
+              const cost = subCost + 100*p100;
+              if (best && cost >= best.cost) continue;
+              const packTal = 80*p5 + 140*p10 + 240*p20 + 580*p50 + 1000*p100;
+              const paidDays = Math.max(p5, p10, p20, p50, p100);
+              const talismans = packTal + baseFree + CONFIG.paidDailyTasks * paidDays;
+              const coins = CONFIG.expCoinsPerTalisman * talismans + computeMilestone(talismans);
+              if (coins < targetCoins) continue;
+              if (!best || cost < best.cost || (cost === best.cost && talismans < best.talismans)) {
+                best = { cost, coins, talismans, packs: { p5, p10, p20, p50, p100 } };
+              }
+            }
+          }
+        }
+      }
+    }
+    return best;
+  }
+
+  function schedulePacks(packs) {
+    const days = Array.from({length: CONFIG.activityDays}, () => []);
+    for (const tier of CONFIG.packs) {
+      const qty = packs[tier.key] || 0;
+      // 從第一天開始填，每天每檔最多 1
+      for (let i = 0; i < qty; i++) days[i].push(tier);
+    }
+    return days;
+  }
+
+  function update() {
+    const container = document.getElementById('results');
+    if (!container) return;
+    const target = computeTargetCoins();
+    if (target === 0) {
+      container.innerHTML = `<div class="plan-result-sub">勾選要收的道具，這裡會算出最省買法。</div>`;
+      return;
+    }
+    const sol = solve(target);
+    if (!sol) {
+      container.innerHTML = `<div class="plan-infeasible">就算把禮包都買到頂也湊不到這麼多星幣（上限約 2.66M 星幣，對應 $1,110）。請減少要收的數量。</div>`;
+      return;
+    }
+    const leftover = sol.coins - target;
+    const milestone = computeMilestone(sol.talismans);
+    const expCoins = sol.coins - milestone;
+    const packRows = CONFIG.packs.filter(t => sol.packs[t.key] > 0).map(t => {
+      const qty = sol.packs[t.key];
+      return `<tr><td>${t.name}（+${t.talismans} 護符）</td><td class="num">$${t.price}</td><td class="num">${qty}</td><td class="num">$${t.price * qty}</td><td class="num">+${t.talismans * qty}</td></tr>`;
+    });
+    if (packRows.length === 0) packRows.push('<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">不用課金</td></tr>');
+    packRows.push(`<tr class="total-row"><td colspan="3">合計</td><td class="num">$${sol.cost}</td><td class="num">${(sol.packs.p5*80 + sol.packs.p10*140 + sol.packs.p20*240 + sol.packs.p50*580 + sol.packs.p100*1000).toLocaleString()}</td></tr>`);
+
+    const days = schedulePacks(sol.packs);
+    const dailyHtml = days.map((day, i) => {
+      const total = day.reduce((s, p) => s + p.price, 0);
+      const isEmpty = day.length === 0;
+      return `<div class="plan-daily-card ${isEmpty ? 'empty' : ''}"><div class="plan-daily-head"><span>Day ${i + 1}</span><span class="plan-daily-cost">${isEmpty ? '—' : '$' + total}</span></div>${isEmpty ? '<div style="font-size:0.82rem; color:var(--text-muted);">不用買</div>' : `<ul>${day.map(p => `<li>• ${p.name.replace(/^\$\d+\s/, '')} <span style="color:var(--text-muted);">($${p.price})</span></li>`).join('')}</ul>`}</div>`;
+    }).join('');
+
+    const selectedList = Object.entries(state.selections).map(([id, qty]) => {
+      const item = findItem(id);
+      if (!item) return '';
+      return `<li>${item.name}${item.unit > 1 ? ` ×${item.unit}/包` : ''} ×${qty} 包 <span style="color:var(--text-muted);">= ${(item.coins * qty).toLocaleString()} 星幣</span></li>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div style="margin-bottom:1rem; padding:0.75rem 1rem; background:var(--bg-secondary); border-radius:6px;">
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.4rem;">你要收：</div>
+        <ul style="margin:0; padding-left:1.2rem; font-size:0.9rem; color:var(--text-primary); line-height:1.7;">${selectedList}</ul>
+      </div>
+      <div class="plan-result-headline">總花費：$${sol.cost}</div>
+      <div class="plan-result-sub">需 ${target.toLocaleString()} 星幣，實際可取得 ${sol.coins.toLocaleString()} 星幣（含里程碑 ${milestone.toLocaleString()}），剩餘 ${leftover.toLocaleString()} 星幣</div>
+      <div class="plan-summary-grid">
+        <div class="plan-summary-card"><div class="label">總花費</div><div class="value">$${sol.cost}</div></div>
+        <div class="plan-summary-card"><div class="label">總護符</div><div class="value">${sol.talismans.toLocaleString()}<span class="unit">個</span></div></div>
+        <div class="plan-summary-card"><div class="label">探索星幣</div><div class="value">${expCoins.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">里程碑星幣</div><div class="value">${milestone.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">總星幣</div><div class="value">${sol.coins.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">剩餘可買</div><div class="value">${leftover.toLocaleString()}</div></div>
+      </div>
+      <h3 style="margin-top:1.25rem; font-size:1rem; color:var(--accent);">禮包清單</h3>
+      <table class="plan-pack-table"><thead><tr><th style="text-align:left;">禮包</th><th class="num">單價</th><th class="num">買幾包</th><th class="num">小計</th><th class="num">+護符</th></tr></thead><tbody>${packRows.join('')}</tbody></table>
+      <h3 style="margin-top:1.25rem; font-size:1rem; color:var(--accent);">每日買法</h3>
+      <div class="plan-daily-grid">${dailyHtml}</div>
+      <div style="margin-top:0.75rem; padding:0.6rem 0.8rem; background:rgba(56,189,248,0.07); border-radius:4px; font-size:0.85rem; color:var(--text-secondary);">
+        💡 <strong>護符要花掉才算進度</strong>：這 ${sol.talismans.toLocaleString()} 個護符都要用 T=2+L2 賭策略打完才拿得到星幣。約 ${Math.ceil(sol.talismans / 5)} 輪探索，每輪 ~10 秒，總時數約 ${Math.round(sol.talismans / 5 / 60 * 10 / 60 * 10) / 10} 小時——分散到 6 天每天 ${Math.ceil(sol.talismans / 5 / 6)} 輪。
+      </div>
+    `;
+  }
+
+  renderItems();
+  update();
+  </script>
 
 </body>
 </html>
