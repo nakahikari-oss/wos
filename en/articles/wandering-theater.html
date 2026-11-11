@@ -102,6 +102,68 @@
       margin: 0 auto;
       border-radius: 4px;
     }
+
+    /* Tabs */
+    .tab-nav { display: flex; gap: 0.4rem; margin: 0 0 1.5rem; border-bottom: 2px solid var(--border-color); }
+    .tab-btn { padding: 0.6rem 1.4rem; background: transparent; border: 1px solid var(--border-color); border-bottom: none; border-radius: 6px 6px 0 0; color: var(--text-secondary); font-size: 0.95rem; font-weight: 500; cursor: pointer; margin-bottom: -2px; }
+    .tab-btn.active { background: var(--bg-card); color: var(--frost); border-color: var(--border-color); border-bottom: 2px solid var(--bg-card); }
+    .tab-btn:hover:not(.active) { background: var(--bg-card-hover); color: var(--text-primary); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Planner UI */
+    .plan-section-h2 { font-size: 1.15rem; color: var(--frost); margin: 1.75rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--border-color); }
+    .plan-section-h3 { font-size: 1rem; color: var(--accent); margin: 1.25rem 0 0.75rem; }
+    .plan-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; margin-bottom: 1rem; }
+    .plan-item-card { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; transition: border-color 0.15s, background 0.15s; }
+    .plan-item-card:hover { background: var(--bg-card-hover); }
+    .plan-item-card.checked { border-color: var(--accent); background: rgba(56,189,248,0.06); }
+    .plan-item-card.good.checked { border-color: var(--success); background: rgba(22,163,74,0.08); }
+    .plan-item-card.bad.checked { border-color: var(--danger); background: rgba(220,38,38,0.08); }
+    .plan-item-check { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+    .plan-item-icon { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; border-radius: 4px; }
+    .plan-item-body { flex: 1; min-width: 0; }
+    .plan-item-name { font-size: 0.92rem; color: var(--text-primary); font-weight: 500; line-height: 1.25; }
+    .plan-item-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .plan-item-tag { display: inline-block; font-size: 0.7rem; padding: 0.05rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; font-weight: 600; }
+    .plan-item-tag.good { background: var(--success); color: #fff; }
+    .plan-item-tag.bad { background: var(--danger); color: #fff; }
+    .plan-item-qty { display: flex; align-items: center; gap: 0.3rem; }
+    .plan-item-qty input { width: 60px; padding: 0.3rem 0.4rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-primary); font-size: 0.88rem; text-align: center; }
+    .plan-item-qty input:disabled { opacity: 0.4; }
+    .plan-max-label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+    .plan-results { padding: 1.25rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; }
+    .plan-result-headline { font-size: 1.6rem; font-weight: 700; color: var(--frost); margin-bottom: 0.3rem; }
+    .plan-result-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .plan-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .plan-summary-card { padding: 0.85rem 1rem; background: var(--bg-secondary); border-radius: 6px; text-align: center; }
+    .plan-summary-card .label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .plan-summary-card .value { font-size: 1.3rem; font-weight: 700; color: var(--frost); }
+    .plan-summary-card .value .unit { font-size: 0.78rem; color: var(--text-secondary); font-weight: 400; margin-left: 0.1rem; }
+
+    .plan-pack-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .plan-pack-table th, .plan-pack-table td { border: 1px solid var(--border-color); padding: 0.45rem 0.7rem; }
+    .plan-pack-table th { background: var(--bg-secondary); color: var(--accent); font-weight: 600; }
+    .plan-pack-table .num { text-align: right; }
+    .plan-pack-table tr.total-row td { background: var(--bg-secondary); font-weight: 700; }
+
+    .plan-daily-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.6rem; margin: 1rem 0; }
+    .plan-daily-card { padding: 0.7rem 0.85rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; }
+    .plan-daily-head { font-weight: 600; color: var(--frost); font-size: 0.88rem; margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
+    .plan-daily-cost { color: var(--warning); font-weight: 700; }
+    .plan-daily-card ul { list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: var(--text-secondary); }
+    .plan-daily-card li { padding: 0.1rem 0; }
+    .plan-daily-card.empty .plan-daily-head { color: var(--text-muted); }
+
+    .plan-preset-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .plan-preset-btn, .plan-reset-btn { padding: 0.4rem 0.9rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; }
+    .plan-preset-btn:hover { background: var(--accent-dim); color: var(--text-primary); }
+    .plan-reset-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+
+    .plan-infeasible { padding: 1rem 1.25rem; background: rgba(220,38,38,0.08); border-left: 4px solid var(--danger); border-radius: 0 6px 6px 0; color: var(--danger); font-weight: 500; }
+    .plan-footnote { font-size: 0.82rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6; }
+    .plan-footnote strong { color: var(--text-secondary); }
   </style>
 </head>
 <body>
@@ -142,7 +204,15 @@
           <span class="limited-label">LIVE</span>
           <p class="period">Event window: 7 days from 2026-11-11 (6 days of climbing + 1 day of shop-only)</p>
           <p><strong>This page's shop prices and daily pack contents have been updated for the current run (opened 2026-11-11).</strong> The event has two phases: the first 6 days you can climb the tower and earn coins; on day 7 you can only exchange in the Bizarre Bazaar, no more climbing. <strong>Any Wonderstar Coins you don't spend by the end convert to just 1 Diamond</strong>, so spend everything on the final day.</p>
+          <p style="margin-top:0.6rem;"><strong>🧮 Want to know what it'll cost you?</strong> → Switch to the "<a href="#planner" data-tab-link="planner">Shopping Planner</a>" tab below, tick the items you want, and it works out the cheapest way to buy them.</p>
         </div>
+
+        <nav class="tab-nav">
+          <button class="tab-btn active" data-tab="guide">📖 Guide</button>
+          <button class="tab-btn" data-tab="planner">🧮 Shopping Planner</button>
+        </nav>
+
+        <div class="tab-panel active" id="tab-guide">
 
         <p>Wander Theater is a 6-day limited event where you spend <strong>Talismans of Ice</strong> to climb floors and claim rewards, accumulating the event currency <strong>Wonderstar Coins</strong> to exchange for items at the <strong>Bizarre Bazaar</strong>. This guide answers three questions: <strong>what's the most efficient way to use your talismans, how much can you expect to get at each spending tier, and in what order should you buy items from the Bazaar</strong>.</p>
 
@@ -887,7 +957,41 @@ Spend 5 talismans for L1→L2
 
         <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.9rem;">May your Fire Crystals overflow and your coins pile high. May every L2 gamble jump you to L4.</p>
 
-      </div>
+        </div><!-- /tab-guide -->
+
+        <div class="tab-panel" id="tab-planner">
+          <p>Tick the items and quantities you want, and this tool works out the <strong>cheapest spend</strong>: which pack tiers to buy, what to buy each day, and the resulting totals of coins and talismans. The tool accounts for the T=2+L2 gamble strategy's exploration income (200 coins/talisman) and the Protected Exploration milestone bonus, so it's more accurate than naive "sum item coins and divide."</p>
+
+          <h2 class="plan-section-h2">1. Choose what to collect</h2>
+
+          <div class="plan-preset-row">
+            <button class="plan-preset-btn" data-preset="tier1">Tier 1 only</button>
+            <button class="plan-preset-btn" data-preset="tier12">Tier 1 + Tier 2 core</button>
+            <button class="plan-preset-btn" data-preset="all">Buy everything</button>
+            <button class="plan-reset-btn" id="btnReset">Clear</button>
+          </div>
+
+          <h3 class="plan-section-h3">Tier 1 (best value)</h3>
+          <div id="tier1Items" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">Tier 2 (mid-range)</h3>
+          <div id="tier2Items" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">Tier 3 (break-even)</h3>
+          <div id="tier3Items" class="plan-items-grid"></div>
+
+          <h3 class="plan-section-h3">Other (usually skip)</h3>
+          <div id="tier4Items" class="plan-items-grid"></div>
+
+          <h2 class="plan-section-h2">2. Cheapest plan</h2>
+          <div class="plan-results" id="results"></div>
+
+          <p class="plan-footnote">
+            <strong>How it works:</strong> Target coins = sum of (your selections × unit price). Talismans come from three sources: free daily task (20/day) + paid daily task (another 20/day, unlocked by any purchase that day) + packs. Each talisman produces <strong>200 coins</strong> via the T=2+L2 gamble strategy, plus the Protected Exploration milestone bonus (100 → 1K / 200 → 2K / 500 → 3K / 800 → 9K, then +9K every 300 talismans, capping at 168K for 5,900 total). The tool enumerates all pack combos and finds the minimum spend that meets your coin target.
+          </p>
+        </div><!-- /tab-planner -->
+
+      </div><!-- /article-content -->
     </article>
   </div>
 
@@ -899,6 +1003,284 @@ Spend 5 talismans for L1→L2
        ｜ <a href="https://www.whiteoutsurvival.wiki/tw/" target="_blank" rel="noopener">中文</a>
     </p>
   </footer>
+
+  <script>
+  // ============================================================
+  // Tab switcher
+  // ============================================================
+  function activateTab(name) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+    const nav = document.querySelector('.tab-nav');
+    if (nav) window.scrollTo({ top: nav.offsetTop - 20, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.addEventListener('click', () => activateTab(b.dataset.tab));
+  });
+  document.querySelectorAll('[data-tab-link]').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); activateTab(a.dataset.tabLink); });
+  });
+  if (window.location.hash === '#planner') activateTab('planner');
+
+  // ============================================================
+  // Shopping Planner
+  // ============================================================
+  const CONFIG = {
+    activityDays: 6,
+    expCoinsPerTalisman: 200,
+    freeDailyTasks: 20,
+    paidDailyTasks: 20,
+    milestones: (() => {
+      const arr = [[100,1000],[200,3000],[500,6000],[800,15000]];
+      let cum = 15000;
+      for (let t = 1100; t <= 5900; t += 300) { cum += 9000; arr.push([t, cum]); }
+      return arr;
+    })(),
+    packs: [
+      { key: 'p5',   name: '$5 Common Pack',    price: 5,   talismans: 80   },
+      { key: 'p10',  name: '$10 Good Pack',     price: 10,  talismans: 140  },
+      { key: 'p20',  name: '$20 Rare Pack',     price: 20,  talismans: 240  },
+      { key: 'p50',  name: '$50 Epic Pack',     price: 50,  talismans: 580  },
+      { key: 'p100', name: '$100 Legendary Pack', price: 100, talismans: 1000 },
+    ],
+    tier1: [
+      { id: 'fire_crystal',       icon: 'fire-crystal.png',           name: 'Fire Crystal',                 unit: 1,    coins: 80,     limit: 300, tag: 'good' },
+      { id: 'mythic_gear',        icon: 'mythic-hero-gear-chest.png', name: 'Custom Mythic Hero Gear Chest', unit: 1,   coins: 16000,  limit: 2,   tag: 'good' },
+      { id: 'expert_sigil',       icon: 'expert-sigil.png',           name: 'Common Expert Sigil',          unit: 1,    coins: 640,    limit: 500, tag: 'good' },
+      { id: 'chief_gear',         icon: 'chief-gear-chest.png',       name: 'Chief Gear Materials Chest',   unit: 1,    coins: 180,    limit: 30,  tag: 'good', note: 'Daily cap 5, 6 days = 30' },
+    ],
+    tier2: [
+      { id: 'book_knowledge',     icon: 'book-of-knowledge.png',      name: 'Book of Knowledge',            unit: 100,  coins: 740,    limit: 500 },
+      { id: 'charm_secrets',      icon: 'charm-secrets.png',          name: 'Charm Secrets',                unit: 1,    coins: 3200,   limit: 80  },
+      { id: 'sail_conquest',      icon: 'sail-of-conquest.png',       name: 'Sail of Conquest',             unit: 1,    coins: 640,    limit: 500 },
+      { id: 'design_plans',       icon: 'design-plans.png',           name: 'Design Plans',                 unit: 5,    coins: 500,    limit: 200 },
+      { id: 'polishing_solution', icon: 'polishing-solution.png',     name: 'Polishing Solution',           unit: 25,   coins: 500,    limit: 200 },
+      { id: 'hardened_alloy',     icon: 'hardened-alloy.png',         name: 'Hardened Alloy',               unit: 2500, coins: 500,    limit: 200 },
+      { id: 'mythic_shard',       icon: 'mythic-hero-shard.png',      name: 'Mythic General Hero Shard',    unit: 1,    coins: 850,    limit: 50, note: 'Limit cut to 50 this run' },
+      { id: 'charm_guide',        icon: 'charm-guide.png',            name: 'Charm Guide',                  unit: 5,    coins: 500,    limit: 200 },
+      { id: 'charm_design',       icon: 'charm-design.png',           name: 'Charm Design',                 unit: 5,    coins: 500,    limit: 200 },
+      { id: 'speedup_1h',         icon: 'speedup-1h.png',             name: '1h General Speedup',           unit: 5,    coins: 700,    limit: 400 },
+    ],
+    tier3: [
+      { id: 'lucky_chest',        icon: 'lucky-hero-gear-chest.png',  name: 'Lucky Hero Gear Chest',        unit: 1,    coins: 280,    limit: 1000 },
+      { id: 'essence_stones',     icon: 'essence-stones.png',         name: 'Essence Stones',               unit: 1,    coins: 280,    limit: 500 },
+      { id: 'enhancement_xp',     icon: 'enhancement-xp-100.png',     name: 'Enhancement XP Component (100)', unit: 1,  coins: 170,    limit: 200 },
+    ],
+    tier4: [
+      { id: 'secured_resource',   icon: 'secured-resource-chest-lv2.png', name: 'Lv.2 Custom Secured Resource Chest', unit: 1, coins: 100, limit: 50, tag: 'bad', note: 'Worthless resources for mid-late players' },
+    ],
+  };
+  CONFIG.allItems = [...CONFIG.tier1, ...CONFIG.tier2, ...CONFIG.tier3, ...CONFIG.tier4];
+
+  const state = { selections: {} };
+
+  function findItem(id) { return CONFIG.allItems.find(x => x.id === id); }
+
+  function computeMilestone(talismans) {
+    let best = 0;
+    for (const [threshold, reward] of CONFIG.milestones) {
+      if (talismans >= threshold) best = reward;
+    }
+    return best;
+  }
+
+  function renderItems() {
+    renderGroup('tier1Items', CONFIG.tier1);
+    renderGroup('tier2Items', CONFIG.tier2);
+    renderGroup('tier3Items', CONFIG.tier3);
+    renderGroup('tier4Items', CONFIG.tier4);
+  }
+
+  function renderGroup(containerId, items) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = items.map(item => {
+      const checked = (state.selections[item.id] || 0) > 0;
+      const qty = state.selections[item.id] || 0;
+      const unitText = item.unit > 1 ? `×${item.unit}/pack` : '';
+      const tagHtml = item.tag === 'good' ? '<span class="plan-item-tag good">✨</span>' : item.tag === 'bad' ? '<span class="plan-item-tag bad">⚠</span>' : '';
+      const noteHtml = item.note ? `<div class="plan-item-meta">${item.note}</div>` : '';
+      return `
+        <div class="plan-item-card ${item.tag || ''} ${checked ? 'checked' : ''}">
+          <input type="checkbox" class="plan-item-check" data-id="${item.id}" ${checked ? 'checked' : ''}>
+          <img src="../../images/items/${item.icon}" class="plan-item-icon" alt="${item.name}">
+          <div class="plan-item-body">
+            <div class="plan-item-name">${item.name} ${unitText}${tagHtml}</div>
+            <div class="plan-item-meta">${item.coins} coins/pack · limit ${item.limit}</div>
+            ${noteHtml}
+          </div>
+          <div class="plan-item-qty">
+            <input type="number" min="0" max="${item.limit}" value="${qty || item.limit}" data-id="${item.id}" ${checked ? '' : 'disabled'}>
+            <span class="plan-max-label">/ ${item.limit}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.classList.contains('plan-item-check')) {
+      const id = t.dataset.id;
+      if (t.checked) {
+        const item = findItem(id);
+        state.selections[id] = state.selections[id] || item.limit;
+      } else {
+        delete state.selections[id];
+      }
+      renderItems(); update();
+    } else if (t.tagName === 'INPUT' && t.type === 'number' && t.dataset.id) {
+      const id = t.dataset.id;
+      const item = findItem(id);
+      let v = parseInt(t.value) || 0;
+      if (v < 0) v = 0;
+      if (v > item.limit) v = item.limit;
+      t.value = v;
+      const wasSelected = (state.selections[id] || 0) > 0;
+      if (v === 0) delete state.selections[id];
+      else state.selections[id] = v;
+      const isSelected = v > 0;
+      if (wasSelected !== isSelected) renderItems();
+      update();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.id === 'btnReset') {
+      state.selections = {}; renderItems(); update();
+    } else if (e.target.classList.contains('plan-preset-btn')) {
+      applyPreset(e.target.dataset.preset);
+    }
+  });
+
+  function applyPreset(name) {
+    state.selections = {};
+    if (name === 'tier1') {
+      CONFIG.tier1.forEach(it => state.selections[it.id] = it.limit);
+    } else if (name === 'tier12') {
+      [...CONFIG.tier1, ...CONFIG.tier2].forEach(it => state.selections[it.id] = it.limit);
+    } else if (name === 'all') {
+      [...CONFIG.tier1, ...CONFIG.tier2, ...CONFIG.tier3].forEach(it => state.selections[it.id] = it.limit);
+    }
+    renderItems(); update();
+  }
+
+  function computeTargetCoins() {
+    let total = 0;
+    for (const [id, qty] of Object.entries(state.selections)) {
+      const item = findItem(id);
+      if (item) total += item.coins * qty;
+    }
+    return total;
+  }
+
+  function solve(targetCoins) {
+    const DAYS = CONFIG.activityDays;
+    const baseFree = CONFIG.freeDailyTasks * DAYS;
+    if (targetCoins === 0) {
+      return { cost: 0, coins: CONFIG.expCoinsPerTalisman * baseFree + computeMilestone(baseFree), talismans: baseFree, packs: { p5:0, p10:0, p20:0, p50:0, p100:0 } };
+    }
+    let best = null;
+    for (let p5 = 0; p5 <= DAYS; p5++) {
+      for (let p10 = 0; p10 <= DAYS; p10++) {
+        for (let p20 = 0; p20 <= DAYS; p20++) {
+          const partialCost = 5*p5 + 10*p10 + 20*p20;
+          if (best && partialCost >= best.cost) continue;
+          for (let p50 = 0; p50 <= DAYS; p50++) {
+            const subCost = partialCost + 50*p50;
+            if (best && subCost >= best.cost) continue;
+            for (let p100 = 0; p100 <= DAYS; p100++) {
+              const cost = subCost + 100*p100;
+              if (best && cost >= best.cost) continue;
+              const packTal = 80*p5 + 140*p10 + 240*p20 + 580*p50 + 1000*p100;
+              const paidDays = Math.max(p5, p10, p20, p50, p100);
+              const talismans = packTal + baseFree + CONFIG.paidDailyTasks * paidDays;
+              const coins = CONFIG.expCoinsPerTalisman * talismans + computeMilestone(talismans);
+              if (coins < targetCoins) continue;
+              if (!best || cost < best.cost || (cost === best.cost && talismans < best.talismans)) {
+                best = { cost, coins, talismans, packs: { p5, p10, p20, p50, p100 } };
+              }
+            }
+          }
+        }
+      }
+    }
+    return best;
+  }
+
+  function schedulePacks(packs) {
+    const days = Array.from({length: CONFIG.activityDays}, () => []);
+    for (const tier of CONFIG.packs) {
+      const qty = packs[tier.key] || 0;
+      for (let i = 0; i < qty; i++) days[i].push(tier);
+    }
+    return days;
+  }
+
+  function update() {
+    const container = document.getElementById('results');
+    if (!container) return;
+    const target = computeTargetCoins();
+    if (target === 0) {
+      container.innerHTML = `<div class="plan-result-sub">Tick the items you want, and the cheapest plan appears here.</div>`;
+      return;
+    }
+    const sol = solve(target);
+    if (!sol) {
+      container.innerHTML = `<div class="plan-infeasible">Even buying every pack to cap cannot reach that many coins (ceiling ≈ 2.66M coins at $1,110). Please reduce your selection.</div>`;
+      return;
+    }
+    const leftover = sol.coins - target;
+    const milestone = computeMilestone(sol.talismans);
+    const expCoins = sol.coins - milestone;
+    const packRows = CONFIG.packs.filter(t => sol.packs[t.key] > 0).map(t => {
+      const qty = sol.packs[t.key];
+      return `<tr><td>${t.name} (+${t.talismans} talismans)</td><td class="num">$${t.price}</td><td class="num">${qty}</td><td class="num">$${t.price * qty}</td><td class="num">+${t.talismans * qty}</td></tr>`;
+    });
+    if (packRows.length === 0) packRows.push('<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No purchase needed</td></tr>');
+    packRows.push(`<tr class="total-row"><td colspan="3">Total</td><td class="num">$${sol.cost}</td><td class="num">${(sol.packs.p5*80 + sol.packs.p10*140 + sol.packs.p20*240 + sol.packs.p50*580 + sol.packs.p100*1000).toLocaleString()}</td></tr>`);
+
+    const days = schedulePacks(sol.packs);
+    const dailyHtml = days.map((day, i) => {
+      const total = day.reduce((s, p) => s + p.price, 0);
+      const isEmpty = day.length === 0;
+      return `<div class="plan-daily-card ${isEmpty ? 'empty' : ''}"><div class="plan-daily-head"><span>Day ${i + 1}</span><span class="plan-daily-cost">${isEmpty ? '—' : '$' + total}</span></div>${isEmpty ? '<div style="font-size:0.82rem; color:var(--text-muted);">Nothing to buy</div>' : `<ul>${day.map(p => `<li>• ${p.name.replace(/^\$\d+\s/, '')} <span style="color:var(--text-muted);">($${p.price})</span></li>`).join('')}</ul>`}</div>`;
+    }).join('');
+
+    const selectedList = Object.entries(state.selections).map(([id, qty]) => {
+      const item = findItem(id);
+      if (!item) return '';
+      return `<li>${item.name}${item.unit > 1 ? ` ×${item.unit}/pack` : ''} ×${qty} <span style="color:var(--text-muted);">= ${(item.coins * qty).toLocaleString()} coins</span></li>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div style="margin-bottom:1rem; padding:0.75rem 1rem; background:var(--bg-secondary); border-radius:6px;">
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.4rem;">Your selection:</div>
+        <ul style="margin:0; padding-left:1.2rem; font-size:0.9rem; color:var(--text-primary); line-height:1.7;">${selectedList}</ul>
+      </div>
+      <div class="plan-result-headline">Total: $${sol.cost}</div>
+      <div class="plan-result-sub">Need ${target.toLocaleString()} coins, getting ${sol.coins.toLocaleString()} (incl. milestone ${milestone.toLocaleString()}), ${leftover.toLocaleString()} leftover</div>
+      <div class="plan-summary-grid">
+        <div class="plan-summary-card"><div class="label">Total cost</div><div class="value">$${sol.cost}</div></div>
+        <div class="plan-summary-card"><div class="label">Talismans</div><div class="value">${sol.talismans.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">Exploration coins</div><div class="value">${expCoins.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">Milestone coins</div><div class="value">${milestone.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">Total coins</div><div class="value">${sol.coins.toLocaleString()}</div></div>
+        <div class="plan-summary-card"><div class="label">Leftover</div><div class="value">${leftover.toLocaleString()}</div></div>
+      </div>
+      <h3 style="margin-top:1.25rem; font-size:1rem; color:var(--accent);">Pack list</h3>
+      <table class="plan-pack-table"><thead><tr><th style="text-align:left;">Pack</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Subtotal</th><th class="num">+Talismans</th></tr></thead><tbody>${packRows.join('')}</tbody></table>
+      <h3 style="margin-top:1.25rem; font-size:1rem; color:var(--accent);">Daily schedule</h3>
+      <div class="plan-daily-grid">${dailyHtml}</div>
+      <div style="margin-top:0.75rem; padding:0.6rem 0.8rem; background:rgba(56,189,248,0.07); border-radius:4px; font-size:0.85rem; color:var(--text-secondary);">
+        💡 <strong>Talismans must be spent to count toward progress</strong>: all ${sol.talismans.toLocaleString()} talismans need to be used via T=2+L2 gamble to produce the coins shown. That's ~${Math.ceil(sol.talismans / 5)} rounds of exploration, ~10 seconds each — spread across 6 days, that's ~${Math.ceil(sol.talismans / 5 / 6)} rounds per day.
+      </div>
+    `;
+  }
+
+  renderItems();
+  update();
+  </script>
 
 </body>
 </html>
